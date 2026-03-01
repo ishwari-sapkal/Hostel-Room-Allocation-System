@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Dr. Panjabroa Deshmukh Polytechnic Institute</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- REGISTRATION CLOSED MODAL CSS -->
+    <style>
+        .closed-modal{
+            display:none;
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,.45);
+            z-index:9999;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .closed-box{
+            width:380px;
+            background:#fff;
+            padding:30px 25px;
+            border-radius:14px;
+            text-align:center;
+            animation:pop .3s ease;
+            position:relative;
+            font-family:'Poppins',sans-serif;
+        }
+
+        .closed-icon{
+            width:90px;
+        }
+
+        .closed-box h2{
+            margin-top:15px;
+            color:#005f73;
+        }
+
+        .closed-box p{
+            font-size:14px;
+            color:#333;
+        }
+
+        .closed-login-btn{
+            background:#005f73;
+            color:#fff;
+            padding:10px 26px;
+            border-radius:8px;
+            display:inline-block;
+            margin-top:18px;
+            text-decoration:none;
+            font-weight:500;
+        }
+
+        .close-btn{
+            position:absolute;
+            right:14px;
+            top:10px;
+            font-size:22px;
+            cursor:pointer;
+        }
+
+        @keyframes pop{
+            from{transform:scale(.7);opacity:0}
+            to{transform:scale(1);opacity:1}
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <!-- LEFT SIDE -->
+    <div class="left-side">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/dr.pd.jpg') }}" alt="Dr. PD Logo">
+        </div>
+        <h1>Dr. Panjabrao Deshmukh Girls Hostel</h1>
+        <p>
+            We provide a safe, secure, and comfortable living environment for students,
+            with well-maintained rooms and essential facilities to support academic
+            focus and personal well-being.
+        </p>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-side">
+        <div class="sign-in-heading">Sign In</div>
+
+        <label>Select your Role</label><br>
+        <div class="role-selection">
+            <div class="role-box" id="admin-box">
+                <img src="{{ url_for('static', filename='images/admin.jpg') }}" alt="Admin">
+                <h3>Admin</h3>
+                <span class="checkmark">&#10003;</span>
+            </div>
+            <div class="role-box" id="student-box">
+                <img src="{{ url_for('static', filename='images/student.jpg') }}" alt="Student">
+                <h3>Student</h3>
+                <span class="checkmark">&#10003;</span>
+            </div>
+        </div>
+
+        <form class="login-form" method="POST" id="login-form">
+            <input type="hidden" name="role" id="role-input" value="">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+
+            <p class="small-note">
+                New Student?
+                <a id="registerLink"
+                   style="color:#005f73; font-weight:600; text-decoration:none; cursor:pointer;">
+                    Register Here
+                </a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- REGISTRATION CLOSED MODAL -->
+<div id="closedModal" class="closed-modal">
+    <div class="closed-box">
+        <span class="close-btn" onclick="closeModal()">×</span>
+        <img src="{{ url_for('static', filename='images/warning.png') }}" class="closed-icon">
+        <h2>Registration Closed</h2>
+        <p>
+            Hostel admission is currently closed.<br>
+            Please login if you are an existing student.
+        </p>
+        <a href="#" class="closed-login-btn" onclick="closeModal()">Login</a>
+    </div>
+</div>
+
+<!-- ROLE SELECTION SCRIPT -->
+<script>
+    const adminBox = document.getElementById('admin-box');
+    const studentBox = document.getElementById('student-box');
+    const roleInput = document.getElementById('role-input');
+
+    function selectRole(selectedBox, role) {
+        roleInput.value = role;
+        adminBox.classList.remove('active');
+        studentBox.classList.remove('active');
+        selectedBox.classList.add('active');
+    }
+
+    adminBox.addEventListener('click', () => selectRole(adminBox, 'admin'));
+    studentBox.addEventListener('click', () => selectRole(studentBox, 'student'));
+</script>
+
+<!-- REGISTRATION DATE CHECK (ONE JS FILE FOR BOTH INDEX + LOGIN) -->
+<script src="{{ url_for('static', filename='js/registration.js') }}" defer></script>
+
+</body>
+</html>

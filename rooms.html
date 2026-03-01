@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girls Hostel Rooms - Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rooms.css') }}">
+    <style>
+        /* Slight padding/margin inside room cards for better readability */
+        .room-card p {
+            margin: 6px 0;
+            padding: 2px 0;
+        }
+        .card-buttons {
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="admin-header">
+           <img src="static/images/profile_admin.jpg" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item active">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1>Girls Hostel Rooms</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+               <img src="static/images/profile_admin.jpg" class="profile-pic">
+            </div>
+        </header>
+
+        <div class="main-container">
+
+            <!-- ROOMS GRID -->
+            <div class="rooms-grid">
+                {% for r in rooms %}
+
+                <div class="room-card">
+                    <h3>
+                        Room {{ r.room_num }}
+                        <span class="badge
+        {% if r.room_status == 'Available' %}
+            available
+        {% elif r.room_status == 'Occupied Partially' %}
+            partially-occupied
+        {% else %}
+            occupied
+        {% endif %}
+    ">
+        {{ r.room_status }}
+    </span>
+                    </h3>
+
+                    <p><strong>Hostel:</strong> {{r.hostel_name}}</p>
+                    <p><strong>Type:</strong> {{r.room_type}}</p>
+                    <p><strong>Capacity:</strong> {{r.room_capacity}} Students</p>
+                    <p><strong>Allocated Students:</strong> {{r.allocated_students}}</p>
+                    <p><strong>Floor:</strong> {{r.floor}} Floor</p>
+                    <div class="card-buttons">
+                        <button class="view-btn" onclick="viewRoom('Room {{r.room_num}}', '{{r.hostel_name}}', '{{r.room_type}}', '{{r.room_status}}', '{{r.room_capacity}}', '{{r.allocated_students}}', '{{r.floor}}')">View Details</button>
+                        <button class="deallocate-btn" onclick="deallocate()">Deallocate Room</button>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Room Details -->
+    <div id="roomModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalRoomName"></h2>
+            <p><strong>Hostel:</strong> <i id="modalHostelName"></i></p>
+            <p><strong>Room Type:</strong> <i id="modalRoomType"></i></p>
+            <p><strong>Status:</strong> <i id="modalRoomStatus"></i></p>
+            <p><strong>Capacity:</strong> <i id="modalRoomCapacity"></i></p>
+            <p><strong>Allocated Students:</strong> <i id="modalRoomAllocatedStudents"></i></p>
+            <p><strong>Floor:</strong> <i id="modalFloor"></i></p>
+        </div>
+    </div>
+
+    <!-- Modal for deallocate Details -->
+    <div id="deallocateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal1()">&times;</span>
+            <h2 id="Deallocate students"></h2>
+            <p><strong>Name:</strong> <i id="student1"></i></p>
+            <p><strong>Name:</strong> <i id="student2"></i></p>
+            <p><strong>Name:</strong> <i id="student3"></i></p>
+        </div>
+    </div>
+
+    <script>
+        function viewRoom(roomName, HostelName, RoomType, RoomStatus, RoomCapacity, RoomAllocatedStudents, Floor){
+            document.getElementById("modalRoomName").innerText = roomName;
+            document.getElementById("modalHostelName").innerText = HostelName;
+            document.getElementById("modalRoomType").innerText = RoomType;
+            document.getElementById("modalRoomStatus").innerText = RoomStatus;
+            document.getElementById("modalRoomCapacity").innerText = RoomCapacity;
+            document.getElementById("modalRoomAllocatedStudents").innerText = RoomAllocatedStudents;
+            document.getElementById("modalFloor").innerText = Floor;
+            document.getElementById("roomModal").style.display = "block";
+        }
+
+        function deallocate(){
+            document.getElementById("student1").innerText = "Nachiket";
+            document.getElementById("student2").innerText = "Nachiket";
+            document.getElementById("student3").innerText = "Nachiket";
+            document.getElementById("deallocateModal").style.display = "block";
+        }
+
+        function closeModal(){
+            document.getElementById("roomModal").style.display = "none";
+        }
+
+        function closeModal1(){
+            document.getElementById("deallocateModal").style.display = "none";
+        }
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Application Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application_status.css') }}">
+</head>
+
+<body>
+
+    <!-- ============= SIDEBAR ============= -->
+    <div class="sidebar">
+        <div class="admin-header">
+            <a href="{{ url_for('profile') }}" class="profile-link">
+                <img src="{{ url_for('profile_photo', email=student_email) }}" onerror="this.onerror=null; this.src='{{ url_for('static', filename='static/images/student.jpg') }}';" class="profile-pic">
+            </a>
+            <h2>{{ student_name or "Student Name" }}</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('student_dashboard') }}" class="nav-item">Dashboard</a>
+            {% if form_status == 'not_submitted' or form_status == 'rejected' %}
+            <a class="nav-item" href="{{ url_for('hostel_application') }}">Hostel Application</a>
+            {% endif %}
+            <a href="{{ url_for('application_status') }}" class="nav-item active">Application Status</a>
+            <a href="{{ url_for('student_complaints') }}" class="nav-item">Complaints</a>
+            <a href="{{ url_for('student_announcements') }}" class="nav-item">Announcements</a>
+            <a href="{{ url_for('student_logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </div>
+
+    <!-- ============= MAIN CONTENT ============= -->
+    <div class="main">
+        <br><br>
+        <h1 class="title">📌 Hostel Application Status</h1>
+        <p class="subtitle">Track your hostel application journey</p>
+
+        <!-- ======== VERTICAL TIMELINE ======== -->
+        <div class="timeline">
+
+            <!-- STEP 1 -->
+            <div class="step {% if form_status in ['pending','approved','rejected'] %}active{% endif %}">
+                <div class="dot"></div>
+                <div class="content">
+                    <h3>Application Submitted</h3>
+                    <p>Your hostel application has been successfully submitted and is now waiting for verification.</p>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step {% if form_status in ['approved','rejected'] %}active{% endif %}">
+                <div class="dot"></div>
+                <div class="content">
+                    <h3>Document Verification</h3>
+                    <p>The admin team is verifying your details, uploaded documents and eligibility criteria.</p>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="step {% if form_status in ['approved','rejected'] %}active{% endif %}">
+                <div class="dot"></div>
+                <div class="content">
+                    <h3>Final Review</h3>
+                    <p>Your application is being evaluated for hostel availability and allocation rules.</p>
+                </div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="step {% if form_status == 'approved' %}active{% elif form_status=='rejected' %}reject{% endif %}">
+                <div class="dot"></div>
+                <div class="content">
+                    <h3>Decision</h3>
+                    <p>This is the final decision stage where your hostel admission is either approved or rejected.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ======== STATUS CARD ======== -->
+        <div class="status-card
+            {% if form_status == 'pending' %} pending-card
+            {% elif form_status == 'approved' %} approved-card
+            {% elif form_status == 'rejected' %} rejected-card
+            {% endif %}
+        "
+        STYLE="margin-bottom: 20px;">
+
+            <div class="status-icon">
+                {% if form_status == 'pending' %} ⏳
+                {% elif form_status == 'approved' %} 🎉
+                {% elif form_status == 'rejected' %} ❌
+                {% endif %}
+            </div>
+
+            <h2 class="status-title">
+                {% if form_status == 'pending' %} Application Under Review
+                {% elif form_status == 'approved' %} Application Approved!
+                {% elif form_status == 'rejected' %} Application Rejected
+                {% endif %}
+            </h2>
+
+            <p class="status-desc">
+                {% if form_status == 'pending' %}
+                    Our admin team is carefully reviewing your submitted documents.
+                    You will receive an update soon — stay tuned!
+
+                {% elif form_status == 'approved' %}
+                    Congratulations! Your details have been verified successfully.
+                    You are now officially allotted a hostel room.
+
+                {% elif form_status == 'rejected' %}
+                    Your application could not be approved due to verification issues.
+                {% endif %}
+            </p>
+
+            <!-- ============== NEW: REJECTION MESSAGE ============== -->
+            {% if form_status == 'rejected' %}
+            <p class="reject-msg">
+                📌 <strong>Admin Message:</strong> {{ admin_message }}
+            </p>
+            {% endif %}
+
+            <!-- ============== NEW: DOWNLOAD RECEIPT BUTTON ============== -->
+            {% if form_status == 'approved' %}
+            <p class="room-display">🏠 Room Assigned: <strong>{{ room }}</strong></p>
+
+            {% endif %}
+
+
+        </div>
+        {% if form_status == 'approved' %}
+        <a href="{{ url_for('download_receipt', id=application._id) }}" class="submit-btn" STYLE="text-decoration: none;">
+            ⬇️ Download Receipt
+        </a>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

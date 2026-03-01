@@ -1,0 +1,190 @@
+/* ================================
+   GLOBAL
+================================ */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f5f7fa;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.admin-header {
+    text-align: center;
+}
+
+.profile-pic {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    border: 3px solid #ffffffaa;
+    object-fit: cover;
+}
+
+.sidebar h2 {
+    margin-top: 10px;
+}
+
+.sidebar nav {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    padding: 12px 15px;
+    color: white;
+    font-size: 15px;
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.25s;
+}
+
+.nav-item:hover {
+    background: #016f8a;
+}
+
+.nav-item.active {
+    background: #0185a5;
+}
+
+.logout {
+    margin-top: 20px;
+    background: #013f52;
+}
+
+.logout:hover {
+    background: #025269;
+}
+
+/* ================================
+   MAIN CONTENT
+================================ */
+.main {
+    flex-grow: 1;
+    padding: 30px;
+    margin-left: 250px; /* space for sidebar */
+}
+
+/* TOPBAR */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e5ea;
+}
+
+.top-admin img {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.main-container {
+    margin-top: 30px;
+}
+
+/* ================================
+   STATS CARDS
+================================ */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px #00000010;
+}
+
+.stat-card h3 {
+    color: #004d66;
+}
+
+.stat-card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* FULL-WIDTH APPLICATION LIST */
+.apps-card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px #00000010;
+}
+
+/* APPLICATION ITEMS */
+.app-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #e0e5ea;
+}
+
+.app-item:last-child {
+    border-bottom: none;
+}
+
+.app-item h4 {
+    margin: 0 0 5px 0;
+    color: #004d66;
+}
+
+.app-item p {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+}
+
+.view-btn {
+    padding: 8px 18px;
+    background: #004d66;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.view-btn:hover {
+    background: #016a85;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .apps-card {
+        width: 100%;
+    }
+}

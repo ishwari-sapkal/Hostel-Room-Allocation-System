@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- CORRECT STATIC PATH -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="admin-header">
+
+            <!-- FIXED STATIC PATH -->
+            <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+
+            <h2>Hostel Admin</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item {% if active=='dashboard' %}active{% endif %}">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item {% if active=='application' %}active{% endif %}">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item {% if active=='allocation' %}active{% endif %}">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item {% if active=='rooms' %}active{% endif %}">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item {% if active=='complaints' %}active{% endif %}">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item {% if active=='announcements' %}active{% endif %}">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item {% if active=='reports' %}active{% endif %}">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1>Dashboard</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+
+                <!-- FIXED STATIC PATH -->
+                <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+
+            </div>
+        </header>
+
+        <div class="main-container">
+
+            <!-- STATS CARDS -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+                    <h3>Total Seats</h3>
+                    <p class="counter">{{rooms*3}}</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <h3>Filled</h3>
+                    <p class="counter">{{approved}}</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <h3>Pending Applications</h3>
+                    <p class="counter">{{pending}}</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <h3>Complaints</h3>
+                    <p class="counter">{{comp}}</p>
+                </div>
+            </div>
+
+            <!-- TWO COLUMN SECTION -->
+            <div class="two-col">
+
+                <div class="card apps-card">
+    <h2>Recent Applications</h2>
+
+    <!-- APPLICATION 1 -->
+    {%for ap in recent_apps%}
+                    <div class="app-item">
+                        <div style="display: flex; align-items: center;">
+                            <div class="app-item-icon">👩‍🎓</div>
+                            <div>
+                                <h4>{{ap.name}}</h4>
+                                <p>SY – Girls Hostel</p>
+                                <p style="font-size: 12px; color: #555;">Branch: {{ap.branch}}</p>
+                                <p style="font-size: 12px; color: #555;">Form Status: {{ap.status}}</p>
+                            </div>
+                        </div>
+                        <a href="/view_application/{{ ap._id }}" class="view-btn" style="text-decoration: none;">View</a>
+                    </div>
+    {%endfor%}
+
+
+</div>
+
+                <!-- PIE CHART -->
+                <div class="card small-pie">
+                    <h2 style="text-align:center;">Occupancy Overview</h2>
+                    <canvas id="pieChart"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- CHART JS SCRIPT -->
+    <script>
+        const ctx = document.getElementById("pieChart");
+
+        new Chart(ctx, {
+            type: "pie",
+            data: {
+                labels: ["Filled", "Available"],
+                datasets: [{
+                    data: [{{approved}}, {{rooms*3-approved}}],
+                    backgroundColor: ["#004d66", "#88c9d6"]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: "bottom" } }
+            }
+        });
+
+        // Counter Animation
+        document.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.innerText;
+            let count = 0;
+            const increment = target / 100;
+            const interval = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    counter.innerText = target;
+                    clearInterval(interval);
+                } else {
+                    counter.innerText = Math.ceil(count);
+                }
+            }, 15);
+        });
+    </script>
+
+</body>
+</html>

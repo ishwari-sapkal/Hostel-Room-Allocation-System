@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+```
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="admin-header">
+        <img src="static/images/profile_admin.jpg" class="profile-pic">
+        <h2>Hostel Admin</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+        <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+        <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+        <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+        <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+        <a href="{{ url_for('reports') }}" class="nav-item active">Reports</a>
+        <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+    <header class="topbar">
+        <h1>Reports</h1>
+        <div class="top-admin">
+            <span>Admin</span>
+            <img src="static/images/profile_admin.jpg" class="profile-pic">
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <!-- STATS CARDS -->
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Applications</h3>
+                <p>{{total}}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Allocated Rooms</h3>
+                <p>{{approved}}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Applications</h3>
+                <p>{{pending}}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Complaints Resolved</h3>
+                <p>{{comp}}</p>
+            </div>
+        </div>
+
+        <!-- CHARTS -->
+        <div class="charts">
+            <div class="chart-card">
+                <h3>Applications Trend</h3>
+                <canvas id="applicationsChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Room Occupancy</h3>
+                <canvas id="occupancyChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Complaints Status</h3>
+                <canvas id="complaintsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- RECENT APPLICATIONS TABLE -->
+        <div class="tables">
+            <h3>Recent Applications</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Percentage</th>
+                        <th>Room Allocated</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for a in recent_apps %}
+                <tr>
+                    <td>{{ a.name }}</td>
+                    <td>{{ a.branch }}</td>
+                    <td>{{ a.percent }}%</td>
+                    <td>{{ a.room if a.room else "—" }}</td>
+                    {% if a.room %}
+                    <td>
+                        <span >Allocated</span>
+                    </td>
+
+                    {% else %}
+                    <td colspan="5">No Allocated</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    const applicationsCtx = document.getElementById('applicationsChart').getContext('2d');
+    const occupancyCtx = document.getElementById('occupancyChart').getContext('2d');
+    const complaintsCtx = document.getElementById('complaintsChart').getContext('2d');
+
+    fetch("/api/application_stats")
+.then(res => res.json())
+.then(data => {
+
+    const applicationsCtx = document.getElementById('applicationsChart').getContext('2d');
+
+    new Chart(applicationsCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            datasets: [{
+                label: 'Applications',
+                data: [
+                    data.Jan, data.Feb, data.Mar, data.Apr, data.May, data.Jun,
+                    data.Jul, data.Aug, data.Sep, data.Oct, data.Nov, data.Dec
+                ],
+                borderColor: '#004d66',
+                backgroundColor: 'rgba(0,77,102,0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            }
+        }
+    });
+
+});
+
+    new Chart(occupancyCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Occupied', 'Available'],
+            datasets: [{
+                label: 'Rooms',
+                data: [{{approved}}, {{rooms*3-approved}}],
+                backgroundColor: ['#28a745', '#ffc107']
+            }]
+        },
+        options: { responsive: true }
+    });
+
+    new Chart(complaintsCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Pending', 'In Progress', 'Resolved'],
+            datasets: [{
+                label: 'Complaints',
+                data: [{{comp_pending}}, {{comp_inprogress}}, {{comp}}],
+                backgroundColor: ['#ffc107', '#17a2b8', '#28a745']
+            }]
+        },
+        options: { responsive: true }
+    });
+</script>
+```
+
+</body>
+</html>

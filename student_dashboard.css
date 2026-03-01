@@ -1,0 +1,212 @@
+/* Student Dashboard — Hybrid (Admin-style + Creative) */
+/* Palette: #004d66 (deep teal), #88c9d6 (light teal), #f4f9fc (page bg), white */
+
+/* ---------- RESET ---------- */
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif}
+body{background:#f4f9fc;color:#222;display:flex;min-height:100vh}
+
+/* ---------- SIDEBAR (admin look) ---------- */
+.sidebar{
+  width:250px;
+  background:#004d66;
+  color:#fff;
+  min-height:100vh;
+  padding:40px 20px 25px;   /* ← Added 100px padding from TOP */
+  position:fixed;top:0;left:0;overflow-y:auto;
+  box-shadow:4px 0 18px rgba(0,0,0,0.12);
+}
+
+/* Profile picture container centered */
+.admin-header{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+/* CIRCULAR profile image (final corrected) */
+.profile-pic{
+  width:90px;                 /* medium size */
+  height:90px;
+  border-radius:50%;          /* ← PERFECT CIRCLE */
+  border:3px solid #ffffffaa;
+  object-fit:cover;
+  display:block;
+  margin:0 auto;              /* ← center horizontally */
+  box-shadow:0px 5px 15px rgba(0,0,0,0.18);
+}
+
+/* Name under profile picture */
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
+}
+.profile-link{
+    display:inline-block;
+    border-radius:50%;
+    padding:5px;
+    transition:0.3s ease;
+}
+
+.profile-link:hover{
+    background:#45ddee;
+    transform:scale(1.05);
+}
+
+.profile-link:active{
+    transform:scale(0.95);
+}
+
+.profile-pic{
+    width:85px;
+    height:85px;
+    object-fit:cover;
+    border-radius:50%;
+    border:3px solid #003845;
+    box-shadow:0 4px 15px rgba(0,0,0,.25);
+    transition:0.3s ease;
+}
+
+.profile-link:hover .profile-pic{
+    border-color:#fff;
+}
+
+.admin-header{text-align:center;margin-bottom:22px}
+.profile-pic{width:65px;height:65px;border-radius:10px;border:3px solid #ffffffaa;object-fit:cover}
+.sidebar h2{margin-top:10px;font-size:18px}
+.sidebar nav{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.nav-item{padding:12px 15px;color:#fff;text-decoration:none;border-radius:8px;font-size:15px;transition:0.25s;display:block}
+.nav-item:hover{background:#016f8a}
+.nav-item.active{background:#0185a5}
+.pro-item{padding:12px 15px;color:#fff;text-decoration:none;border-radius:8px;font-size:15px;transition:0.25s;display:block}
+.pro-item:hover{background:#016f8a}
+.logout{margin-top:18px;background:#013f52}
+.logout:hover{background:#025269}
+
+/* ---------- MAIN ---------- */
+.main{flex-grow:1;padding:50px 50px 30px 320px} /* left padding to avoid overlap with sidebar */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:2px solid #e0e5ea}
+.top-admin{display:flex;align-items:center;gap:12px}
+.top-admin img{width:42px;height:42px;border-radius:8px;object-fit:cover}
+
+/* ---------- GRID LAYOUT ---------- */
+.main-container{margin-top:30px;display:grid;grid-template-columns:1fr 400px;gap:30px}
+
+/* Left Column — main area */
+.left-col{display:flex;flex-direction:column;gap:28px}
+
+/* Right Column — sidebar widgets */
+.right-col{display:flex;flex-direction:column;gap:22px}
+
+/* ---------- STATS CARDS (admin style) ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat-card{
+  background:white;padding:20px;border-radius:18px;box-shadow:0 12px 25px rgba(0,0,0,0.08);
+  position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;
+}
+.stat-card::before{
+  content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:linear-gradient(135deg,#004d66,#88c9d6);transform:rotate(25deg);opacity:0.12;pointer-events:none
+}
+.stat-card:hover{transform:translateY(-6px);box-shadow:0 20px 35px rgba(0,0,0,0.16)}
+.stat-icon{font-size:28px;margin-bottom:8px}
+.stat-card h3{color:#004d66;margin-bottom:6px;font-weight:600}
+.stat-card p{font-size:20px;font-weight:700}
+
+/* Make stats responsive */
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.main{padding:20px 18px 30px 18px}.main-container{grid-template-columns:1fr}}
+
+/* ---------- APPLICATION JOURNEY (creative widget) ---------- */
+.journey{
+  background:linear-gradient(180deg,#ffffff,#f7fbfd);
+  padding:22px;border-radius:18px;box-shadow:0 12px 30px rgba(0,0,0,0.08);
+}
+.journey h3{color:#004d66;margin-bottom:12px}
+.journey .steps{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.step{
+  flex:1;min-width:140px;background:#fff;padding:14px;border-radius:14px;border:1px solid #eef6f8;
+  box-shadow:0 6px 14px rgba(0,0,0,0.04);position:relative
+}
+.step.completed{background:linear-gradient(90deg,#e6fbff,#eafaf2);border-color:#c7f0e0}
+.step .num{width:36px;height:36px;border-radius:50%;background:#004d66;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:8px}
+.step.completed .num{background:#018a68}
+.step h4{font-size:15px;margin-bottom:6px;color:#004d66}
+.step p{font-size:13px;color:#555;line-height:1.4}
+
+/* Progress bar */
+.progress-wrap{margin-top:12px}
+.progress{
+  height:12px;background:#eef8fb;border-radius:999px;overflow:hidden;border:1px solid #e6f3f6
+}
+.progress > span{
+  display:block;height:100%;background:linear-gradient(90deg,#88c9d6,#004d66);width:0%;
+  transition:width .6s cubic-bezier(.2,.9,.2,1)
+}
+
+/* ---------- PROFILE WIDGET ---------- */
+.profile-card{
+  background:white;padding:18px;border-radius:16px;box-shadow:0 10px 22px rgba(0,0,0,0.06);
+}
+.profile-head{display:flex;gap:14px;align-items:center}
+.profile-head img{width:72px;height:72px;border-radius:12px;object-fit:cover;border:3px solid #ffffffaa}
+.profile-head h4{color:#004d66;font-size:18px;margin-bottom:4px}
+.profile-head p{font-size:13px;color:#666}
+.profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.profile-grid div{font-size:13px;color:#444;padding:8px;background:#fbfdff;border-radius:10px;border:1px solid #eef6f9}
+
+/* ---------- ROOM CARD (shows only if approved) ---------- */
+.room-card{
+  background:linear-gradient(120deg,#ffffff,#f3fbff);padding:16px;border-radius:14px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.06);border-left:6px solid #88c9d6
+}
+.room-card h4{color:#004d66;margin-bottom:6px}
+.room-meta{display:flex;gap:12px;flex-wrap:wrap}
+.room-meta span{background:#eef9fb;padding:6px 10px;border-radius:8px;font-weight:600;color:#004d66;font-size:13px}
+
+/* ---------- RECENT APPLICATIONS (right column) ---------- */
+.apps-card{
+  background:white;padding:18px;border-radius:14px;box-shadow:0 10px 22px rgba(0,0,0,0.06)
+}
+.apps-card h3{color:#004d66;margin-bottom:12px}
+.app-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0f7f9}
+.app-item:last-child{border-bottom:0}
+.app-left{display:flex;align-items:center;gap:12px}
+.app-item .avatar{width:44px;height:44px;border-radius:10px;background:#e8f6ff;color:#004d66;display:flex;align-items:center;justify-content:center;font-weight:700}
+.app-item h5{margin:0;color:#004d66}
+.app-item p{margin:4px 0 0;color:#666;font-size:13px}
+.view-btn{padding:7px 14px;background:#004d66;color:white;border-radius:8px;border:none;cursor:pointer}
+.view-btn:hover{background:#016a85}
+
+/* ---------- ANNOUNCEMENT BOX ---------- */
+.announce{
+  background:linear-gradient(180deg,#ffffff,#f7fbff);padding:16px;border-radius:14px;box-shadow:0 8px 18px rgba(0,0,0,0.05)
+}
+.announce h4{color:#004d66;margin-bottom:8px}
+.announce p{color:#444;font-size:14px;line-height:1.55}
+
+/* ---------- QUICK ACTIONS ---------- */
+.quick-actions{display:flex;gap:12px;flex-wrap:wrap}
+.action-btn{padding:10px 14px;background:#88c9d6;color:#004d66;border-radius:12px;font-weight:600;border:1px solid rgba(0,0,0,0.03);cursor:pointer}
+.action-btn.ghost{
+    padding: 10px 14px;
+    background: #88c9d6;
+    color: #004d66;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+}
+/* ---------- FOOTER SMALL ---------- */
+.footer-mini{margin-top:20px;font-size:13px;color:#666}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1000px){
+  .main{padding:30px 22px 30px 280px}
+  .main-container{grid-template-columns:1fr 360px}
+}
+@media(max-width:780px){
+  .main{padding:18px}
+  .sidebar{position:fixed;left:-9999px}
+  .main-container{grid-template-columns:1fr}
+  .topbar{flex-direction:column;align-items:flex-start;gap:12px}
+}

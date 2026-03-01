@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+</head>
+
+<body>
+{% include "header.html" %}
+    <div class="container">
+        <h2 class="title">Student Registration</h2>
+        <p class="subtitle">Fill the form to apply for hostel admission</p>
+
+        <form method="POST" action="/register" class="form" onsubmit="return checkPassword()">
+
+
+        <div class="input-group">
+                <label>Full Name</label>
+                <input name="name" type="text" placeholder="Enter your name" required>
+            </div>
+
+            <div class="input-group">
+                <label>Mobile Number</label>
+                <input name="number" type="number" placeholder="Enter your number" required>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" id="pass" placeholder="Enter password" required>
+
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" id="cpass" placeholder="Confirm password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Course / Branch</label>
+                <select name="course" required>
+                    <option value="">Select Branch</option>
+                    <option>Computer Engineering</option>
+                    <option>Mechanical Engineering</option>
+                    <option>Electrical Engineering</option>
+                    <option>Civil Engineering</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Year</label>
+                <select name="year" required>
+                    <option value="">Select Year</option>
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option>3rd Year</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Aadhaar Card Upload (PDF/JPG)</label>
+                <input type="file" accept=".pdf,.jpg,.png" required>
+            </div>
+
+            <div class="input-group">
+                <label>Address</label>
+                <textarea name="address" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Register Now</button>
+        </form>
+    </div>
+
+    <script>
+        function checkPassword() {
+    let p = document.getElementById("pass").value;
+    let cp = document.getElementById("cpass").value;
+
+    if (p !== cp) {
+        alert("Passwords do not match!");
+        return false;
+    }
+    return true;   // allow form submit
+}
+    </script>
+{% include "footer.html" %}
+</body>
+</html>

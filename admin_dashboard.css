@@ -1,0 +1,169 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f5f7fa;
+    font-family: "Poppins", sans-serif;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.admin-header { text-align: center; }
+.profile-pic { width: 65px; height: 65px; border-radius: 10px; border: 3px solid #ffffffaa; object-fit: cover; }
+.sidebar h2 { margin-top: 10px; }
+.sidebar nav { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
+.nav-item { padding: 12px 15px; color: white; display: block; text-decoration: none; border-radius: 8px; font-size: 15px; transition: 0.25s; }
+.nav-item:hover { background: #016f8a; }
+.nav-item.active { background: #0185a5; }
+.logout { margin-top: 20px; background: #013f52; }
+.logout:hover { background: #025269; }
+
+/* MAIN */
+.main { flex-grow: 1; padding: 50px 50px 30px 320px; } /* more padding-left for breathing room */
+.topbar { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 2px solid #e0e5ea; }
+.top-admin img { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; }
+.main-container { margin-top: 30px; }
+
+/* STATS CARDS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 35px;
+}
+.stat-card {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+.stat-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg, #004d66, #88c9d6);
+    transform: rotate(25deg);
+    opacity: 0.15;
+    pointer-events: none;
+}
+.stat-card:hover { transform: translateY(-8px); box-shadow: 0 20px 35px rgba(0,0,0,0.2); }
+.stat-icon { font-size: 36px; margin-bottom: 10px; }
+.stat-card h3 { color: #004d66; margin-bottom: 8px; font-weight: 600; }
+.stat-card p { font-size: 26px; font-weight: bold; }
+
+/* TWO COLUMN */
+.two-col { display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; }
+.card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 12px 25px rgba(0,0,0,0.08); transition: transform 0.3s; }
+.card:hover { transform: translateY(-5px); }
+
+/* ================================
+   RECENT APPLICATIONS CARD
+================================ */
+.apps-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.apps-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+}
+
+.apps-card h2 {
+    margin-bottom: 20px;
+    color: #004d66;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #e0e5ea;
+    padding-bottom: 10px;
+}
+
+.app-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.25s, transform 0.25s;
+    border-radius: 12px;
+}
+
+.app-item:hover {
+    background: #f0f8ff;
+    transform: translateX(3px);
+}
+
+.app-item div h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #004d66;
+    font-weight: 600;
+}
+
+.app-item div p {
+    margin: 3px 0 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.view-btn {
+    padding: 6px 16px;
+    background: #004d66;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.view-btn:hover {
+    background: #016a85;
+}
+
+/* Optional: Add small icon inside application item */
+.app-item-icon {
+    width: 40px;
+    height: 40px;
+    background: #e8f6ff;
+    color: #004d66;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 12px;
+}
+
+
+/* PIE CHART */
+.small-pie { height: 350px; }
+.small-pie canvas { height: 270px !important; width: 270px !important; display: block; margin: auto; }
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+}

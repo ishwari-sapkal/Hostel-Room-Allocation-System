@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f9fc;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================= LOGOUT CARD ================= */
+.logout-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.logout-card {
+    background: #ffffff;
+    padding: 40px 50px;
+    width: 420px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    animation: fadeIn 0.4s ease;
+}
+
+.logout-icon {
+    font-size: 55px;
+    color: #004d66;
+    margin-bottom: 18px;
+}
+
+.logout-card h2 {
+    font-size: 22px;
+    color: #004d66;
+    margin-bottom: 10px;
+}
+
+.logout-card p {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* ================= BUTTONS ================= */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.cancel-btn,
+.logout-btn {
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    transition: 0.25s;
+}
+
+.cancel-btn {
+    background: #6c757d;
+}
+
+.cancel-btn:hover {
+    background: #5c6469;
+}
+
+.logout-btn {
+    background: #dc3545;
+}
+
+.logout-btn:hover {
+    background: #c82333;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

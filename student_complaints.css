@@ -1,0 +1,234 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f9fc;
+    color: #222;
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
+}
+.profile-link{
+    display:inline-block;
+    border-radius:50%;
+    padding:5px;
+    transition:0.3s ease;
+}
+
+.profile-link:hover{
+    background:#45ddee;
+    transform:scale(1.05);
+}
+
+.profile-link:active{
+    transform:scale(0.95);
+}
+
+.profile-pic{
+    width:85px;
+    height:85px;
+    object-fit:cover;
+    border-radius:50%;
+    border:3px solid #003845;
+    box-shadow:0 4px 15px rgba(0,0,0,.25);
+    transition:0.3s ease;
+}
+
+.profile-link:hover .profile-pic{
+    border-color:#fff;
+}
+
+/* =========================== Sidebar =========================== */
+.sidebar{
+  width:250px;
+  background:#004d66;
+  color:#fff;
+  min-height:100vh;
+  padding:40px 20px 25px;   /* ← Added 100px padding from TOP */
+  position:fixed;top:0;left:0;overflow-y:auto;
+  box-shadow:4px 0 18px rgba(0,0,0,0.12);
+}
+
+/* Profile picture container centered */
+.admin-header{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+/* CIRCULAR profile image (final corrected) */
+.profile-pic{
+  width:90px;                 /* medium size */
+  height:90px;
+  border-radius:50%;          /* ← PERFECT CIRCLE */
+  border:3px solid #ffffffaa;
+  object-fit:cover;
+  display:block;
+  margin:0 auto;              /* ← center horizontally */
+  box-shadow:0px 5px 15px rgba(0,0,0,0.18);
+}
+
+/* Name under profile picture */
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
+}
+
+.admin-header{text-align:center;margin-bottom:22px}
+.profile-pic{width:65px;height:65px;border-radius:10px;border:3px solid #ffffffaa;object-fit:cover}
+.sidebar h2{margin-top:10px;font-size:18px}
+.sidebar nav{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.nav-item{padding:12px 15px;color:#fff;text-decoration:none;border-radius:8px;font-size:15px;transition:0.25s;display:block}
+.nav-item:hover{background:#016f8a}
+.nav-item.active{background:#0185a5}
+.logout{margin-top:18px;background:#013f52}
+.logout:hover{background:#025269}
+
+/* ---------------- MAIN AREA ---------------- */
+.main {
+    margin-left: 270px;
+    padding: 40px;
+    width: calc(100% - 270px);
+}
+
+.title {
+    font-size: 28px;
+    color: #004d66;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* ---------------- COMPLAINT FORM ---------------- */
+.complaint-card{
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    margin-bottom:40px;
+}
+
+.complaint-card h2{
+    color:#004d66;
+    margin-bottom:15px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    font-weight:600;
+    color:#004d66;
+}
+
+select, textarea{
+    width:100%;
+    margin-top:6px;
+    padding:12px;
+    font-size:15px;
+    border-radius:10px;
+    border:1px solid #dcdcdc;
+    outline:none;
+    transition:0.2s;
+}
+
+select:focus, textarea:focus{
+    border-color:#0086a3;
+}
+
+textarea{
+    height:120px;
+    resize:none;
+}
+
+.submit-btn{
+    padding:12px 22px;
+    background:#004d66;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.25s;
+}
+
+.submit-btn:hover{
+    background:#017b9a;
+}
+
+/* ---------------- PREVIOUS COMPLAINTS ---------------- */
+.previous-complaints{
+    margin-top:20px;
+}
+
+.sec-title{
+    font-size:22px;
+    color:#004d66;
+    margin-bottom:20px;
+}
+
+.complaint-list{
+    display:grid;
+    gap:20px;
+}
+
+.complaint-item{
+    background:#fff;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.07);
+}
+
+.complaint-item h4{
+    color:#004d66;
+    margin-bottom:6px;
+}
+
+.complaint-item p{
+    color:#333;
+    margin-bottom:10px;
+}
+
+.status-box{
+    padding:8px 14px;
+    border-radius:8px;
+    display:inline-block;
+    font-size:14px;
+    font-weight:600;
+    color:#fff;
+    margin-bottom:8px;
+}
+
+.status-box.pending{ background:#d67b00; }
+.status-box.resolved{ background:#018a68; }
+
+.date{
+    font-size:13px;
+    color:#666;
+}
+
+/* ---------------- NO COMPLAINTS ---------------- */
+.no-complaints{
+    background:#fff;
+    padding:25px;
+    border-radius:14px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.no-complaints h3{
+    color:#d92626;
+    margin-bottom:6px;
+}

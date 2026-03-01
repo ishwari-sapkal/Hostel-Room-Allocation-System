@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Logout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_logout.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="logout-container">
+
+    <div class="logout-card">
+        <i class="fa-solid fa-right-from-bracket logout-icon"></i>
+
+        <h2>Are you sure you want to logout?</h2>
+        <p>You will be redirected to the login page.</p>
+
+        <div class="buttons">
+            <a href="{{ url_for('student_dashboard') }}" class="cancel-btn">Cancel</a>
+            <a href="{{ url_for('student_logout_success') }}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/announcements.css') }}">
+</head>
+<body>
+
+    <!-- SIDEBAR (UNCHANGED) -->
+    <aside class="sidebar">
+        <div class="admin-header">
+           <img src="static/images/profile_admin.jpg" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item active">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1>Announcements</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+                <img src="static/images/profile_admin.jpg" class="profile-pic">
+            </div>
+        </header>
+
+        <div class="announcements-container">
+            <button class="open-btn" onclick="openModal()">+ Add Announcement</button>
+
+            <div id="announcementList">
+                <!-- Example Announcement -->
+
+                {% for b in announcements %}
+                <div class="announcement-card">
+                    <h3>{{ b.title }}</h3>
+                    <p>{{ b.message }}</p>
+
+                    {% if b.announcement_photo_id %}
+                    <img src="{{ url_for('announcement_photo', title=b.title) }}" class="announcement-img">
+                    {% endif %}
+
+                    <a href="/delete_announcement/{{ b._id }}" ><button class="delete-btn">Delete</button></a>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ADD ANNOUNCEMENT MODAL -->
+
+    <div id="announcementModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times</span>
+            <h2>Add New Announcement</h2>
+            <form id="addAnnouncementForm" method="POST" action="/announcements" enctype="multipart/form-data">
+                <input id="heading" type="text" name="title" placeholder="Heading" required>
+                <textarea id="description" name="message" placeholder="Announcement Description" rows="4" required></textarea>
+                <input id="image" type="file" name="image" accept="image/*">
+                <button  type="submit">Add Announcement</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("announcementModal");
+        function openModal() { modal.style.display = "block"; }
+        function closeModal() { modal.style.display = "none"; }
+    </script>
+
+</body>
+</html>

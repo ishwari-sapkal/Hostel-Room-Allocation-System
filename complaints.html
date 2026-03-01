@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/complaints.css') }}">
+</head>
+
+<body>
+
+    <!-- SIDEBAR (UNCHANGED as you requested) -->
+    <aside class="sidebar">
+        <div class="admin-header">
+            <img src="static/images/profile_admin.jpg" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item active">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <header class="topbar">
+            <h1>Complaints</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+                <img src="static/images/profile_admin.jpg" class="profile-pic">
+            </div>
+        </header>
+
+        <div class="complaints-container">
+
+            <h2 class="section-title">Student Complaints</h2>
+
+            <div class="accordion">
+        {% for c in complaints %}
+        <div class="accordion-item">
+            <button class="accordion-header">
+                <span>{{ c.category }}</span>
+                <span class="status {{ c.status }}">{{ c.status|capitalize }}</span>
+            </button>
+
+            <div class="accordion-body">
+                <p><strong>Student:</strong> {{ c.email }}</p>
+                <p><strong>Description:</strong> {{ c.description }}</p>
+
+                <div class="btn-row">
+                    {% if c.status == 'pending' %}
+                    <a href="/complaint_mark/{{ c._id }}" ><button class="mark-btn">Mark as Read</button></a>
+                    {% endif %}
+
+                    {% if c.status != 'resolved' %}
+                    <a href="/complaint_resolve/{{ c._id }}" ><button class="resolve-btn">Resolve</button></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+            </div>
+
+        </div>
+        </div>
+
+
+    </main>
+
+    <!-- STATUS LOGIC SCRIPT -->
+    <script>
+        const accordions = document.querySelectorAll(".accordion-header");
+
+        accordions.forEach(header => {
+            header.addEventListener("click", () => {
+                const item = header.parentElement;
+                item.classList.toggle("active");
+            });
+        });
+
+        // -------- STATUS UPDATE LOGIC --------
+        document.querySelectorAll(".accordion-item").forEach(item => {
+
+            const statusBadge = item.querySelector(".status");
+            const markBtn = item.querySelector(".mark-btn");
+            const resolveBtn = item.querySelector(".resolve-btn");
+
+            // Pending → In Progress
+            if (markBtn) {
+                markBtn.addEventListener("click", () => {
+                    if (statusBadge.classList.contains("pending")) {
+                        statusBadge.classList.remove("pending");
+                        statusBadge.classList.add("inprogress");
+                        statusBadge.textContent = "In Progress";
+                    }
+                });
+            }
+
+            // In Progress → Resolved
+            if (resolveBtn) {
+                resolveBtn.addEventListener("click", () => {
+                    if (statusBadge.classList.contains("inprogress")) {
+                        statusBadge.classList.remove("inprogress");
+                        statusBadge.classList.add("resolved");
+                        statusBadge.textContent = "Resolved";
+                    }
+                });
+            }
+
+        });
+    </script>
+
+</body>
+</html>

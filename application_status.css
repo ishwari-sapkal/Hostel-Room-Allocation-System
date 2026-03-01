@@ -1,0 +1,247 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
+}
+.profile-link{
+    display:inline-block;
+    border-radius:50%;
+    padding:5px;
+    transition:0.3s ease;
+}
+
+.profile-link:hover{
+    background:#45ddee;
+    transform:scale(1.05);
+}
+
+.profile-link:active{
+    transform:scale(0.95);
+}
+.submit-btn {
+    padding: 12px 22px;
+    background: #004d66;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: 0.25s;
+}
+.profile-pic{
+    width:85px;
+    height:85px;
+    object-fit:cover;
+    border-radius:50%;
+    border:3px solid #003845;
+    box-shadow:0 4px 15px rgba(0,0,0,.25);
+    transition:0.3s ease;
+}
+
+.profile-link:hover .profile-pic{
+    border-color:#fff;
+}
+
+body {
+    background: #f4f9fc;
+    color: #222;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================== Sidebar =========================== */
+.sidebar{
+  width:250px;
+  background:#004d66;
+  color:#fff;
+  min-height:100vh;
+  padding:40px 20px 25px;   /* ← Added 100px padding from TOP */
+  position:fixed;top:0;left:0;overflow-y:auto;
+  box-shadow:4px 0 18px rgba(0,0,0,0.12);
+}
+
+/* Profile picture container centered */
+.admin-header{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+/* CIRCULAR profile image (final corrected) */
+.profile-pic{
+  width:90px;                 /* medium size */
+  height:90px;
+  border-radius:50%;          /* ← PERFECT CIRCLE */
+  border:3px solid #ffffffaa;
+  object-fit:cover;
+  display:block;
+  margin:0 auto;              /* ← center horizontally */
+  box-shadow:0px 5px 15px rgba(0,0,0,0.18);
+}
+
+/* Name under profile picture */
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
+}
+
+.admin-header{text-align:center;margin-bottom:22px}
+.profile-pic{width:65px;height:65px;border-radius:10px;border:3px solid #ffffffaa;object-fit:cover}
+.sidebar h2{margin-top:10px;font-size:18px}
+.sidebar nav{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.nav-item{padding:12px 15px;color:#fff;text-decoration:none;border-radius:8px;font-size:15px;transition:0.25s;display:block}
+.nav-item:hover{background:#016f8a}
+.nav-item.active{background:#0185a5}
+.logout{margin-top:18px;background:#013f52}
+.logout:hover{background:#025269}
+
+
+/* ====================== MAIN CONTENT ====================== */
+.main {
+    margin-left: 270px;
+    padding: 40px 50px;
+}
+
+.title {
+    font-size: 28px;
+    color: #004d66;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* ====================== TIMELINE ====================== */
+.timeline {
+    border-left: 4px solid #cbe8f0;
+    padding-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.step {
+    position: relative;
+    padding-bottom: 35px;
+}
+
+.dot {
+    width: 18px;
+    height: 18px;
+    background: #cbe8f0;
+    border-radius: 50%;
+    position: absolute;
+    left: -33px;
+    top: 5px;
+    transition: 0.3s;
+}
+
+.step.active .dot {
+    background: #018a68;
+    box-shadow: 0 0 10px rgba(1,138,104,0.5);
+}
+
+.step.reject .dot {
+    background: #d92626;
+    box-shadow: 0 0 10px rgba(255,0,0,0.4);
+}
+
+.step .content h3 {
+    font-size: 18px;
+    color: #004d66;
+}
+
+.step .content p {
+    margin-top: 6px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* ====================== STATUS CARD ====================== */
+.status-card {
+    width: 100%;
+    padding: 30px;
+    border-radius: 18px;
+    margin-top: 25px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+    border: 1px solid rgba(255,255,255,0.6);
+    animation: fadeIn 0.7s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Gradient glow border */
+.status-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg,#d1f3ff,#fff,#c7ffe9);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: glow 4s linear infinite;
+}
+
+/* ICON */
+.status-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    animation: pop 0.5s ease;
+}
+
+/* TITLE */
+.status-title {
+    font-size: 24px;
+    color: #004d66;
+    margin-bottom: 8px;
+}
+
+/* DESCRIPTION */
+.status-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
+/* ROOM DISPLAY */
+.room-display {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #018a68;
+    font-weight: 600;
+}
+
+/* Status Colors */
+.pending-card { border-left: 6px solid #c49600; }
+.approved-card { border-left: 6px solid #018a68; }
+.rejected-card { border-left: 6px solid #d92626; }
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+    from { transform: scale(0.4); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes glow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}

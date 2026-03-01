@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Application</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hostel_application.css') }}">
+
+    <!-- MODAL CSS -->
+    <style>
+        .closed-modal{
+            display:none;
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,.45);
+            z-index:9999;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .closed-box{
+            width:380px;
+            background:#fff;
+            padding:25px;
+            border-radius:12px;
+            text-align:center;
+            animation:pop .3s ease;
+            position:relative;
+        }
+
+        .close-btn{
+            position:absolute;
+            right:15px;
+            top:10px;
+            font-size:22px;
+            cursor:pointer;
+        }
+
+        @keyframes pop{
+            from{transform:scale(.7);opacity:0}
+            to{transform:scale(1);opacity:1}
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="admin-header">
+        <a href="{{ url_for('profile') }}" class="profile-link">
+            <img src="{{ url_for('profile_photo', email=student_email) }}" class="profile-pic">
+        </a>
+        <h2>{{ student_name or "Student Name" }}</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('student_dashboard') }}" class="nav-item">Dashboard</a>
+        <a href="{{ url_for('hostel_application') }}" class="nav-item active">Hostel Application</a>
+        <a href="{{ url_for('application_status') }}" class="nav-item">Application Status</a>
+        <a href="{{ url_for('student_complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('student_announcements') }}" class="nav-item">Announcements</a>
+        <a href="{{ url_for('student_logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+    <header class="topbar">
+        <h1>Hostel Application Form</h1>
+        <div class="top-admin">
+            <span>Student</span>
+            <img src="{{ url_for('static', filename='images/profile_student.jpg') }}"
+                 class="profile-pic">
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <div class="application-note">
+            ⚠ Please ensure all information is correct and upload original documents only.
+        </div>
+
+        <form class="application-form"
+              method="POST"
+              action="/hostel_application"
+              enctype="multipart/form-data"
+              onsubmit="return checkRegistration();">
+
+            <h2>Student Information</h2>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender" required>
+                        <option disabled selected>Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ student_email }}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" name="phone" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group" style="flex:1;">
+                    <label>Address</label>
+                    <textarea name="address" rows="2" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Branch</label>
+                    <select name="branch" required>
+                        <option disabled selected>Select Branch</option>
+                        <option>Electronic Engineering</option>
+                        <option>Computer Engineering</option>
+                        <option>Civil & Rural Engineering</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Year</label>
+                    <select name="year" required>
+                        <option disabled selected>Select Year</option>
+                        <option>First Year</option>
+                        <option>Second Year</option>
+                        <option>Third Year</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>10th Percentage</label>
+                    <input type="number" name="percent" min="0" max="100" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Aadhar Number</label>
+                    <input type="number" name="aadhar_num" required>
+                </div>
+            </div>
+
+            <h3>Upload Documents</h3>
+
+            <div class="doc-item"><span>Aadhar Card</span><input type="file" name="aadhar" required></div>
+            <div class="doc-item"><span>ID Proof</span><input type="file" name="id_proof" required></div>
+            <div class="doc-item"><span>Mark Sheet</span><input type="file" name="marksheet" required></div>
+            <div class="doc-item"><span>Admission Receipt</span><input type="file" name="admission_receipt" required></div>
+            <div class="doc-item"><span>Profile Photo</span><input type="file" name="profile_photo" required></div>
+
+            <button type="submit" class="submit-btn">Submit Application</button>
+
+        </form>
+    </div>
+</main>
+
+<!-- HOSTEL APPLICATION CLOSED MODAL -->
+<div id="closedModal" class="closed-modal">
+    <div class="closed-box">
+        <span class="close-btn" onclick="closeModal()">×</span>
+
+        <img src="/static/images/warning.png" style="width:90px; margin-bottom:10px;">
+
+        <h2 style="color:#005f73;">Hostel Application Closed</h2>
+
+        <p style="font-size:14px; line-height:1.6;">
+            The hostel application form is currently closed.<br>
+            Please check back during the official application period.
+        </p>
+
+        <button onclick="closeModal()"
+                style="margin-top:15px; background:#005f73; color:#fff;
+                       border:none; padding:10px 24px; border-radius:8px;">
+            OK
+        </button>
+    </div>
+</div>
+
+<!-- DATE CHECK SCRIPT -->
+<script>
+    function checkRegistration() {
+
+        const now = new Date();
+
+        // ✅ USE ISO FORMAT (BEST PRACTICE)
+        const start = new Date("2026-01-29T00:00:00");
+        const end   = new Date("2026-02-30T23:59:59");
+
+        console.log("Now:", now);
+        console.log("Start:", start);
+        console.log("End:", end);
+
+        if (now < start || now > end) {
+            document.getElementById("closedModal").style.display = "flex";
+            return false; // block form submit
+        }
+
+        return true; // allow submit
+    }
+
+    function closeModal() {
+        document.getElementById("closedModal").style.display = "none";
+    }
+</script>
+
+
+</body>
+</html>

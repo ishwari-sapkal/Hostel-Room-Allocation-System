@@ -1,0 +1,101 @@
+:root {
+    --primary: #0b5f6d;      /* Teal Blue – main brand color */
+    --secondary: #f1c40f;    /* Gold – accent (buttons/highlights) */
+    --light-bg: #f4fbfd;     /* Very light teal background */
+    --text-dark: #0f2f35;    /* Deep teal text */
+}
+
+
+/* Body */
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--light-bg);
+}
+
+/* Header Section */
+.page-header {
+    background: var(--primary);
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.page-header p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* Cards */
+.fees-card {
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    padding: 25px;
+    border-top: 6px solid var(--secondary);
+    transition: 0.3s ease-in-out;
+}
+
+.fees-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.12);
+}
+
+/* Highlight box */
+.highlight-box {
+    background: var(--primary);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 18px;
+}
+
+/* Table */
+.table thead {
+    background: var(--primary);
+    color: white;
+}
+
+/* List */
+.facility-list {
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Note Box */
+.note-box {
+    background: #fff7d1;
+    border-left: 5px solid var(--secondary);
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+/* Button */
+.btn-primary-custom {
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 18px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-primary-custom:hover {
+    background: #062a45;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    background: var(--primary);
+    color: white;
+}

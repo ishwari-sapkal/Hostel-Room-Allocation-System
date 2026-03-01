@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Complaints</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_complaints.css') }}">
+</head>
+
+<body>
+
+<!-- ======================== SIDEBAR ======================== -->
+<div class="sidebar">
+    <div class="admin-header">
+        <a href="{{ url_for('profile') }}" class="profile-link">
+            <img src="{{ url_for('profile_photo', email=student_email) }}" class="profile-pic">
+        </a>
+        <h2>{{ student_name or "Student Name" }}</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('student_dashboard') }}" class="nav-item">Dashboard</a>{% if form_status == 'not_submitted' or form_status == 'rejected'%}
+        <a class="nav-item" href="{{ url_for('hostel_application') }}">Hostel Application</a>
+        {% endif %}
+        <a href="{{ url_for('application_status') }}" class="nav-item">Application Status</a>
+        <a href="{{ url_for('student_complaints') }}" class="nav-item active">Complaints</a>
+        <a href="{{ url_for('student_announcements') }}" class="nav-item">Announcements</a>
+        <a href="{{ url_for('student_logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</div>
+
+<!-- ======================== MAIN CONTENT ======================== -->
+<div class="main">
+
+    <h1 class="title">📝 Student Complaint Portal</h1>
+    <p class="subtitle">Submit and view your hostel complaints here</p>
+
+    <!-- Complaint Form -->
+    <div class="complaint-card">
+        <h2>📮 Submit New Complaint</h2>
+
+        <form action="/student_complaints" method="POST">
+
+            <div class="form-group">
+                <label>Complaint Category</label>
+                <select name="category" required>
+                    <option value="">Select category</option>
+                    <option value="Room Issue">Room Issue</option>
+                    <option value="Water Problem">Water Problem</option>
+                    <option value="Mess Food">Mess Food</option>
+                    <option value="Cleanliness">Cleanliness</option>
+                    <option value="Electricity Issue">Electricity Issue</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Complaint Description</label>
+                <textarea name="description" placeholder="Explain your issue..." required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Complaint</button>
+
+        </form>
+    </div>
+
+    <!-- Past Complaints -->
+    <div class="previous-complaints">
+
+        <h2 class="sec-title">📂 Your Previous Complaints</h2>
+
+        {% if complaints %}
+            <div class="complaint-list">
+                {% for c in complaints %}
+                    <div class="complaint-item">
+                        <h4>📌 {{ c.category }}</h4>
+                        <p>{{ c.description }}</p>
+
+                        <div class="status-box {{ 'resolved' if c.status=='Resolved' else 'pending' }}">
+                            Status: {{ c.status }}
+                        </div>
+
+<!--                        <span class="date">📅 {{ c.date }}</span>-->
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-complaints">
+                <h3>No complaints filed yet</h3>
+                <p>Your registered complaints will appear here.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

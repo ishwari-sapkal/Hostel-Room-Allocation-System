@@ -1,0 +1,211 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f5f7fa;
+    font-family: "Poppins", sans-serif;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.admin-header { text-align: center; }
+.profile-pic { width: 65px; height: 65px; border-radius: 10px; border: 3px solid #ffffffaa; object-fit: cover; }
+.sidebar h2 { margin-top: 10px; }
+.sidebar nav { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
+.nav-item { padding: 12px 15px; color: white; display: block; text-decoration: none; border-radius: 8px; font-size: 15px; transition: 0.25s; }
+.nav-item:hover { background: #016f8a; }
+.nav-item.active { background: #0185a5; }
+.logout { margin-top: 20px; background: #013f52; }
+.logout:hover { background: #025269; }
+
+
+
+
+/* ============================================================
+   MAIN CONTENT AREA
+============================================================ */
+.main {
+    margin-left: 260px;        /* Matches your sidebar width */
+    padding: 35px;
+    width: calc(100% - 260px); /* Takes full remaining width */
+    background: #f5f7fa;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ======================= TOPBAR ======================= */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.topbar h1 {
+    font-size: 24px;
+    color: #004d66;
+}
+
+.top-admin {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.top-admin span {
+    font-weight: 600;
+    color: #004d66;
+}
+
+/* ============================================================
+   COMPLAINTS SECTION
+============================================================ */
+.complaints-container {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.section-title {
+    color: #004d66;
+    font-size: 22px;
+    margin-bottom: 18px;
+}
+
+/* ============================================================
+   ACCORDION STYLE
+============================================================ */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ----- ACCORDION CARD ----- */
+.accordion-item {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.09);
+    border-left: 6px solid #004d66;
+    transition: 0.3s;
+}
+
+.accordion-item.active {
+    transform: scale(1.02);
+}
+
+/* ----- HEADER ----- */
+.accordion-header {
+    width: 100%;
+    background: #e9f7fb;
+    padding: 16px 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: #004d66;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-header:hover {
+    background: #dff2f6;
+}
+
+/* ----- STATUS BADGE ----- */
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+}
+
+.status.pending { background: #c49600; }
+.status.inprogress { background: #0185a5; }
+.status.resolved { background: #018a68; }
+
+/* ----- BODY ----- */
+.accordion-body {
+    padding: 18px 22px;
+    display: none;
+    animation: fade 0.3s ease;
+}
+
+.accordion-item.active .accordion-body {
+    display: block;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.accordion-body p {
+    margin: 6px 0;
+    color: #444;
+    font-size: 15px;
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn-row {
+    margin-top: 15px;
+    display: flex;
+    gap: 12px;
+}
+
+.mark-btn,
+.resolve-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.mark-btn {
+    background: #0185a5;
+    color: white;
+}
+
+.mark-btn:hover {
+    background: #016c87;
+}
+
+.resolve-btn {
+    background: #018a68;
+    color: white;
+}
+
+.resolve-btn:hover {
+    background: #017a5c;
+}
+
+.resolve-btn[disabled] {
+    background: #9cc7bb;
+    cursor: not-allowed;
+}

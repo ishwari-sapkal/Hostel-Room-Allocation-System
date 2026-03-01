@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/otp.css') }}">
+</head>
+<body>
+
+<div class="otp-box">
+    <h2>Email Verification</h2>
+    <p>We have sent a 6-digit OTP to your email</p>
+
+    <form method="POST">
+        <input type="text" name="otp" placeholder="Enter OTP" maxlength="6" required>
+        <button type="submit">Verify & Register</button>
+    </form>
+
+    <p class="resend">Didn't receive? <a href="/resend_otp">Resend OTP</a></p>
+</div>
+
+</body>
+</html>

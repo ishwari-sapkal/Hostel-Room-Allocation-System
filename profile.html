@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+
+<body>
+
+<!-- ======================== SIDEBAR (UNCHANGED) ======================== -->
+<!--<div class="sidebar">-->
+<!--    <div class="admin-header">-->
+<!--        <img src="{{ url_for('static', filename='images/student.jpg') }}" class="profile-pic">-->
+<!--        <h2>{{ student_name or "Student Name" }}</h2>-->
+<!--    </div>-->
+
+<!--    <nav>-->
+<!--        <a href="{{ url_for('student_dashboard') }}" class="nav-item">Dashboard</a>-->
+<!--        <a href="{{ url_for('hostel_application') }}" class="nav-item">Hostel Application</a>-->
+<!--        <a href="{{ url_for('application_status') }}" class="nav-item">Application Status</a>-->
+<!--        <a href="{{ url_for('profile') }}" class="nav-item active">Profile</a>-->
+<!--        <a href="{{ url_for('student_complaints') }}" class="nav-item">Complaints</a>-->
+<!--        <a href="{{ url_for('student_announcements') }}" class="nav-item">Announcements</a>-->
+<!--        <a href="{{ url_for('student_logout') }}" class="nav-item logout">Logout</a>-->
+<!--    </nav>-->
+<!--</div>-->
+
+<!-- ======================== MAIN CONTENT ======================== -->
+<div class="main" style="margin: auto;">
+    <a href="{{ url_for('student_dashboard') }}" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" color="dark-gray"><g fill="none" fill-rule="evenodd"><g fill="currentColor" fill-rule="nonzero"><g><g><path d="M12.69 3.88c.396-.386 1.029-.379 1.415.016.356.364.378.932.068 1.32l-.084.094-8.55 8.36c-.359.35-.915.378-1.305.081l-.093-.081-8.55-8.36c-.395-.386-.402-1.02-.016-1.414.356-.365.923-.399 1.319-.098l.095.082 7.851 7.675 7.85-7.675z" transform="translate(-16 -95) translate(16 95) translate(1 3) rotate(90 4.84 8.775)"></path><path d="M21.78 7.775c.552 0 1 .448 1 1 0 .513-.386.936-.883.993l-.117.007H.66c-.552 0-1-.448-1-1 0-.513.386-.936.883-.993l.117-.007h21.12z" transform="translate(-16 -95) translate(16 95) translate(1 3)"></path></g></g></g></g></svg></a>
+    <h1 class="title">👤 Student Profile</h1>
+    <p class="subtitle">View and manage your personal information</p>
+
+    <!-- ======================== PROFILE CARD (BIGGER) ======================== -->
+    <div class="profile-card big-card">
+
+        <!-- Header -->
+        <div class="profile-header">
+            <form action="/upload_profile_pic" method="POST" enctype="multipart/form-data">
+                <label for="profileUpload" class="profile-upload">
+                    <img src="{{ url_for('profile_photo', email=student_email) }}" onerror="this.onerror=null; this.src='{{ url_for('static', filename='static/images/student.jpg') }}';" class="profile-avatar">
+                    <span class="edit-icon">✎</span>
+                </label>
+                <input type="file" id="profileUpload" name="photo" hidden onchange="this.form.submit()">
+            </form>
+
+            <div class="info">
+                <h2>{{ student_name }}</h2>
+                <p>{{ student_email }}</p>
+            </div>
+        </div>
+
+        <!-- Details -->
+        <div class="details">
+            <div class="detail-box">
+                <h4>📛 Full Name</h4><p>{{ student_name or "Student Name" }}</p>
+            </div>
+            <div class="detail-box">
+                <h4>📧 Email</h4><p>{{ student_email or "Student email" }}</p>
+            </div>
+            <div class="detail-box">
+                <h4>🎓 Branch</h4><p>{{ student_course or "Student branch" }}</p>
+            </div>
+            <div class="detail-box">
+                <h4>📘 Year</h4><p>{{ student_year or "Student year" }}</p>
+            </div>
+            <div class="detail-box">
+                <h4>📞 Phone</h4><p>{{ student_phone or "Student phone" }}</p>
+            </div>
+            <div class="detail-box">
+                <h4>🆔 Aadhaar Number</h4><p>{{ student_aadhar or "Student aadhar" }}</p>
+            </div>
+            <div class="detail-box">
+                <h4> Percentage</h4><p>{{ student_percent or "Student percent" }}</p>
+            </div>
+        </div>
+
+        <!-- FOOTER NOTE -->
+        <div class="footer-note">
+            <p>Your information is used for hostel verification and communication.
+            Please keep it updated.</p>
+        </div>
+
+    </div>
+
+    <!-- ======================== CONDITIONAL DOCUMENTS SECTION ======================== -->
+
+{% if form_status != 'not_submitted' and form_status != 'rejected' %}
+
+    <section class="documents-panel" id="documents">
+
+        <div class="docs-head">
+            <h3>📂 Uploaded Documents</h3>
+            <span class="docs-sub">Your verified documents stored securely</span>
+        </div>
+
+        <div class="docs-grid">
+            {% set docs = {
+            'aadhar': {'icon':'🆔','name':'Aadhar Card'},
+            'id_proof': {'icon':'📘','name':'ID Proof'},
+            'marksheet': {'icon':'📄','name':'Marksheet'},
+            'admission_receipt': {'icon':'🧾','name':'Admission Receipt'},
+            'profile_photo': {'icon':'🖼️','name':'Profile Photo'}
+            } %}
+
+            {% for key, d in docs.items() %}
+            <div class="doc-card">
+                <div class="doc-icon">{{ d.icon }}</div>
+                <h4>{{ d.name }}</h4>
+
+                <div class="doc-btns">
+                    <a href="{{ url_for('view_doc', doc_type=key) }}" target="_blank"><button class="action-btn ghost">View</button></a>
+                    <a href="{{ url_for('download_doc', doc_type=key) }}"><button class="action-btn ghost">Download</button></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% else %}
+
+<div class="apply-box">
+    <h3>⚠️ Hostel Application Not Submitted</h3>
+    <p>Please complete your hostel application to upload documents.</p>
+    <a href="{{ url_for('hostel_application') }}" class="apply-btn">Apply Now</a>
+</div>
+
+{% endif %}
+
+    <script>
+        if(window.location.hash === "#documents"){
+            document.getElementById("documents").scrollIntoView({behavior:"smooth"});
+        }
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/logout.css') }}">
+</head>
+<body>
+
+    <!-- SIDEBAR (unchanged) -->
+    <aside class="sidebar">
+        <div class="admin-header">
+            <img src="static/images/profile_admin.jpg" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+            <a href="#" class="nav-item active logout" onclick="openLogoutModal()">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <div class="logout-modal" id="logoutModal">
+            <div class="logout-card">
+                <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
+                <h3>Confirm Logout</h3>
+                <p>Are you sure you want to logout? Your session will be ended.</p>
+                <div class="btn-row">
+                    <a href="{{ url_for('logout_success') }}" class="logout-btn">Logout</a>
+                    <button class="cancel-btn" onclick="closeLogoutModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const modal = document.getElementById("logoutModal");
+
+        function openLogoutModal() {
+            modal.style.display = "flex";
+        }
+
+        function closeLogoutModal() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if(event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

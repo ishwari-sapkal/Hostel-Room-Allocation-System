@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_application.css') }}">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="admin-header">
+            <img src="../static/images/profile_admin.jpg" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item active">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <h1>Application Details</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+                <img src="../static/images/profile_admin.jpg" class="profile-pic">
+            </div>
+        </header>
+
+        <div class="main-container">
+
+            <!-- STUDENT INFO CARD -->
+            <div class="card info-card">
+                <h2>Student Information</h2>
+
+                <div class="info-row">
+                    <p><strong>Name:</strong> {{app.name}}</p>
+                    <p><strong>Gender:</strong> {{app.gender}}</p>
+                </div>
+
+                <div class="info-row">
+                    <p><strong>Email:</strong> {{app.email}}</p>
+                    <p><strong>Phone:</strong> {{app.phone}}</p>
+                </div>
+
+                <div class="info-row">
+                    <p><strong>Address:</strong> {{app.address}}</p><br><br>
+                </div>
+
+                <div class="info-row">
+                    <p><strong>Branch:</strong> {{app.branch}}</p>
+                    <p><strong>Year:</strong> {{app.year}}</p>
+                </div>
+
+                <div class="info-row">
+                    <p><strong>10th Percentage:</strong> {{app.percent}}%</p>
+                </div><br>
+
+                 <div class="info-row">
+                    <p><strong>Applied On:</strong> {{app.date}}</p>
+                    <p><strong>Status:</strong> {{app.status}}</p>
+                </div>
+            </div>
+
+
+
+            <!-- DOCUMENTS CARD -->
+            <div class="card docs-card">
+                <h2>Uploaded Documents</h2>
+
+                {% set docs = {
+                'aadhar':'Aadhar Card',
+                'id_proof':'ID Proof',
+                'marksheet':'Marksheet',
+                'admission_receipt':'Admission Receipt',
+                'profile_photo':'Profile Photo'
+                } %}
+
+                {% for k,v in docs.items() %}
+                <div class="doc-item">
+                    <span>{{ v }}</span>
+                    <a class="view-btn" href="{{ url_for('view_doc_admin', doc_type=k , email=app.email) }}" target="_blank">View</a>
+                </div>
+                {% endfor %}
+            </div>
+
+
+            <!-- ACTION BUTTONS -->
+            <div class="card action-card">
+                <button class="accept-btn" onclick="showAllocation()">Accept</button>
+                <button class="reject-btn" onclick="showRejectReason()">Reject</button>
+            </div>
+
+            <!-- ROOM ALLOCATION CARD -->
+            <div class="card allocation-card" id="allocationCard" style="display:none;">
+                <h2>Room Allocation</h2>
+
+                <div class="info-row">
+                    <p><strong>Student:</strong> {{app.name}}</p>
+                    <p><strong>Hostel Block:</strong> {{app.branch}} Girls Hostel</p>
+                </div>
+
+                <label><strong>Select Room:</strong></label>
+                <form method="POST" action="/approve_application/{{ app._id }}">
+                <select id="roomSelect" name="room">
+                    <option disabled selected>Select a room</option>
+                    {%for r in rooms%}
+                    <option value="{{r.room_num}}">{{r.room_num}} - {{r.room_status}}</option>
+                    {%endfor%}
+                </select>
+
+                <button class="accept-btn" >Confirm Allocation</button>
+                </form>
+                <div id="allocationResult" style="display:none; margin-top:15px;">
+                    <p id="allocatedText"></p>
+                    <a class="download-btn" href="#" id="receiptLink" download>Download Receipt</a>
+                </div>
+            </div>
+
+            <!-- REJECT REASON -->
+            <div class="card reject-card" id="rejectCard" style="display:none;">
+                <form method="POST" action="/reject_application/{{ app._id }}">
+                <h2>Reject Application</h2>
+                <textarea id="rejectReason" name="reason" placeholder="Enter reason for rejection..." required></textarea>
+                <button class="reject-btn">Submit</button>
+                </form>
+            </div>
+
+            <a href="{{ url_for('application') }}" class="back-btn">Back to Applications</a>
+
+        </div>
+    </main>
+
+    <script>
+        function showAllocation() {
+            document.getElementById('allocationCard').style.display = 'block';
+            document.getElementById('rejectCard').style.display = 'none';
+        }
+
+        function confirmRoom() {
+            let room = document.getElementById('roomSelect').value;
+
+            if (!room) {
+                alert("Please select a room!");
+                return;
+            }
+
+            document.getElementById("allocatedText").innerHTML =
+                "Room <strong>" + room + "</strong> successfully allocated.";
+
+            document.getElementById("receiptLink").href =
+                "{{ url_for('static', filename='documents/Allotment_Sneha.pdf') }}";
+
+            document.getElementById("allocationResult").style.display = "block";
+        }
+
+        function showRejectReason() {
+            document.getElementById('rejectCard').style.display = 'block';
+            document.getElementById('allocationCard').style.display = 'none';
+        }
+
+        function submitReject() {
+            let reason = document.getElementById('rejectReason').value;
+
+            if (reason.trim() === '') {
+                alert('Please enter a reason!');
+                return;
+            }
+
+            alert('Application Rejected. Reason: ' + reason);
+            document.getElementById('rejectCard').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

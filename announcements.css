@@ -1,0 +1,275 @@
+/* ================================
+   GLOBAL
+================================ */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f5f7fa;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.admin-header {
+    text-align: center;
+}
+
+.profile-pic {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    border: 3px solid #ffffffaa;
+    object-fit: cover;
+}
+
+.sidebar h2 {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.sidebar nav {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    padding: 12px 15px;
+    color: white;
+    font-size: 15px;
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.25s;
+}
+
+.nav-item:hover {
+    background: #016f8a;
+}
+
+.nav-item.active {
+    background: #0185a5;
+}
+
+.logout {
+    margin-top: 20px;
+    background: #013f52;
+}
+
+.logout:hover {
+    background: #025269;
+}
+
+/* ================================
+   MAIN CONTENT
+================================ */
+.main {
+    flex-grow: 1;
+    padding: 50px 50px 30px 320px; /* left padding matches sidebar + extra space */
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e5ea;
+}
+
+.top-admin img {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* ================================
+   ANNOUNCEMENTS CONTAINER
+================================ */
+.announcements-container {
+    margin-top: 30px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* Add Announcement Button */
+.open-btn {
+    padding: 12px 22px;
+    background: #004d66;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    font-size: 15px;
+    transition: 0.25s;
+}
+.open-btn:hover {
+    background: #016a85;
+}
+
+/* ================================
+   ANNOUNCEMENT CARD
+================================ */
+.announcement-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.announcement-card h3 {
+    margin-top: 0;
+    color: #004d66;
+    font-size: 20px;
+}
+
+.announcement-card p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 12px 0 0 0;
+}
+
+.announcement-img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    margin: 15px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    object-fit: cover;
+}
+
+/* Delete Button */
+.delete-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 7px 14px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.25s;
+}
+.delete-btn:hover {
+    opacity: 0.85;
+}
+
+/* ================================
+   MODAL
+================================ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background: #fff;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 450px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+.close-btn {
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* FORM INSIDE MODAL */
+#addAnnouncementForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#addAnnouncementForm input,
+#addAnnouncementForm textarea {
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+#addAnnouncementForm button {
+    padding: 12px;
+    background: #004d66;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#addAnnouncementForm button:hover {
+    background: #016a85;
+}
+
+/* ================================
+   ANIMATION
+================================ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+        margin: 50px auto;
+    }
+
+    .main {
+        padding-left: 20px; /* reduce left padding on small screens */
+        padding-right: 20px;
+    }
+
+    .announcement-card {
+        padding: 18px;
+    }
+
+    .open-btn {
+        width: 100%;
+    }
+}

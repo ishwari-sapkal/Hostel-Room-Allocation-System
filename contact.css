@@ -1,0 +1,121 @@
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { background:#f5f7fa; }
+
+/* CONTAINER SPLIT */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* LEFT SIDE */
+.left-side {
+    width: 50%;
+    background: linear-gradient(135deg, #004d66, #005f73, #007a99);
+    background-size: 400% 400%;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:60px;
+    text-align:center;
+    animation: gradientShift 12s ease infinite;
+}
+.left-side h1 { font-size:36px; margin-bottom:20px; }
+.left-side p { font-size:18px; line-height:1.6; margin-bottom:30px; }
+.left-side .contact-illustration { width:110px; opacity:0.8; }
+
+/* Animated gradient */
+@keyframes gradientShift {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+/* RIGHT SIDE */
+.right-side {
+    width:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:60px;
+}
+
+/* FORM CARD */
+.contact-form {
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* Floating labels */
+.input-group {
+    position:relative;
+    display:flex;
+    flex-direction:column-reverse;
+}
+.input-group input,
+.input-group textarea {
+    padding:15px 15px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+    transition: all 0.3s;
+}
+.input-group label {
+    position:absolute;
+    left:15px;
+    top:15px;
+    color:#777;
+    font-size:16px;
+    pointer-events:none;
+    transition:0.3s;
+}
+
+/* On focus or filled */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label {
+    top:-10px;
+    left:10px;
+    font-size:12px;
+    color:#005f73;
+    background:white;
+    padding:0 5px;
+}
+
+/* Input/textarea hover */
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color:#005f73;
+    outline:none;
+}
+
+/* Input rows */
+.input-row { display:flex; gap:20px; }
+
+/* Button with hover effect */
+.submit-btn {
+    padding:15px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#005f73,#007a99);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition: all 0.3s;
+}
+.submit-btn:hover {
+    transform:scale(1.05);
+    background:linear-gradient(90deg,#007a99,#005f73);
+}
+
+/* Textarea */
+textarea { resize:none; }

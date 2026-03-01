@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Application Submitted</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
+    <!-- Single-file CSS -->
+    <style>
+        :root{
+            --bg: #f4f9fc;
+            --card: #ffffff;
+            --accent: #004d66;
+            --green: #10b981;
+            --muted: #6b7280;
+        }
+
+        html,body{
+            height:100%;
+            margin:0;
+            font-family: "Poppins", Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background:var(--bg);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            color:#0f172a;
+        }
+
+        /* center page */
+        .wrap {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+}
+
+
+        .card {
+            width:100%;
+            max-width:720px;
+            background:var(--card);
+            border-radius:16px;
+            box-shadow: 0 18px 50px rgba(2,6,23,0.08);
+            padding:36px;
+            text-align:center;
+            position:relative;
+            overflow:visible;
+        }
+
+        /* two-layer circle */
+        .circle-wrap {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 18px;
+            position: relative;
+        }
+
+        .outer-circle {
+            position:absolute;
+            inset:0;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            transform: scale(0);
+            /* subtle gradient ring */
+            background: radial-gradient(circle at 30% 20%, rgba(16,185,129,0.10), transparent 40%),
+                        linear-gradient(135deg, rgba(0,77,102,0.06), rgba(8,145,178,0.06));
+            box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+            animation: popOuter 220ms cubic-bezier(.2,.9,.3,1) forwards;
+        }
+
+        .inner-circle {
+            width: 108px;
+            height: 108px;
+            border-radius:50%;
+            background: linear-gradient(180deg, var(--green), #059669);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            transform: scale(0);
+            box-shadow: 0 8px 18px rgba(5,150,105,0.22);
+            animation: popInner 260ms cubic-bezier(.2,.9,.3,1) 80ms forwards;
+        }
+
+        /* check mark */
+        .check {
+            color: #fff;
+            font-weight:700;
+            font-size:56px;
+            line-height:1;
+            transform: scale(0.2) rotate(-10deg);
+            opacity:0;
+            animation: tick 220ms cubic-bezier(.2,.9,.3,1) 200ms forwards;
+        }
+
+        @keyframes popOuter {
+            from { transform: scale(0); opacity:0; }
+            to   { transform: scale(1); opacity:1; }
+        }
+        @keyframes popInner {
+            from { transform: scale(0); opacity:0; }
+            to   { transform: scale(1); opacity:1; }
+        }
+        @keyframes tick {
+            0% { transform: scale(0.2) rotate(-10deg); opacity:0; }
+            60% { transform: scale(1.06) rotate(0deg); opacity:1; }
+            100% { transform: scale(1) rotate(0deg); opacity:1; }
+        }
+
+        h1 {
+            margin: 8px 0 6px;
+            font-size:22px;
+            color:var(--accent);
+            letter-spacing: -0.2px;
+        }
+
+        p.lead {
+            margin:0 0 18px;
+            color:var(--muted);
+            font-size:15px;
+        }
+
+        .meta {
+            margin-top:12px;
+            color:#334155;
+            font-size:13px;
+        }
+
+        .actions {
+            margin-top:18px;
+            display:flex;
+            gap:12px;
+            justify-content:center;
+            flex-wrap:wrap;
+        }
+
+        .btn {
+            display:inline-block;
+            padding:11px 18px;
+            border-radius:10px;
+            text-decoration:none;
+            font-weight:600;
+            border:0;
+            cursor:pointer;
+        }
+
+        .btn-primary {
+            background:var(--accent);
+            color:#fff;
+            box-shadow: 0 6px 18px rgba(2,6,23,0.08);
+        }
+
+        .btn-muted {
+            background:#f1f5f9;
+            color:#0f172a;
+        }
+
+        /* accessibility focus */
+        a:focus, button:focus { outline: 3px solid rgba(2,6,23,0.06); outline-offset:3px; }
+
+        /* small screens */
+        @media (max-width:420px){
+            .card { padding:22px; border-radius:12px; }
+            .circle-wrap { width:110px; height:110px; }
+            .inner-circle { width:86px; height:86px; }
+            .check { font-size:44px; }
+        }
+
+        /* subtle confetti pieces (optional) */
+        .confetti {
+            pointer-events:none;
+            position:absolute;
+            inset:0;
+            overflow:hidden;
+        }
+        .confetti .piece {
+            position:absolute;
+            width:8px;
+            height:14px;
+            border-radius:2px;
+            opacity:0.95;
+            transform: translateY(-40px) rotate(10deg);
+            animation: fall 900ms linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(120px) rotate(360deg); opacity:1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <div class="card" role="status" aria-live="polite" aria-atomic="true">
+
+        <!-- confetti (generated by JS) -->
+        <div class="confetti" id="confettiContainer" aria-hidden="true"></div>
+
+        <div class="circle-wrap" aria-hidden="true">
+            <div class="outer-circle" aria-hidden="true"></div>
+            <div class="inner-circle" aria-hidden="true">
+                <div class="check" aria-hidden="true">✔</div>
+            </div>
+        </div>
+
+        <h1>Application Submitted!</h1>
+
+        <p class="lead">Your hostel application has been received successfully. Our team will review it and update your status shortly.</p>
+
+        <div class="meta">
+
+            &nbsp;&middot;&nbsp;
+            <strong>Status:</strong> <span style="color:#059669;font-weight:600">Pending Review</span>
+        </div>
+
+        <div class="actions" role="group" aria-label="Actions">
+            <a class="btn btn-primary" href="{{ url_for('student_dashboard') }}">Back to Dashboard</a>
+            <a class="btn btn-muted" href="{{ url_for('application_status') }}">View Application Status</a>
+        </div>
+    </div>
+</div>
+
+<!-- Small JS: optional confetti + focus for accessibility -->
+<script>
+    // tiny confetti burst (non-blocking)
+    (function confettiBurst(){
+        const container = document.getElementById('confettiContainer');
+        if(!container) return;
+        const colors = ['#ef4444','#f97316','#f59e0b','#10b981','#3b82f6','#8b5cf6'];
+        const pieces = 12;
+        for(let i=0;i<pieces;i++){
+            const el = document.createElement('div');
+            el.className = 'piece';
+            el.style.background = colors[i % colors.length];
+            // random initial position within centered area
+            el.style.left = (45 + Math.random()*10) + '%';
+            el.style.top = (10 + Math.random()*6) + '%';
+            el.style.transform = `translateY(-20px) rotate(${Math.random()*360}deg)`;
+            el.style.animationDelay = (Math.random()*200) + 'ms';
+            el.style.opacity = 0.95;
+            container.appendChild(el);
+        }
+        // remove confetti after animation
+        setTimeout(()=> container.innerHTML = '', 1600);
+    })();
+
+    // move keyboard focus to primary action for accessibility
+    (function focusPrimary(){
+        const btn = document.querySelector('.btn-primary');
+        if(btn) btn.focus({preventScroll:true});
+    })();
+</script>
+
+</body>
+</html>

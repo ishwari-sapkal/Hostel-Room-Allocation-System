@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications - Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="admin-header">
+            <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item {% if active=='dashboard' %}active{% endif %}">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item {% if active=='application' %}active{% endif %}">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item {% if active=='allocation' %}active{% endif %}">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item {% if active=='rooms' %}active{% endif %}">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item {% if active=='complaints' %}active{% endif %}">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item {% if active=='announcements' %}active{% endif %}">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item {% if active=='reports' %}active{% endif %}">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <h1>Applications</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+                <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+            </div>
+        </header>
+
+        <div class="main-container">
+
+            <!-- STATS CARDS -->
+            <div class="stats">
+                <div class="stat-card"><h3>Total Applications</h3><p>{{ total }}</p></div>
+                <div class="stat-card"><h3>Pending</h3><p>{{ pending }}</p></div>
+                <div class="stat-card"><h3>Approved</h3><p>{{ approved }}</p></div>
+                <div class="stat-card"><h3>Rejected</h3><p>{{ rejected }}</p></div>
+            </div>
+
+
+            <!-- APPLICATION LIST -->
+            <div class="card apps-card" style="margin-top: 35px;">
+                <h2>Recent Applications</h2>
+
+                {% for a in apps %}
+                <div class="app-item">
+                    <div>
+                        <h4>{{ a.name }}</h4>
+                        <p>Branch: {{ a.branch }} • Year: {{ a.year }} • Status: {{ a.status|capitalize }}</p>
+                    </div>
+                    {% if a.status != "rejected" and a.status != "approved"%}
+                    <a href="/view_application/{{ a._id }}" class="view-btn" style="text-decoration: none;">View</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+            </div> <!-- End of apps-card -->
+
+        </div> <!-- End of main-container -->
+
+    </main>
+
+</body>
+</html>

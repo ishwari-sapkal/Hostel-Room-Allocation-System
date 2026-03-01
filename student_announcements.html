@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Hostel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_announcements.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- ======================== SIDEBAR ======================== -->
+<div class="sidebar">
+    <div class="admin-header">
+        <a href="{{ url_for('profile') }}" class="profile-link">
+            <img src="{{ url_for('profile_photo', email=student_email) }}" class="profile-pic">
+        </a>
+        <h2>{{ student_name or "Student Name" }}</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('student_dashboard') }}" class="nav-item">Dashboard</a>{% if form_status == 'not_submitted' or form_status == 'rejected'%}
+        <a class="nav-item" href="{{ url_for('hostel_application') }}">Hostel Application</a>
+        {% endif %}
+        <a href="{{ url_for('application_status') }}" class="nav-item">Application Status</a>
+        <a href="{{ url_for('student_complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('student_announcements') }}" class="nav-item active">Announcements</a>
+        <a href="{{ url_for('student_logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</div>
+
+   <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1>Announcements</h1>
+        </header>
+
+        <div class="announcements-container">
+
+
+            <div id="announcementList">
+                <!-- Example Announcement -->
+                {% if announcements %}
+                {% for a in announcements %}
+                <div class="announcement-card">
+                    <h3>{{a.title}}</h3>
+                    <p>{{a.message}}</p>
+                    {% if a.announcement_photo_id %}
+                    <img src="{{ url_for('announcement_photo', title=a.title) }}" class="announcement-img">
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="announcement-card">
+                    <h4>No Announcement</h4>
+                    <p>"No announcements at the moment."</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </main>
+
+
+
+    <script>
+        const modal = document.getElementById("announcementModal");
+        function openModal() { modal.style.display = "block"; }
+        function closeModal() { modal.style.display = "none"; }
+        window.onclick = function(event) { if(event.target == modal) modal.style.display = "none"; }
+
+        const form = document.getElementById("addAnnouncementForm");
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+            const heading = document.getElementById("heading").value;
+            const desc = document.getElementById("description").value;
+            const imgInput = document.getElementById("image");
+            const imgFile = imgInput.files[0];
+            const announcementList = document.getElementById("announcementList");
+
+            const card = document.createElement("div");
+            card.className = "announcement-card";
+
+            let imgHTML = "";
+            if(imgFile){
+                const reader = new FileReader();
+                reader.onload = function(event){
+                    imgHTML = `<img src="${event.target.result}" alt="Announcement Image" class="announcement-img">`;
+                    card.innerHTML = `<h3>${heading}</h3><p>${desc}</p>${imgHTML}<button class="delete-btn" onclick="deleteAnnouncement(this)">Delete</button>`;
+                    announcementList.prepend(card);
+                }
+                reader.readAsDataURL(imgFile);
+            } else {
+                card.innerHTML = `<h3>${heading}</h3><p>${desc}</p><button class="delete-btn" onclick="deleteAnnouncement(this)">Delete</button>`;
+                announcementList.prepend(card);
+            }
+
+            form.reset();
+            closeModal();
+        });
+
+        function deleteAnnouncement(btn){
+            const card = btn.parentElement;
+            card.remove();
+        }
+    </script>
+
+</body>
+</html>

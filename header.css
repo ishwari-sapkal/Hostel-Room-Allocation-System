@@ -1,0 +1,284 @@
+/* GLOBAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f5f7fa;
+    color: #222;
+}
+
+/* --------------------------------------------------
+   HEADER
+-------------------------------------------------- */
+.header {
+    width: 100%;
+    background: #003845; /* same as footer */
+    padding: 22px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.top-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    padding: 4px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+    transition: 0.3s ease;
+}
+
+nav a:hover {
+    color: #45ddee; /* aqua hover like footer */
+}
+
+.login-btn {
+    padding: 7px 16px;
+    background: #45ddee;
+    color: #003845;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: white;
+    color: #003845;
+}
+
+/* --------------------------------------------------
+   HERO SECTION
+-------------------------------------------------- */
+.hero {
+    height: 70vh;
+    background: url('/static/hostel_bg.jpg') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 56, 69, 0.55); /* deep footer shade */
+    backdrop-filter: blur(3px);
+}
+
+.hero-content {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.hero-content p {
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+.cta-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 26px;
+    background: #45ddee;
+    color: #003845;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background: white;
+    color: #003845;
+}
+
+/* --------------------------------------------------
+   ABOUT SECTION
+-------------------------------------------------- */
+.about {
+    padding: 70px 8%;
+}
+
+.about h2 {
+    font-size: 34px;
+    margin-bottom: 25px;
+    color: #003845; /* replaced teal */
+    text-align: center;
+}
+
+.about-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.about-left,
+.about-right {
+    width: 50%;
+}
+
+.about-image {
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.2);
+}
+
+.about-right p {
+    font-size: 17px;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+/* --------------------------------------------------
+   STATISTICS
+-------------------------------------------------- */
+.stats {
+    background: #ffffff;
+    padding: 70px 8%;
+    text-align: center;
+}
+
+.stats h2 {
+    font-size: 32px;
+    margin-bottom: 35px;
+    color: #003845;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.stat-box {
+    background: linear-gradient(to bottom right, #d4f8ff, #eaffff);
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    border-top: 3px solid #45ddee; /* matching accent */
+}
+
+.stat-box:hover {
+    transform: translateY(-6px);
+}
+
+.stat-box h3 {
+    font-size: 38px;
+    color: #003845;
+}
+
+/* --------------------------------------------------
+   FACILITIES
+-------------------------------------------------- */
+.facilities {
+    padding: 70px 8%;
+    background: #ebfaff;
+}
+
+.facilities h2 {
+    text-align: center;
+    font-size: 32px;
+    color: #003845;
+    margin-bottom: 30px;
+}
+
+.facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.facility-box {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    border-left: 4px solid #45ddee;
+}
+
+.facility-box:hover {
+    transform: scale(1.05);
+}
+
+/* --------------------------------------------------
+   PROCESS
+-------------------------------------------------- */
+.process {
+    padding: 70px 8%;
+}
+
+.process h2 {
+    text-align: center;
+    font-size: 32px;
+    color: #003845;
+    margin-bottom: 35px;
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.step-box {
+    background: #e6fbff;
+    padding: 28px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    border-top: 3px solid #45ddee;
+}
+
+.step-box:hover {
+    transform: translateY(-6px);
+}
+
+.step-box span {
+    font-size: 36px;
+    color: #003845;
+}
+
+.step-box h3 {
+    margin-top: 12px;
+    font-size: 20px;
+    color: #003845;
+}

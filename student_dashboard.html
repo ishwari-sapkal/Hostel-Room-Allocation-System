@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_dashboard.css') }}">
+</head>
+<body>
+
+  <!-- SIDEBAR (admin style) -->
+  <aside class="sidebar">
+      <div class="admin-header">
+          <a href="{{ url_for('profile') }}" class="profile-link">
+              <img src="{{ url_for('profile_photo', email=student_email) }}" class="profile-pic">
+          </a>
+          <h2>{{ student_name or "Student Name" }}</h2>
+      </div>
+
+
+  <nav>
+  <a class="nav-item active" href="{{ url_for('student_dashboard') }}">Dashboard</a>
+
+   {% if form_status == 'not_submitted' or form_status == 'rejected'%}
+    <a class="nav-item" href="{{ url_for('hostel_application') }}">Hostel Application</a>
+  {% endif %}
+
+
+    <a class="nav-item" href="{{ url_for('application_status') }}">Application Status</a>
+
+
+   <a class="nav-item" href="{{ url_for('student_complaints') }}">Complaints</a>
+
+   <a class="nav-item" href="{{ url_for('student_announcements') }}">Announcements</a>
+
+   <a class="nav-item logout" href="{{ url_for('student_logout') }}">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="main-container">
+
+      <!-- TOP (full width) -->
+      <div style="grid-column:1 / -1">
+        <header class="topbar">
+          <h1>Student Dashboard</h1>
+        </header>
+      </div>
+
+      <!-- LEFT COLUMN -->
+      <section class="left-col">
+
+                <div class="stats">
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <h3>Application</h3>
+            <p>
+              {% if form_status == 'not_submitted' %} Not Submitted
+              {% elif form_status == 'pending' %} Pending
+              {% elif form_status == 'approved' %} Approved
+              {% else %} Rejected {% endif %}
+            </p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">🏠</div>
+            <h3>Room Status</h3>
+            <p>
+                {% if form_status == 'approved' %} Allocated
+                {% else %} Not Allocated {% endif %}
+            </p>
+          </div>
+
+          <!-- NEW HOSTEL CARD (Replaces Documents) -->
+          <div class="stat-card">
+            <div class="stat-icon">🏨</div>
+            <h3>Hostel</h3>
+            <p>
+                {% if form_status == 'approved' %} Allocated
+                {% else %} Not Allocated {% endif %}
+            </p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">📣</div>
+            <h3>Announcements</h3>
+            <p>{{ latest_announcement and "New" or "None" }}</p>
+          </div>
+        </div>
+
+
+        <!-- APPLICATION JOURNEY -->
+        <div class="journey">
+          <h3>Application Journey</h3>
+          <div class="progress-wrap">
+            <div class="progress"><span id="progressBar"></span></div>
+          </div>
+
+          <div class="steps" style="margin-top:14px;">
+            <div class="step {% if form_status in ['pending','approved'] %}completed{% endif %}">
+              <div class="num">1</div>
+              <h4>Apply</h4>
+              <p>Submit your application with documents.</p>
+            </div>
+
+            <div class="step {% if form_status in ['approved'] %}completed{% endif %}">
+              <div class="num">2</div>
+              <h4>Verification</h4>
+              <p>Admin checks documents and eligibility.</p>
+            </div>
+
+            <div class="step {% if form_status == 'approved' %}completed{% endif %}">
+              <div class="num">3</div>
+              <h4>Allocation</h4>
+              <p>Room assigned based on rules & vacancy.</p>
+            </div>
+
+            <div class="step {% if form_status == 'approved' %}completed{% endif %}">
+              <div class="num">4</div>
+              <h4>Move In</h4>
+              <p>Complete physical verification & move-in.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="card" style="padding:18px;border-radius:14px">
+          <h3 style="color:#004d66;margin-bottom:12px">Quick Actions</h3>
+          <div class="quick-actions">
+              {% if form_status == 'not_submitted' or form_status == 'rejected'%}
+            <a class="action-btn" href="{{ url_for('hostel_application') }}" style="text-decoration: none;">Apply Form</a>{% endif %}
+            <a class="action-btn ghost" href="{{ url_for('application_status') }}" style="text-decoration: none;">View Status</a>
+            <a class="action-btn" href="{{ url_for('student_complaints') }}" style="text-decoration: none;">Lodge Complaint</a>
+            <a class="action-btn" href="{{ url_for('student_announcements') }}" style="text-decoration: none;">View Notices</a>
+          </div>
+        </div>
+
+        <!-- RECENT APPLICATIONS (admin style card) -->
+        <div class="apps-card">
+          <h3>Recent Applications</h3>
+
+          {% if applications %}
+          <div class="app-item">
+            <div class="app-left">
+              <div class="profile-head"><img src="{{ url_for('static', filename='images/student.jpg') }}" alt="pf"></div>
+
+              <div>
+                <h5>{{ applications.name }}</h5>
+                <p>Dr. Panjabrao Deshmukh Girls Hostel • Applied: {{ applications.date }} • Status: {{ applications.status }}</p>
+              </div>
+            </div>
+            <div>
+                <a href="{{ url_for('application_status') }}"><button class="view-btn">View</button></a>
+            </div>
+          </div>
+          {% else %}
+          <p style="color:#666;padding:10px 0">No recent applications to show.</p>
+          {% endif %}
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <aside class="right-col">
+
+        <!-- PROFILE WIDGET -->
+        <div class="profile-card">
+          <div class="profile-head">
+            <img src="{{ url_for('static', filename='images/student.jpg') }}" alt="pf">
+            <div>
+              <h4>{{ student_name }}</h4>
+              <p>{{ student_branch }} • {{ student_year }}</p>
+            </div>
+          </div>
+
+          <div class="profile-grid">
+            <div><strong>Aadhaar</strong><br>{{ student_aadhar or "-" }}</div>
+            <div><strong>Percentage</strong><br>{{ student_percent or "-" }}%</div>
+            <div><strong>Phone</strong><br>{{ student_phone or "-" }}</div>
+            <div><strong>Email</strong><br>{{ student_email or "-" }}</div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center;justify-content:flex-start">
+              <a href="{{ url_for('profile') }}#documents"><button class="action-btn ghost">View Profile</button></a></a>
+          </div>
+        </div>
+
+        <!-- ROOM CARD (visible only when approved) -->
+        {% if form_status == 'approved' %}
+        <div class="room-card">
+          <h4>Your Room</h4>
+          <div style="font-size:14px;color:#444;">{{ applications.room }}</div>
+          <div class="room-meta" style="margin-top:10px">
+            <span>Dr. Panjabrao Deshmukh Girls Hostel</span>
+            <span>Capacity: 3</span>
+              <span>Floor: {{ ((applications.room | int) // 100) | ordinal }}</span>
+
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- ANNOUNCEMENTS -->
+        <div class="announce">
+          <h4>Latest Announcement</h4>
+          <p>{{ latest_announcement or "No announcements at the moment." }}</p>
+        </div>
+
+        <!-- SMALL FOOTER -->
+        <div class="footer-mini">Hostel Management • Demo Prototype</div>
+      </aside>
+
+    </div>
+  </main>
+
+  <script>
+    /* Small script to animate progress based on form_status */
+    (function(){
+      var status = '{{ form_status }}';
+      var pct = 0;
+      if(status === 'not_submitted') pct = 5;
+      else if(status === 'pending') pct = 45;
+      else if(status === 'approved') pct = 100;
+      else if(status === 'rejected') pct = 20;
+      var bar = document.getElementById('progressBar');
+      if(bar) setTimeout(function(){ bar.style.width = pct + '%'; }, 200);
+    })();
+  </script>
+
+</body>
+</html>

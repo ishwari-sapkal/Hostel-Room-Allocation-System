@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Apply | Hostel Registration</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/instruction.css') }}">
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+<div class="wrapper">
+
+    <h1 class="main-title">Hostel Registration Instructions</h1>
+    <p class="subtitle">Follow these steps carefully before applying for hostel admission</p>
+
+    <div class="steps-container">
+
+        <div class="step-box">
+            <div class="icon">📝</div>
+            <h3>Step 1: Fill Registration Form</h3>
+            <p>Enter your full details correctly including name, mobile number, branch, year and address.</p>
+        </div>
+
+        <div class="step-box">
+            <div class="icon">📄</div>
+            <h3>Step 2: Upload Documents</h3>
+            <p>Upload a clear Aadhaar card copy in JPG/PNG/PDF format while registering.</p>
+        </div>
+
+        <div class="step-box">
+            <div class="icon">⌛</div>
+            <h3>Step 3: Wait for Verification</h3>
+            <p>Your details will be verified by the hostel admin. This may take up to 24 hours.</p>
+        </div>
+
+        <div class="step-box">
+            <div class="icon">🏠</div>
+            <h3>Step 4: Room Allocation</h3>
+            <p>After verification, the admin will allocate a room based on availability.</p>
+        </div>
+
+    </div>
+
+    <div class="button-section">
+        <a href="/register" class="proceed-btn">Proceed to Registration</a>
+    </div>
+
+</div>
+
+{% include "footer.html" %}
+
+</body>
+</html>
+
