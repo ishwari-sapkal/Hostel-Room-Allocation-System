@@ -38,7 +38,7 @@ Hostel-Room-Allocation-System/
 ## ⚙ Installation Steps
 
 1. Clone the repository:
-   git clone https://github.com/your-username/Hostel-Room-Allocation-System.git
+   git clone (https://github.com/ishwari-sapkal/Hostel-Room-Allocation-System.git)
 
 2. Navigate to project folder:
    cd Hostel-Room-Allocation-System
