@@ -1,0 +1,116 @@
+/* GLOBAL */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f5f7fa;
+    font-family: "Poppins", sans-serif;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.admin-header {
+    text-align: center;
+}
+
+.profile-pic {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    border: 3px solid #ffffffaa;
+}
+
+.sidebar nav {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.25s;
+}
+
+.nav-item:hover {
+    background: #016f8a;
+}
+
+.nav-item.active {
+    background: #0185a5;
+}
+
+/* MAIN */
+.main {
+    flex-grow: 1;
+    padding: 30px;
+    margin-left: 250px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e5ea;
+}
+
+/* CARDS */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px #00000010;
+    margin-bottom: 30px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+/* DOCUMENTS */
+.doc-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e5ea;
+}
+
+.view-btn {
+    background: #004d66;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.view-btn:hover {
+    background: #016a85;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    padding: 10px 18px;
+    background: #004d66;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background: #016a85;
+}

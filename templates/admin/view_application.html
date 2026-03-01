@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_application.css') }}">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="admin-header">
+         <img src="static/images/profile_admin.jpg" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item active">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <h1>Application Details</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+                <img src="static/images/profile_admin.jpg" class="profile-pic">
+            </div>
+        </header>
+
+        <div class="main-container">
+
+            <!-- STUDENT INFO CARD -->
+            <div class="card info-card">
+                <h2>Student Information</h2>
+                <div class="info-row">
+                    <p><strong>Name:</strong> Rohan Patil</p>
+                    <p><strong>Gender:</strong> Male</p>
+                </div>
+                <div class="info-row">
+                    <p><strong>Email:</strong> rohan@example.com</p>
+                    <p><strong>Phone:</strong> 9876543210</p>
+                </div>
+                <div class="info-row">
+                    <p><strong>Address:</strong> 123 Main Street, Pune</p>
+                </div>
+            </div>
+
+            <!-- HOSTEL DETAILS -->
+            <div class="card info-card">
+                <h2>Hostel Application Details</h2>
+                <div class="info-row">
+                    <p><strong>Hostel:</strong> FE Boys Hostel</p>
+                    <p><strong>Room Type:</strong> Single Room</p>
+                </div>
+                <div class="info-row">
+                    <p><strong>Applied On:</strong> 20 Nov 2025</p>
+                    <p><strong>Status:</strong> Pending</p>
+                </div>
+            </div>
+
+            <!-- DOCUMENTS CARD -->
+            <div class="card docs-card">
+                <h2>Uploaded Documents</h2>
+                <div class="doc-item">
+                    <span>ID Proof</span>
+                    <a class="view-btn" href="{{ url_for('static', filename='documents/ID_Rohan.pdf') }}" target="_blank">View</a>
+                </div>
+                <div class="doc-item">
+                    <span>Fee Receipt</span>
+                    <a class="view-btn" href="{{ url_for('static', filename='documents/FeeReceipt_Rohan.pdf') }}" target="_blank">View</a>
+                </div>
+                <div class="doc-item">
+                    <span>Admission Receipt</span>
+                    <a class="view-btn" href="{{ url_for('static', filename='documents/Admission_Rohan.pdf') }}" target="_blank">View</a>
+                </div>
+                <div class="doc-item">
+                    <span>Hostel Payment</span>
+                    <a class="view-btn" href="{{ url_for('static', filename='documents/HostelPayment_Rohan.pdf') }}" target="_blank">View</a>
+                </div>
+                <div class="doc-item">
+                    <span>Profile Photo</span>
+                    <a class="view-btn" href="{{ url_for('static', filename='documents/Profile_Rohan.jpg') }}" target="_blank">View</a>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="card action-card">
+                <button class="accept-btn" onclick="showAllocation()">Accept</button>
+                <button class="reject-btn" onclick="showRejectReason()">Reject</button>
+            </div>
+
+            <!-- ALLOCATION RECEIPT (Initially hidden) -->
+            <div class="card allocation-card" id="allocationCard" style="display:none;">
+                <h2>Allocation Receipt</h2>
+                <p>Student: Rohan Patil</p>
+                <p>Room Allotted: Single Room, FE Boys Hostel</p>
+                <a class="download-btn" href="{{ url_for('static', filename='documents/ID_Rohan.pdf') }}" download>Download Receipt</a>
+            </div>
+
+            <!-- REJECT REASON (Initially hidden) -->
+            <div class="card reject-card" id="rejectCard" style="display:none;">
+                <h2>Reject Application</h2>
+                <textarea id="rejectReason" placeholder="Enter reason for rejection..."></textarea>
+                <button class="reject-btn" onclick="submitReject()">Submit</button>
+            </div>
+
+            <a href="{{ url_for('application') }}" class="back-btn">Back to Applications</a>
+
+        </div>
+    </main>
+
+    <script>
+        function showAllocation() {
+            document.getElementById('allocationCard').style.display = 'block';
+            document.getElementById('rejectCard').style.display = 'none';
+        }
+        function showRejectReason() {
+            document.getElementById('rejectCard').style.display = 'block';
+            document.getElementById('allocationCard').style.display = 'none';
+        }
+        function submitReject() {
+            let reason = document.getElementById('rejectReason').value;
+            if(reason.trim() === '') {
+                alert('Please enter a reason!');
+                return;
+            }
+            alert('Application Rejected. Reason: ' + reason);
+            document.getElementById('rejectCard').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

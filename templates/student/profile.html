@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+<body>
+
+<!-- ============= SIDEBAR (unchanged as you said) ============= -->
+<div class="sidebar">
+    <div class="admin-header">
+        <h2>Student Name</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('student_dashboard') }}" class="nav-item">Dashboard</a>
+        <a href="{{ url_for('hostel_application') }}" class="nav-item">Hostel Application</a>
+        <a href="{{ url_for('application_status') }}" class="nav-item">Application Status</a>
+        <a href="{{ url_for('profile') }}" class="nav-item active">Profile</a>
+        <a href="{{ url_for('student_complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('student_announcements') }}" class="nav-item">Announcements</a>
+        <a href="{{ url_for('student_logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</div>
+
+<!-- ================== MAIN PROFILE CONTENT ================== -->
+<div class="main">
+    <h1 class="title">👤 Student Profile</h1>
+    <p class="subtitle">Your personal and academic details</p>
+
+    <div class="profile-card">
+
+        <div class="top-banner">
+            <h2>{{ student.name }}</h2>
+            <p>{{ student.department }} Department</p>
+        </div>
+
+        <div class="profile-grid">
+
+            <div class="field">
+                <label>Full Name</label>
+                <span>{{ student.name }}</span>
+            </div>
+
+            <div class="field">
+                <label>Email</label>
+                <span>{{ student.email }}</span>
+            </div>
+
+            <div class="field">
+                <label>Mobile Number</label>
+                <span>{{ student.phone }}</span>
+            </div>
+
+            <div class="field">
+                <label>Student ID</label>
+                <span>{{ student.student_id }}</span>
+            </div>
+
+            <div class="field">
+                <label>Department</label>
+                <span>{{ student.department }}</span>
+            </div>
+
+            <div class="field">
+                <label>Year</label>
+                <span>{{ student.year }}</span>
+            </div>
+
+            <div class="field">
+                <label>Address</label>
+                <span>{{ student.address }}</span>
+            </div>
+
+            <div class="field">
+                <label>Date of Birth</label>
+                <span>{{ student.dob }}</span>
+            </div>
+
+        </div>
+
+        <button class="edit-btn">✏️ Edit Profile</button>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocation - Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allocation.css') }}">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="admin-header">
+            <img src="static/images/profile_admin.jpg" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item active">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1>Allocated Applications</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+              <img src="static/images/profile_admin.jpg" class="profile-pic">
+            </div>
+        </header>
+
+        <div class="main-container allocation-list">
+
+            <!-- Allocation Entries -->
+            <div class="card app-item">
+                <div>
+                    <h4>Rohan Patil <span class="badge accepted">Accepted</span></h4>
+                    <p>FE Boys Hostel • Single Room • Allocated: 20 Nov 2025</p>
+                </div>
+                <div>
+                    <button class="details-btn" onclick="openModal('Rohan Patil')">View Details</button>
+                    <a href="documents/Rohan_Receipt.pdf" class="download-btn" download>Download Receipt</a>
+                </div>
+            </div>
+
+            <div class="card app-item">
+                <div>
+                    <h4>Anita Sawant <span class="badge accepted">Accepted</span></h4>
+                    <p>SE Girls Hostel • Double Room • Allocated: 18 Nov 2025</p>
+                </div>
+                <div>
+                    <button class="details-btn" onclick="openModal('Anita Sawant')">View Details</button>
+                    <a href="documents/Anita_Receipt.pdf" class="download-btn" download>Download Receipt</a>
+                </div>
+            </div>
+
+            <div class="card app-item">
+                <div>
+                    <h4>Vikas Sharma <span class="badge accepted">Accepted</span></h4>
+                    <p>FE Boys Hostel • Single Room • Allocated: 15 Nov 2025</p>
+                </div>
+                <div>
+                    <button class="details-btn" onclick="openModal('Vikas Sharma')">View Details</button>
+                    <a href="documents/Vikas_Receipt.pdf" class="download-btn" download>Download Receipt</a>
+                </div>
+            </div>
+
+            <!-- Add more entries as needed -->
+
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalName"></h2>
+            <p><strong>Hostel:</strong> FE/SE Hostel Example</p>
+            <p><strong>Room Type:</strong> Single/Double Room</p>
+            <p><strong>Applied On:</strong> 20 Nov 2025</p>
+            <p><strong>Status:</strong> Accepted</p>
+
+            <h3>Uploaded Documents</h3>
+            <ul>
+                <li>ID Proof</li>
+                <li>Fee Receipt</li>
+                <li>Admission Receipt</li>
+                <li>Hostel Payment Receipt</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function openModal(name) {
+            document.getElementById("modalName").innerText = name;
+            document.getElementById("detailsModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("detailsModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById("detailsModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

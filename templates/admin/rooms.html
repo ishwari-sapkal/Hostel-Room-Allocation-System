@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms - Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rooms.css') }}">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="admin-header">
+           <img src="static/images/profile_admin.jpg" class="profile-pic">
+            <h2>Hostel Admin</h2>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+            <a href="{{ url_for('rooms') }}" class="nav-item active">Rooms</a>
+            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1>Rooms</h1>
+            <div class="top-admin">
+                <span>Admin</span>
+               <img src="static/images/profile_admin.jpg" class="profile-pic">
+            </div>
+        </header>
+
+        <div class="main-container">
+
+            <!-- ROOMS GRID -->
+            <div class="rooms-grid">
+
+                <div class="room-card">
+                    <h3>Room 101 <span class="badge occupied">Occupied</span></h3>
+                    <p><strong>Hostel:</strong> Boys Hostel</p>
+                    <p><strong>Type:</strong> Single Room</p>
+                    <p><strong>Capacity:</strong> 1 Student</p>
+                    <p><strong>Allocated Students:</strong> Rohan Patil</p>
+                    <p><strong>Floor:</strong> 1st Floor</p>
+                    <div class="card-buttons">
+                        <button class="view-btn" onclick="viewRoom('Room 101')">View Details</button>
+                        <button class="deallocate-btn">Deallocate Room</button>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <h3>Room 102 <span class="badge available">Available</span></h3>
+                    <p><strong>Hostel:</strong> Boys Hostel</p>
+                    <p><strong>Type:</strong> Single Room</p>
+                    <p><strong>Capacity:</strong> 1 Student</p>
+                    <p><strong>Allocated Students:</strong> -</p>
+                    <p><strong>Floor:</strong> 1st Floor</p>
+                    <div class="card-buttons">
+                        <button class="view-btn" onclick="viewRoom('Room 102')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <h3>Room 201 <span class="badge occupied">Occupied</span></h3>
+                    <p><strong>Hostel:</strong> Girls Hostel</p>
+                    <p><strong>Type:</strong> Double Room</p>
+                    <p><strong>Capacity:</strong> 2 Students</p>
+                    <p><strong>Allocated Students:</strong> Anita Sawant, Sneha Deshmukh</p>
+                    <p><strong>Floor:</strong> 2nd Floor</p>
+                    <div class="card-buttons">
+                        <button class="view-btn" onclick="viewRoom('Room 201')">View Details</button>
+                        <button class="deallocate-btn">Deallocate Room</button>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <h3>Room 202 <span class="badge available">Available</span></h3>
+                    <p><strong>Hostel:</strong> Girls Hostel</p>
+                    <p><strong>Type:</strong> Double Room</p>
+                    <p><strong>Capacity:</strong> 2 Students</p>
+                    <p><strong>Allocated Students:</strong> -</p>
+                    <p><strong>Floor:</strong> 2nd Floor</p>
+                    <div class="card-buttons">
+                        <button class="view-btn" onclick="viewRoom('Room 202')">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Add more rooms as needed -->
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Room Details -->
+    <div id="roomModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalRoomName"></h2>
+            <p><strong>Hostel:</strong> Example Hostel</p>
+            <p><strong>Room Type:</strong> Single/Double</p>
+            <p><strong>Status:</strong> Occupied/Available</p>
+            <p><strong>Capacity:</strong> 1/2 Students</p>
+            <p><strong>Allocated Students:</strong> Student Names</p>
+            <p><strong>Floor:</strong> Example Floor</p>
+        </div>
+    </div>
+
+    <script>
+        function viewRoom(roomName){
+            document.getElementById("modalRoomName").innerText = roomName;
+            document.getElementById("roomModal").style.display = "block";
+        }
+
+        function closeModal(){
+            document.getElementById("roomModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById("roomModal");
+            if(event.target == modal){
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

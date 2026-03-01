@@ -1,0 +1,136 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* NAVBAR */
+.navbar{
+    width:100%;
+    background:#004d66;
+    padding:12px 20px;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.navbar .logo{
+    width:40px;
+    margin-right:10px;
+}
+
+.navbar .title{
+    font-size:18px;
+    font-weight:500;
+}
+
+/* WRAPPER */
+.container{
+    display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:230px;
+    background:#002d3d;
+    height:100vh;
+    padding-top:20px;
+}
+
+.sidebar a{
+    display:block;
+    padding:14px 20px;
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    border-left:4px solid transparent;
+}
+
+.sidebar a:hover,
+.sidebar .active{
+    background:#003f52;
+    border-left:4px solid #00c2ff;
+     color: white;
+    font-weight: 600;
+}
+
+/* CONTENT */
+.content{
+    flex:1;
+    padding:30px;
+    background:#f5f8fc;
+}
+
+.page-title{
+    font-size:26px;
+    margin-bottom:25px;
+    font-weight:600;
+}
+
+.form-box{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* HEADINGS */
+.section-title{
+    background:#004d66;
+    padding:8px;
+    color:white;
+    margin:18px 0;
+    font-size:17px;
+    border-radius:4px;
+}
+
+/* FORM */
+.form-group{
+    margin-bottom:15px;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #bfbfbf;
+    border-radius:4px;
+}
+
+textarea{
+    height:80px;
+}
+
+/* GRID */
+.half{display:flex; gap:20px;}
+.half .form-group{flex:1;}
+
+.three{display:flex; gap:20px;}
+.three .form-group{flex:1;}
+
+/* BUTTONS */
+.form-actions{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+.cancel{
+    background:#666;
+    padding:10px 20px;
+    border:none;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.submit{
+    background:#004d66;
+    padding:10px 20px;
+    border:none;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}

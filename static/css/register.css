@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #f8fbff, #e8eff7);
+}
+
+/* Container Card */
+.container {
+    width: 70%;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    animation: fadeInUp 0.6s ease;
+}
+
+.title {
+    text-align: center;
+    font-size: 28px;
+    color: #234a91;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Inputs */
+.form .input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+    font-weight: 600;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid #cbd6e2;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #234a91;
+    box-shadow: 0 0 6px rgba(35, 74, 145, 0.3);
+}
+
+/* Button */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #234a91;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #1c3a70;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0px); opacity: 1; }
+}

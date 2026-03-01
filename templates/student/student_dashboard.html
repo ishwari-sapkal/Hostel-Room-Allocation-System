@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="../static/css/student_dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="left">
+        <img src="/static/images/dr.pd.jpg" class="logo">
+        <span class="title">Dr. Panjabrao Deshmukh Polytechnic Hostel</span>
+    </div>
+
+    <div class="right">
+        <i class="fa-solid fa-user"></i> Account
+    </div>
+</header>
+
+<!-- Dashboard Layout -->
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+    <a href="{{ url_for('student_dashboard') }}" class="active">
+        <i class="fa-solid fa-gauge"></i> Dashboard
+    </a>
+
+    <a href="{{ url_for('apply_for_room') }}">
+        <i class="fa-solid fa-building"></i> Apply for a Room
+    </a>
+
+    <a href="{{ url_for('application_status') }}">
+        <i class="fa-solid fa-clipboard-check"></i> Application Status
+    </a>
+
+    <a href="{{ url_for('room_details') }}">
+        <i class="fa-solid fa-bed"></i> Room Details
+    </a>
+
+    <a href="{{ url_for('student_announcements') }}">
+        <i class="fa-solid fa-bell"></i> Announcements
+    </a>
+
+    <a href="{{ url_for('student_complaints') }}">
+        <i class="fa-solid fa-bullhorn"></i> Complaints
+    </a>
+
+    <a href="{{ url_for('profile') }}">
+        <i class="fa-solid fa-user"></i> My Profile
+    </a>
+
+    <a href="{{ url_for('student_logout') }}">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+</aside>
+
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="content">
+        <h2 class="page-title">Welcome, Tanvi</h2>
+        <p>Registration No: 2025XYZ</p>
+
+        <!-- Room Status Alert -->
+        <div class="alert-box animate-fade">
+            <i class="fa-solid fa-exclamation-triangle"></i> Room allocation is not done yet. Please check back later or contact the warden.
+        </div>
+
+        <!-- Quick Info Cards -->
+        <div class="cards">
+            <div class="card animate-fade card-hover">
+                <i class="fa-solid fa-bed fa-2x card-icon"></i>
+                <h4>Room Details</h4>
+                <p>Room No: Not Assigned</p>
+            </div>
+
+            <div class="card animate-fade card-hover">
+                <i class="fa-solid fa-graduation-cap fa-2x card-icon"></i>
+                <h4>Course</h4>
+                <p>CO1K</p>
+            </div>
+
+            <div class="card animate-fade card-hover">
+                <i class="fa-solid fa-calendar-days fa-2x card-icon"></i>
+                <h4>Application Date</h4>
+                <p>15 Nov 2025</p>
+            </div>
+
+            <div class="card animate-fade card-hover">
+                <i class="fa-solid fa-wallet fa-2x card-icon"></i>
+                <h4>Fees Status</h4>
+                <p>Pending Room Allocation</p>
+            </div>
+
+            <div class="card animate-fade card-hover">
+                <i class="fa-solid fa-utensils fa-2x card-icon"></i>
+                <h4>Food Plan</h4>
+                <p>Not Selected</p>
+            </div>
+
+            <div class="card animate-fade card-hover">
+                <i class="fa-solid fa-bell fa-2x card-icon"></i>
+                <h4>Notifications</h4>
+                <p>No new notices</p>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="action-btn animate-fade"><i class="fa-solid fa-building"></i> Book Hostel</button>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

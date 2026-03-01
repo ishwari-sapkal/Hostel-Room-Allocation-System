@@ -1,0 +1,224 @@
+/* GLOBAL STYLING */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* NAVBAR */
+.navbar{
+    width:100%;
+    background:#004d66;
+    padding:12px 20px;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.navbar .logo{
+    width:40px;
+    margin-right:10px;
+}
+
+.navbar .title{
+    font-size:18px;
+    font-weight:500;
+}
+
+/* CONTAINER WRAPPER */
+.container{
+    display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:230px;
+    background:#002d3d;
+    height:100vh;
+    padding-top:20px;
+}
+
+.sidebar a{
+    display:block;
+    padding:14px 20px;
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    border-left:4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sidebar a:hover,
+.sidebar .active{
+    background:#003f52;
+    border-left:4px solid #00c2ff;
+     color: white;
+    font-weight: 600;
+}
+
+/* CONTENT */
+.content{
+    flex:1;
+    padding:30px;
+    background:#f5f8fc;
+    min-height:100vh;
+    animation: fadeIn 0.8s ease;
+}
+
+.page-title{
+    font-size:26px;
+    margin-bottom:25px;
+    font-weight:600;
+}
+
+/* FORM & CARD BASE STYLING */
+.form-box, .profile-card, .room-card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.1);
+    margin-bottom:25px;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* SECTION HEADINGS */
+.section-title{
+    background:#004d66;
+    padding:8px;
+    color:white;
+    margin:18px 0;
+    font-size:17px;
+    border-radius:4px;
+}
+
+/* FORM FIELDS */
+.form-group{
+    margin-bottom:15px;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #bfbfbf;
+    border-radius:4px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus{
+    border-color:#00c2ff;
+    box-shadow:0 0 5px rgba(0,194,255,0.3);
+    outline:none;
+}
+
+textarea{
+    height:80px;
+}
+
+/* GRID */
+.half{display:flex; gap:20px;}
+.half .form-group{flex:1;}
+
+.three{display:flex; gap:20px;}
+.three .form-group{flex:1;}
+
+/* BUTTONS */
+.form-actions{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+.cancel{
+    background:#666;
+    padding:10px 20px;
+    border:none;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+    transition: 0.3s;
+}
+
+.cancel:hover{
+    background:#555;
+}
+
+.submit{
+    background:#004d66;
+    padding:10px 20px;
+    border:none;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+    transition: 0.3s;
+}
+
+.submit:hover{
+    background:#006699;
+}
+
+/* ROOM DETAILS SPECIFIC */
+.room-card h2{
+    margin-bottom:5px;
+}
+
+.sub-text{
+    color:#555;
+    margin-bottom:20px;
+}
+
+.info-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.info-row{
+    flex:1 1 200px;
+    background:#e6f2ff;
+    padding:12px 15px;
+    border-radius:8px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition: background 3s ease-in-out infinite;
+    animation: lightBlueFade 5s ease-in-out infinite alternate;
+}
+
+.info-row span{
+    font-weight:500;
+}
+
+.info-row p{
+    font-weight:600;
+}
+
+/* MY PROFILE SPECIFIC */
+.profile-card h3{
+    margin-bottom:10px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp{
+    0%{opacity:0; transform:translateY(20px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeIn{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+
+@keyframes lightBlueFade{
+    0%{background-color:#e6f2ff;}
+    50%{background-color:#d0e8ff;}
+    100%{background-color:#e6f2ff;}
+}
+
+/* ICONS SPACING */
+.info-row i{
+    margin-right:8px;
+    color:#004d66;
+}
