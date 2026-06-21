@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rector Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rector_attendance.css') }}">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Rector</h2>
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('rector_dashboard') }}" class="nav-item {% if active=='dashboard' %}active{% endif %}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('rector_complaints') }}" class="nav-item {% if active=='complaints' %}active{% endif %}">
+            Complaints
+        </a>
+
+        <a href="{{ url_for('rector_attendance') }}" class="nav-item active">
+            Attendance
+        </a>
+
+        <a href="{{ url_for('rector_announcements') }}" class="nav-item {% if active=='announcements' %}active{% endif %}">
+            Announcements
+        </a>
+
+        <a href="{{ url_for('rector_contact') }}" class="nav-item {% if active=='contact' %}active{% endif %}">Contact Messages</a>
+        <a href="{{ url_for('rector_logout') }}" class="nav-item logout">
+            Logout
+        </a>
+
+    </nav>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+    <div class="container">
+
+        <div class="topbar">
+            <h1>Hostel Gate Attendance</h1>
+        </div>
+
+        <!-- EXIT / RETURN FORM -->
+
+        <div class="card">
+
+            <h2>Mark Student Exit / Return</h2>
+
+            <form action="{{ url_for('rector_attendance') }}" method="POST">
+
+                <div class="form-group">
+
+                    <select name="student_email" required>
+
+                        <option value="">Select Student</option>
+
+                        {% for student in students %}
+
+                        <option value="{{ student.email }}">{{ student.name }}</option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="btn-group">
+
+                    <button type="submit" name="action" value="OUT" class="btn-out">
+                        Mark Exit
+                    </button>
+
+                    <button type="submit" name="action" value="IN" class="btn-in">
+                        Mark Return
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- STUDENTS CURRENTLY OUTSIDE -->
+
+        <div class="card">
+
+            <h2>Students Currently Outside Hostel</h2>
+
+            <table>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Exit Time</th>
+                </tr>
+
+                {% if outside_students and outside_students|length > 0 %}
+
+                {% for s in outside_students %}
+
+                <tr>
+                    <td>{{ s.student_name|default('-') }}</td>
+                    <td>{{ s.student_email|default('-') }}</td>
+                    <td>{{ s.out_time|default('-') }}</td>
+                </tr>
+
+                {% endfor %}
+
+                {% else %}
+
+                <tr>
+                    <td colspan="3" style="text-align:center;">No students currently outside</td>
+                </tr>
+
+                {% endif %}
+
+            </table>
+
+        </div>
+
+        <!-- TODAY ATTENDANCE -->
+
+        <div class="card">
+
+            <h2>Today's Attendance</h2>
+
+            <table>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Exit Time</th>
+                    <th>Return Time</th>
+                    <th>Status</th>
+                </tr>
+
+                {% if today_entries and today_entries|length > 0 %}
+
+                {% for a in today_entries %}
+
+                <tr>
+
+                    <td>{{ a.student_name|default('-') }}</td>
+
+                    <td>{{ a.student_email|default('-') }}</td>
+
+                    <td>{{ a.out_time|default('-') }}</td>
+
+                    <td>
+                        {% if a.in_time %}
+                        {{ a.in_time }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+
+                    <td>{{ a.status|default('Outside') }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+                {% else %}
+
+                <tr>
+                    <td colspan="5" style="text-align:center;">No attendance records today</td>
+                </tr>
+
+                {% endif %}
+
+            </table>
+
+        </div>
+
+        <!-- ATTENDANCE HISTORY -->
+
+        <div class="card">
+
+            <h2>Attendance History</h2>
+
+            <table>
+
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Exit Time</th>
+                    <th>Return Time</th>
+                    <th>Status</th>
+                </tr>
+
+                {% if all_entries and all_entries|length > 0 %}
+
+                {% for a in all_entries %}
+
+                <tr>
+
+                    <td>{{ a.date|default('-') }}</td>
+
+                    <td>{{ a.student_name|default('-') }}</td>
+
+                    <td>{{ a.student_email|default('-') }}</td>
+
+                    <td>{{ a.out_time|default('-') }}</td>
+
+                    <td>
+                        {% if a.in_time %}
+                        {{ a.in_time }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+
+                    <td>{{ a.status|default('-') }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+                {% else %}
+
+                <tr>
+                    <td colspan="6" style="text-align:center;">No attendance history available</td>
+                </tr>
+
+                {% endif %}
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

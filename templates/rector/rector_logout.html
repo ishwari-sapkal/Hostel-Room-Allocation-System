@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rector Logout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rector_logout.css') }}">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Rector</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('rector_dashboard') }}" class="nav-item {% if active=='dashboard' %}active{% endif %}">Dashboard</a>
+        <a href="{{ url_for('rector_complaints') }}" class="nav-item {% if active=='complaints' %}active{% endif %}">Complaints</a>
+        <a href="{{ url_for('rector_attendance') }}" class="nav-item {% if active=='attendance' %}active{% endif %}">Attendance</a>
+        <a href="{{ url_for('rector_announcements') }}" class="nav-item {% if active=='announcements' %}active{% endif %}">Announcements</a>
+        <a href="{{ url_for('rector_contact') }}" class="nav-item {% if active=='contact' %}active{% endif %}">Contact Messages</a>
+        <a href="{{ url_for('rector_logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+
+<main class="main">
+
+    <div class="card" style="max-width:450px;margin:auto;text-align:center;">
+
+        <h2>Confirm Logout</h2>
+
+        <p>Are you sure you want to logout?</p>
+
+        <div style="margin-top:20px;">
+
+            <a href="{{ url_for('rector_logout_success') }}" class="btn-out" style="text-decoration:none;padding:10px 20px;">
+                Logout
+            </a>
+
+            <a href="{{ url_for('rector_dashboard') }}" class="btn-in" style="text-decoration:none;padding:10px 20px;margin-left:10px;">
+                Cancel
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
+

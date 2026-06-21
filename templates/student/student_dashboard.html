@@ -1,121 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Student Dashboard</title>
-    <link rel="stylesheet" href="../static/css/student_dashboard.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/student_dashboard.css') }}">
+
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-    <div class="left">
-        <img src="/static/images/dr.pd.jpg" class="logo">
-        <span class="title">Dr. Panjabrao Deshmukh Polytechnic Hostel</span>
-    </div>
+<!-- SIDEBAR -->
 
-    <div class="right">
-        <i class="fa-solid fa-user"></i> Account
-    </div>
-</header>
+<aside class="sidebar">
 
-<!-- Dashboard Layout -->
-<div class="container">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-    <a href="{{ url_for('student_dashboard') }}" class="active">
-        <i class="fa-solid fa-gauge"></i> Dashboard
+  <div class="admin-header">
+    <a href="{{ url_for('profile') }}" class="profile-link">
+      <img src="{{ url_for('profile_photo', email=student_email) }}" class="profile-pic">
     </a>
+    <h2>{{ student_name }}</h2>
+  </div>
 
-    <a href="{{ url_for('apply_for_room') }}">
-        <i class="fa-solid fa-building"></i> Apply for a Room
-    </a>
+  <nav>
 
-    <a href="{{ url_for('application_status') }}">
-        <i class="fa-solid fa-clipboard-check"></i> Application Status
-    </a>
+    <a class="nav-item active" href="{{ url_for('student_dashboard') }}">Dashboard</a>
 
-    <a href="{{ url_for('room_details') }}">
-        <i class="fa-solid fa-bed"></i> Room Details
-    </a>
+    <a class="nav-item" href="{{ url_for('hostel_application') }}">Hostel Application</a>
 
-    <a href="{{ url_for('student_announcements') }}">
-        <i class="fa-solid fa-bell"></i> Announcements
-    </a>
 
-    <a href="{{ url_for('student_complaints') }}">
-        <i class="fa-solid fa-bullhorn"></i> Complaints
-    </a>
+    <a class="nav-item" href="{{ url_for('application_status') }}">Application Status</a>
 
-    <a href="{{ url_for('profile') }}">
-        <i class="fa-solid fa-user"></i> My Profile
-    </a>
+    <a class="nav-item" href="{{ url_for('student_complaints') }}">Complaints</a>
 
-    <a href="{{ url_for('student_logout') }}">
-        <i class="fa-solid fa-right-from-bracket"></i> Logout
-    </a>
+    <a class="nav-item" href="{{ url_for('student_announcements') }}">Announcements</a>
+
+    <a class="nav-item logout" href="{{ url_for('student_logout') }}">Logout</a>
+
+  </nav>
+
 </aside>
 
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="content">
-        <h2 class="page-title">Welcome, Tanvi</h2>
-        <p>Registration No: 2025XYZ</p>
 
-        <!-- Room Status Alert -->
-        <div class="alert-box animate-fade">
-            <i class="fa-solid fa-exclamation-triangle"></i> Room allocation is not done yet. Please check back later or contact the warden.
+<!-- MAIN CONTENT -->
+
+<main class="main">
+
+  <header class="topbar">
+    <h1>Student Dashboard</h1>
+  </header>
+
+
+  <div class="dashboard-grid">
+
+
+    <!-- LEFT SECTION -->
+
+    <div class="left-section">
+
+      <!-- APPLICATION JOURNEY -->
+
+      <div class="card journey">
+
+        <h3>Application Journey</h3>
+
+        <div class="progress">
+          <span id="progressBar"></span>
         </div>
 
-        <!-- Quick Info Cards -->
-        <div class="cards">
-            <div class="card animate-fade card-hover">
-                <i class="fa-solid fa-bed fa-2x card-icon"></i>
-                <h4>Room Details</h4>
-                <p>Room No: Not Assigned</p>
-            </div>
+        <div class="steps">
 
-            <div class="card animate-fade card-hover">
-                <i class="fa-solid fa-graduation-cap fa-2x card-icon"></i>
-                <h4>Course</h4>
-                <p>CO1K</p>
-            </div>
+          <div class="step {% if form_status in ['pending','approved'] %}completed{% endif %}">
+            <div class="num">1</div>
+            <h4>Apply</h4>
+            <p>Submit hostel application</p>
+          </div>
 
-            <div class="card animate-fade card-hover">
-                <i class="fa-solid fa-calendar-days fa-2x card-icon"></i>
-                <h4>Application Date</h4>
-                <p>15 Nov 2025</p>
-            </div>
+          <div class="step {% if form_status == 'approved' %}completed{% endif %}">
+            <div class="num">2</div>
+            <h4>Verification</h4>
+            <p>Admin verifies documents</p>
+          </div>
 
-            <div class="card animate-fade card-hover">
-                <i class="fa-solid fa-wallet fa-2x card-icon"></i>
-                <h4>Fees Status</h4>
-                <p>Pending Room Allocation</p>
-            </div>
+          <div class="step {% if form_status == 'approved' %}completed{% endif %}">
+            <div class="num">3</div>
+            <h4>Allocation</h4>
+            <p>Room assigned</p>
+          </div>
 
-            <div class="card animate-fade card-hover">
-                <i class="fa-solid fa-utensils fa-2x card-icon"></i>
-                <h4>Food Plan</h4>
-                <p>Not Selected</p>
-            </div>
+          <div class="step {% if form_status == 'approved' %}completed{% endif %}">
+            <div class="num">4</div>
+            <h4>Move In</h4>
+            <p>Student moves to hostel</p>
+          </div>
 
-            <div class="card animate-fade card-hover">
-                <i class="fa-solid fa-bell fa-2x card-icon"></i>
-                <h4>Notifications</h4>
-                <p>No new notices</p>
-            </div>
         </div>
 
-        <!-- Quick Actions -->
+      </div>
+
+
+      <!-- PROFILE -->
+
+      <div class="card profile-card">
+
+        <h3>Student Profile</h3>
+
+        <p><b>Name:</b> {{ student_name }}</p>
+        <p><b>Branch:</b> {{ student_branch }}</p>
+        <p><b>Year:</b> {{ student_year }}</p>
+        <p><b>Email:</b> {{ student_email }}</p>
+        <p><b>Phone:</b> {{ student_phone }}</p>
+        <p><b>Aadhar:</b> {{ student_aadhar }}</p>
+        <p><b>Percentage:</b> {{ student_percent }}%</p>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- RIGHT SECTION -->
+
+    <div class="right-section">
+
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+        <div class="stat-card">
+          <h4>Application</h4>
+          <p>
+
+            {% if form_status == 'not_submitted' %}
+            Not Submitted
+            {% elif form_status == 'pending' %}
+            Pending
+            {% elif form_status == 'approved' %}
+            Approved
+            {% else %}
+            Rejected
+            {% endif %}
+
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <h4>Room Status</h4>
+
+          <p>
+            {% if room != "not_assigned" %}
+            Allocated
+            {% else %}
+            Not Allocated
+            {% endif %}
+          </p>
+
+        </div>
+
+        <div class="stat-card">
+          <h4>Hostel</h4>
+
+          <p>
+            {% if room != "not_assigned" %}
+            Allocated
+            {% else %}
+            Not Allocated
+            {% endif %}
+          </p>
+
+        </div>
+
+        <div class="stat-card">
+          <h4>Announcements</h4>
+          <p>{{ latest_announcement and "New" or "None" }}</p>
+        </div>
+
+      </div>
+
+
+
+      <!-- QUICK ACTIONS -->
+
+      <div class="card quick">
+
+        <h3>Quick Actions</h3>
+
         <div class="quick-actions">
-            <button class="action-btn animate-fade"><i class="fa-solid fa-building"></i> Book Hostel</button>
+
+          {% if form_status in ['not_submitted','rejected'] %}
+          <a href="{{ url_for('hostel_application') }}" class="action-btn">Apply Form</a>
+          {% endif %}
+
+          <a href="{{ url_for('application_status') }}" class="action-btn">View Status</a>
+
+          <a href="{{ url_for('student_complaints') }}" class="action-btn">Lodge Complaint</a>
+
+          <a href="{{ url_for('student_announcements') }}" class="action-btn">View Notices</a>
+
         </div>
 
-    </main>
-</div>
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<script>
+  var status = "{{ form_status }}";
+  var percent = 0;
+
+  if(status=="not_submitted"){percent=10;}
+  else if(status=="pending"){percent=45;}
+  else if(status=="approved"){percent=100;}
+  else if(status=="rejected"){percent=20;}
+
+  document.getElementById("progressBar").style.width = percent + "%";
+</script>
 
 </body>
 </html>

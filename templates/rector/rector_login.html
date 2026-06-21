@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rector Login - Girls Hostel</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#f4f6f9;
+        }
+
+        .container{
+            width:1200px;
+            height:650px;
+            display:flex;
+            background:#fff;
+            border-radius:18px;
+            box-shadow:0 15px 40px rgba(0,0,0,0.08);
+            overflow:hidden;
+        }
+
+        /* LEFT SIDE */
+        .left-side{
+            width:50%;
+            background:#005f73;
+            color:#fff;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            padding:60px;
+        }
+
+        .left-side img{
+            width:140px;
+            height:140px;
+            border-radius:50%;
+            border:6px solid #ffffff;
+            object-fit:cover;
+            margin-bottom:25px;
+        }
+
+        .left-side h2{
+            font-size:28px;
+            margin-bottom:20px;
+        }
+
+        .left-side p{
+            font-size:15px;
+            line-height:1.8;
+            max-width:380px;
+            opacity:0.95;
+        }
+
+        /* RIGHT SIDE */
+        .right-side{
+            width:50%;
+            padding:70px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+
+        .right-side h2{
+            font-size:30px;
+            color:#005f73;
+            margin-bottom:55px;
+            position:relative;
+        }
+
+        .right-side h2::after{
+            content:"";
+            position:absolute;
+            left:0;
+            bottom:-8px;
+            width:50px;
+            height:4px;
+            background:#005f73;
+            border-radius:3px;
+        }
+
+        .input-group{
+            margin-bottom:25px;
+        }
+
+        .input-group label{
+            font-size:15px;
+            font-weight:500;
+            margin-bottom:8px;
+            display:block;
+        }
+
+        .input-group input{
+            width:100%;
+            padding:13px 14px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:15px;
+            transition:0.3s;
+        }
+
+        .input-group input:focus{
+            border-color:#005f73;
+            outline:none;
+            box-shadow:0 0 0 3px rgba(0,95,115,0.12);
+        }
+
+        .login-btn{
+            width:100%;
+            padding:14px;
+            background:#005f73;
+            color:#fff;
+            border:none;
+            border-radius:8px;
+            font-size:16px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.3s;
+            margin-top:10px;
+        }
+
+        .login-btn:hover{
+            background:#004c5c;
+        }
+
+        .note{
+            margin-top:20px;
+            font-size:14px;
+            color:#666;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT PANEL -->
+    <div class="left-side">
+        <img src="{{ url_for('static', filename='images/dr.pd.jpg') }}" alt="College Logo">
+
+        <h2>Rector Control Panel</h2>
+
+        <p>
+            Authorized access for Hostel Rector.
+            Monitor hostel discipline, manage complaints,
+            supervise operations, and ensure smooth
+            administration of the girls hostel.
+        </p>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-side">
+
+        <h2>Rector Login</h2>
+
+        <form method="POST" action="/rector_login">
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter rector email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Login to Dashboard
+            </button>
+
+            <p class="note">
+                Access restricted to authorized Rector only.
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

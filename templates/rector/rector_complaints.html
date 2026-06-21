@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Rector Complaints</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rector_complaints.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Rector</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('rector_dashboard') }}" class="nav-item {% if active=='dashboard' %}active{% endif %}">Dashboard</a>
+        <a href="{{ url_for('rector_complaints') }}" class="nav-item {% if active=='complaints' %}active{% endif %}">Complaints</a>
+        <a href="{{ url_for('rector_attendance') }}" class="nav-item {% if active=='attendance' %}active{% endif %}">Attendance</a>
+        <a href="{{ url_for('rector_announcements') }}" class="nav-item {% if active=='announcements' %}active{% endif %}">Announcements</a>
+        <a href="{{ url_for('rector_contact') }}" class="nav-item {% if active=='contact' %}active{% endif %}">Contact Messages</a>
+        <a href="{{ url_for('rector_logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</aside>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <h1 class="page-title">Student Complaints</h1>
+
+    <div class="complaints-container">
+
+        {% for comp in complaints %}
+
+        <div class="complaint-card">
+
+            <div class="complaint-info">
+
+                <p><strong>Student Email :</strong> {{ comp.student_email }}</p>
+
+                <p><strong>Student Name :</strong> {{ comp.student_name }}</p>
+
+                <p><strong>Room :</strong> {{ comp.room_no }}</p>
+
+                <p><strong>Complaint Type :</strong> {{ comp.complaint_type }}</p>
+
+                <p><strong>Message :</strong> {{ comp.message }}</p>
+
+                <p><strong>Date :</strong> {{ comp.date }} | {{ comp.time }}</p>
+
+                <p class="status {{ comp.status|lower }}">
+                    <strong>Status :</strong> {{ comp.status }}
+                </p>
+
+            </div>
+
+
+            <div class="actions">
+
+                {% if comp.status != "resolved" %}
+
+                <form action="/resolve_complaint/{{ comp._id }}" method="POST">
+                    <button class="resolve-btn">Resolve</button>
+                </form>
+
+                <form action="/forward_complaint/{{ comp._id }}" method="POST">
+                    <button class="forward-btn">Forward</button>
+                </form>
+
+                {% else %}
+
+                <span class="resolved-label">Resolved</span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

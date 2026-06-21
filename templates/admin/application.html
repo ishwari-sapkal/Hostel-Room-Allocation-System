@@ -1,118 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Applications - Admin Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
 </head>
+
 <body>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="admin-header">
-         <img src="static/images/profile_admin.jpg" class="profile-pic">
-            <h2>Hostel Admin</h2>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Admin</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-item {% if active=='dashboard' %}active{% endif %}">Dashboard</a>
+        <a href="{{ url_for('application') }}" class="nav-item {% if active=='application' %}active{% endif %}">Applications</a>
+        <a href="{{ url_for('verify_documents') }}" class="nav-item {% if active=='verify' %}active{% endif %}">Document Verification</a>
+        <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+        <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+        <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+        <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+        <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <header class="topbar">
+        <h1>Applications</h1>
+        <div class="top-admin">
+            <span>Admin</span>
+            <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Applications</h3>
+                <p>{{ total }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <p>{{ pending }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Approved</h3>
+                <p>{{ approved }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Rejected</h3>
+                <p>{{ rejected }}</p>
+            </div>
         </div>
 
-        <nav>
-            <a href="{{ url_for('admin_dashboard') }}" class="nav-item {% if active=='dashboard' %}active{% endif %}">Dashboard</a>
-            <a href="{{ url_for('application') }}" class="nav-item {% if active=='application' %}active{% endif %}">Applications</a>
-            <a href="{{ url_for('allocation') }}" class="nav-item {% if active=='allocation' %}active{% endif %}">Allocation</a>
-            <a href="{{ url_for('rooms') }}" class="nav-item {% if active=='rooms' %}active{% endif %}">Rooms</a>
-            <a href="{{ url_for('complaints') }}" class="nav-item {% if active=='complaints' %}active{% endif %}">Complaints</a>
-            <a href="{{ url_for('announcements') }}" class="nav-item {% if active=='announcements' %}active{% endif %}">Announcements</a>
-            <a href="{{ url_for('reports') }}" class="nav-item {% if active=='reports' %}active{% endif %}">Reports</a>
-            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
-        </nav>
-    </aside>
+        <!-- APPROVED -->
+        <div class="card apps-card" style="margin-top:30px;">
+            <h2>Approved Students</h2>
 
-    <!-- MAIN CONTENT -->
-    <main class="main">
-
-        <!-- TOPBAR -->
-        <header class="topbar">
-            <h1>Applications</h1>
-            <div class="top-admin">
-                <span>Admin</span>
-                <img src="static/images/profile_admin.jpg" class="profile-pic">
+            {% if approved_students %}
+            {% for a in approved_students %}
+            <div class="approved-item">
+                <span class="approved-name">{{ a.name }}</span>
+                <span class="percent-badge">{{ a.percent }}%</span>
             </div>
-        </header>
+            {% endfor %}
+            {% else %}
+            <p>No approved students yet.</p>
+            {% endif %}
+        </div>
 
-        <div class="main-container">
+        <!-- MERIT LIST -->
+        <!-- MERIT LIST -->
+        <div class="card apps-card" style="margin-top:30px;">
+            <h2>Merit Selected Students</h2>
 
-            <!-- STATS CARDS -->
-            <div class="stats">
-                <div class="stat-card">
-                    <h3>Total Applications</h3>
-                    <p>120</p>
+            {% if merit_students %}
+            {% for a in merit_students %}
+            <div class="merit-item">
+                <div class="merit-left">
+                    <span class="merit-name">{{ a.name }}</span>
+                    <span class="merit-info">{{ a.branch }} • {{ a.year }}</span>
                 </div>
-
-                <div class="stat-card">
-                    <h3>Pending</h3>
-                    <p>45</p>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Approved</h3>
-                    <p>60</p>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Rejected</h3>
-                    <p>15</p>
-                </div>
+                <span class="percent-badge">{{ a.percent }}%</span>
             </div>
+            {% endfor %}
+            {% else %}
+            <p>No students in merit list yet.</p>
+            {% endif %}
+        </div>
 
-            <!-- APPLICATION LIST -->
-            <div class="card apps-card" style="margin-top: 35px;">
-                <h2>Recent Applications</h2>
+        <!-- APPLICATION LIST -->
+        <div class="card apps-card" style="margin-top:35px;">
 
-                <div class="app-item">
-                    <div>
-                        <h4>Rohan Patil</h4>
-                        <p>FE Boys Hostel • Single Room • Applied: 20 Nov 2025 • Status: Pending</p>
-                    </div>
-                   <a href="{{ url_for('view_application', app_id=1) }}" class="view-btn">View</a>
+            <form action="{{ url_for('generate_merit') }}" method="POST">
+
+                <div class="apps-header">
+                    <h2>New Applications (Not in Merit List)</h2>
+                    <button type="submit" class="merit-btn">
+                        Generate Merit List
+                    </button>
                 </div>
 
-                <div class="app-item">
-                    <div>
-                        <h4>Anita Sawant</h4>
-                        <p>SE Girls Hostel • Double Room • Applied: 18 Nov 2025 • Status: Approved</p>
+                <!-- CONTROLS -->
+                <div class="select-controls">
+
+                    <label>
+                        <input type="checkbox" id="selectAll">
+                        Select All
+                    </label>
+
+                    <label>
+                        Top Students:
+                        <input type="number" id="topCount" placeholder="10">
+                    </label>
+
+                    <button type="button" onclick="selectTopStudents()">Select</button>
+
+                    <div class="count-box">
+                        Selected: <span id="selectedCount">0</span>
                     </div>
-                   <a href="{{ url_for('view_application', app_id=2) }}" class="view-btn">View</a>
+
                 </div>
 
-                <div class="app-item">
-                    <div>
-                        <h4>Vikas Sharma</h4>
-                        <p>FE Boys Hostel • Single Room • Applied: 15 Nov 2025 • Status: Pending</p>
+                <!-- APPLICATIONS -->
+                <div id="applicationsList">
+
+                    {% for a in apps %}
+                    {% if a.merit_selected != true %}
+
+                    <div class="app-item" data-percent="{{ a.percent }}">
+
+                        <div class="app-left">
+
+                            <input
+                                    type="checkbox"
+                                    class="studentCheckbox"
+                                    name="students"
+                                    value="{{ a._id }}"
+                            >
+
+                            <div class="app-content">
+
+                                <h4>{{ a.name }}</h4>
+
+                                <p>
+                                    Branch: {{ a.branch }} •
+                                    Year: {{ a.year }} •
+                                    Status: {{ a.status|capitalize }}
+                                </p>
+
+                                <p class="email">
+                                    Email: {{ a.email }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <span class="percent-badge">
+                            {{ a.percent }}%
+                        </span>
+
                     </div>
-                    <a href="{{ url_for('view_application', app_id=3) }}" class="view-btn">View</a>
+
+                    {% endif %}
+                    {% endfor %}
+
                 </div>
 
-                <div class="app-item">
-                    <div>
-                        <h4>Sneha Deshmukh</h4>
-                        <p>TE Girls Hostel • Single Room • Applied: 12 Nov 2025 • Status: Rejected</p>
-                    </div>
-                    <a href="{{ url_for('view_application', app_id=4) }}" class="view-btn">View</a>
-                 </div>
+            </form>
 
-                <div class="app-item">
-                    <div>
-                        <h4>Rahul Deshpande</h4>
-                        <p>SE Boys Hostel • Double Room • Applied: 10 Nov 2025 • Status: Approved</p>
-                    </div>
-                    <a href="{{ url_for('view_application', app_id=5) }}" class="view-btn">View</a>
-                </div>
+        </div>
 
-            </div> <!-- End of apps-card -->
+    </div>
 
-        </div> <!-- End of main-container -->
+</main>
 
-    </main>
+<!-- JS -->
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+
+        const checkboxes = document.querySelectorAll(".studentCheckbox");
+        const selectedCount = document.getElementById("selectedCount");
+        const selectAll = document.getElementById("selectAll");
+
+        function updateCount(){
+            let count = 0;
+            checkboxes.forEach(cb => {
+                if(cb.checked) count++;
+            });
+            selectedCount.textContent = count;
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener("change", updateCount);
+        });
+
+        selectAll.addEventListener("change", function(){
+            checkboxes.forEach(cb => {
+                cb.checked = selectAll.checked;
+            });
+            updateCount();
+        });
+
+        window.selectTopStudents = function(){
+
+            let n = parseInt(document.getElementById("topCount").value);
+            if(!n) return;
+
+            let items = Array.from(document.querySelectorAll("#applicationsList .app-item"));
+
+            items.sort((a,b)=>{
+                return parseFloat(b.dataset.percent) - parseFloat(a.dataset.percent);
+            });
+
+            checkboxes.forEach(cb => cb.checked = false);
+
+            for(let i=0;i<n && i<items.length;i++){
+                items[i].querySelector(".studentCheckbox").checked = true;
+            }
+
+            updateCount();
+        }
+
+    });
+</script>
 
 </body>
 </html>

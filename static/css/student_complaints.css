@@ -1,212 +1,297 @@
-/* GLOBAL */
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
 
-/* NAVBAR */
-.navbar {
-    width: 100%;
-    background: #004d66;
-    padding: 12px 20px;
-    color: white;
+body {
+    background: #f4f9fc;
+    color: #222;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    min-height: 100vh;
+}
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
+}
+.profile-link{
+    display:inline-block;
+    border-radius:50%;
+    padding:5px;
+    transition:0.3s ease;
 }
 
-.navbar .logo {
-    width: 40px;
-    margin-right: 10px;
+.profile-link:hover{
+    background:#45ddee;
+    transform:scale(1.05);
 }
 
-.navbar .title {
-    font-size: 18px;
-    font-weight: 500;
+.profile-link:active{
+    transform:scale(0.95);
 }
 
-/* WRAPPER */
-.container {
-    display: flex;
+.profile-pic{
+    width:85px;
+    height:85px;
+    object-fit:cover;
+    border-radius:50%;
+    border:3px solid #003845;
+    box-shadow:0 4px 15px rgba(0,0,0,.25);
+    transition:0.3s ease;
 }
 
-/* SIDEBAR */
-.sidebar {
-    width: 230px;
-    background: #002d3d;
-    height: 100vh;
-    padding-top: 20px;
-    position: sticky;
-    top: 0;
+.profile-link:hover .profile-pic{
+    border-color:#fff;
 }
 
-.sidebar a {
-    display: block;
-    padding: 14px 20px;
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-    border-left: 4px solid transparent;
-    transition: 0.3s ease;
+/* =========================== Sidebar =========================== */
+.sidebar{
+  width:250px;
+  background:#004d66;
+  color:#fff;
+  min-height:100vh;
+  padding:40px 20px 25px;   /* ← Added 100px padding from TOP */
+  position:fixed;top:0;left:0;overflow-y:auto;
+  box-shadow:4px 0 18px rgba(0,0,0,0.12);
 }
 
-.sidebar a:hover,
-.sidebar .active {
-    background: #003f52;
-    border-left: 4px solid #00c2ff;
-    color: white;
-    font-weight: 600;
+/* Profile picture container centered */
+.admin-header{
+  text-align:center;
+  margin-bottom:22px;
 }
 
-/* CONTENT */
-.content {
-    flex: 1;
-    padding: 30px;
-    background: #f5f8fc;
-    animation: fade .6s;
+/* CIRCULAR profile image (final corrected) */
+.profile-pic{
+  width:90px;                 /* medium size */
+  height:90px;
+  border-radius:50%;          /* ← PERFECT CIRCLE */
+  border:3px solid #ffffffaa;
+  object-fit:cover;
+  display:block;
+  margin:0 auto;              /* ← center horizontally */
+  box-shadow:0px 5px 15px rgba(0,0,0,0.18);
 }
 
-/* PAGE TITLE */
-h2 {
-    font-size: 26px;
-    margin-bottom: 10px;
-    font-weight: 600;
+/* Name under profile picture */
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
 }
 
-.sub-text {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
+.admin-header{text-align:center;margin-bottom:22px}
+.profile-pic{width:65px;height:65px;border-radius:10px;border:3px solid #ffffffaa;object-fit:cover}
+.sidebar h2{margin-top:10px;font-size:18px}
+.sidebar nav{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.nav-item{padding:12px 15px;color:#fff;text-decoration:none;border-radius:8px;font-size:15px;transition:0.25s;display:block}
+.nav-item:hover{background:#016f8a}
+.nav-item.active{background:#0185a5}
+.logout{margin-top:18px;background:#013f52}
+.logout:hover{background:#025269}
+
+/* ---------------- MAIN AREA ---------------- */
+.main {
+    margin-left: 270px;
+    padding: 40px;
+    width: calc(100% - 270px);
 }
 
-/* FORM CARD & TABLE CARD */
-.form-card, .table-card {
-    background: #e8faff;
-    padding: 22px;
-    border-radius: 12px;
-    margin-top: 20px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.12);
-    animation: fadeUp .7s ease;
-}
-
-.form-card h3, .table-card h3 {
+.title {
+    font-size: 28px;
     color: #004d66;
-    margin-bottom: 15px;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    margin-bottom: 6px;
 }
 
-/* FORM LAYOUT */
-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+.subtitle {
+    color: #666;
+    margin-bottom: 25px;
 }
 
-.form-group {
-    width: 48%;
-    display: flex;
-    flex-direction: column;
+/* ---------------- COMPLAINT FORM ---------------- */
+.complaint-card{
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    margin-bottom:40px;
 }
 
-.form-group.full {
-    width: 100%;
+.complaint-card h2{
+    color:#004d66;
+    margin-bottom:15px;
 }
 
-label {
-    font-weight: 600;
-    margin-bottom: 5px;
+.form-group{
+    margin-bottom:18px;
 }
 
-input, select, textarea {
-    padding: 10px;
-    border: 2px solid #bdefff;
-    border-radius: 6px;
-    outline: none;
-    transition: 0.3s;
-    background: white;
+label{
+    font-weight:600;
+    color:#004d66;
 }
 
-input:focus, select:focus, textarea:focus {
-    border-color: #47e6ff;
-    box-shadow: 0px 0px 8px rgba(71,230,255,0.4);
+select, textarea{
+    width:100%;
+    margin-top:6px;
+    padding:12px;
+    font-size:15px;
+    border-radius:10px;
+    border:1px solid #dcdcdc;
+    outline:none;
+    transition:0.2s;
 }
 
-textarea {
-    height: 100px;
-    resize: none;
+select:focus, textarea:focus{
+    border-color:#0086a3;
 }
 
-/* BUTTONS */
-.submit-btn {
-    width: 100%;
-    padding: 12px;
-    background: #004d66;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
+textarea{
+    height:120px;
+    resize:none;
 }
 
-.submit-btn:hover {
-    background: #007a9e;
+.submit-btn{
+    padding:12px 22px;
+    background:#004d66;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.25s;
 }
 
-/* TABLE STYLING */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+.submit-btn:hover{
+    background:#017b9a;
 }
 
-table th, table td {
-    padding: 12px;
-    text-align: center;
+/* ---------------- PREVIOUS COMPLAINTS ---------------- */
+.previous-complaints{
+    margin-top:20px;
 }
 
-table tr:nth-child(even) {
-    background: #dff9ff;
+.sec-title{
+    font-size:22px;
+    color:#004d66;
+    margin-bottom:20px;
 }
 
-/* STATUS BADGES */
-.badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 13px;
+.complaint-list{
+    display:grid;
+    gap:20px;
 }
 
-.badge.pending { background: #ffeb99; color: #9c6b00; }
-.badge.progress { background: #b3e6ff; color: #004c73; }
-.badge.done { background: #b9ffbd; color: #146300; }
-
-/* VIEW BUTTON */
-.view-btn {
-    padding: 6px 12px;
-    border-radius: 6px;
-    background: #47e6ff;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
+.complaint-item{
+    background:#fff;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.07);
 }
 
-.view-btn:hover {
-    background: #00d2ff;
+.complaint-item h4{
+    color:#004d66;
+    margin-bottom:6px;
 }
 
-/* ANIMATIONS */
-@keyframes fade {
-    from {opacity: 0;}
-    to {opacity: 1;}
+.complaint-item p{
+    color:#333;
+    margin-bottom:10px;
 }
 
-@keyframes fadeUp {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
+.status-box{
+    padding:8px 14px;
+    border-radius:8px;
+    display:inline-block;
+    font-size:14px;
+    font-weight:600;
+    color:#fff;
+    margin-bottom:8px;
+}
+
+.status-box.pending{ background:#d67b00; }
+.status-box.resolved{ background:#018a68; }
+
+.date{
+    font-size:13px;
+    color:#666;
+}
+
+/* ---------------- NO COMPLAINTS ---------------- */
+.no-complaints{
+    background:#fff;
+    padding:25px;
+    border-radius:14px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.no-complaints h3{
+    color:#d92626;
+    margin-bottom:6px;
+}
+
+.complaint-item{
+background:#fff;
+padding:18px;
+border-radius:12px;
+box-shadow:0 6px 15px rgba(0,0,0,0.08);
+}
+
+.complaint-item p{
+margin:6px 0;
+font-size:14px;
+}
+
+.status-box{
+padding:6px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+color:white;
+}
+
+.status-box.pending{
+background:#d67b00;
+}
+
+.status-box.forwarded{
+background:#0185a5;
+}
+
+.status-box.resolved{
+background:#018a68;
+}
+
+
+select, textarea, input{
+width:100%;
+margin-top:6px;
+padding:12px;
+font-size:15px;
+border-radius:10px;
+border:1px solid #dcdcdc;
+outline:none;
+transition:0.2s;
+}
+
+select:focus, textarea:focus, input:focus{
+border-color:#0086a3;
+}
+
+.complaint-note{
+font-size:12px;
+color:#777;
+margin-top:6px;
+line-height:1.4;
+}
+
+.no-room-warning{
+background:#fff4e5;
+border-left:5px solid #ff9800;
+padding:20px;
+border-radius:8px;
+margin-top:15px;
 }

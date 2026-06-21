@@ -18,6 +18,9 @@
         <nav>
             <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
             <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+            <a href="{{ url_for('verify_documents') }}" class="nav-item {% if active=='verify' %}active{% endif %}">
+                Document Verification
+            </a>
             <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
             <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
             <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>

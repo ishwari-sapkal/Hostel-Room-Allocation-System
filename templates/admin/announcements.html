@@ -1,112 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Announcements</title>
+
+    <title>Admin Announcements</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/announcements.css') }}">
+
 </head>
+
 <body>
 
-    <!-- SIDEBAR (UNCHANGED) -->
-    <aside class="sidebar">
-        <div class="admin-header">
-           <img src="static/images/profile_admin.jpg" class="profile-pic">
-            <h2>Hostel Admin</h2>
-        </div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
 
-        <nav>
-            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
-            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
-            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
-            <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
-            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
-            <a href="{{ url_for('announcements') }}" class="nav-item active">Announcements</a>
-            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
-            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
-        </nav>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="main">
-        <header class="topbar">
-            <h1>Announcements</h1>
-            <div class="top-admin">
-                <span>Admin</span>
-                <img src="static/images/profile_admin.jpg" class="profile-pic">
-            </div>
-        </header>
-
-        <div class="announcements-container">
-            <button class="open-btn" onclick="openModal()">+ Add Announcement</button>
-
-            <div id="announcementList">
-                <!-- Example Announcement -->
-                <div class="announcement-card">
-                    <h3>Maintenance Work in Boys Hostel</h3>
-                    <p>There will be maintenance work in the Boys Hostel from 5th Dec 2025 to 7th Dec 2025. Kindly make necessary arrangements and avoid using the common areas during this period.</p>
-                   <img src="{{ url_for('static', filename='images/maintainance.jpg') }}" alt="Maintenance Work" class="announcement-img">
-                    <button class="delete-btn" onclick="deleteAnnouncement(this)">Delete</button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- ADD ANNOUNCEMENT MODAL -->
-    <div id="announcementModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Add New Announcement</h2>
-            <form id="addAnnouncementForm">
-                <input type="text" id="heading" placeholder="Heading" required>
-                <textarea id="description" placeholder="Announcement Description" rows="4" required></textarea>
-                <input type="file" id="image" accept="image/*">
-                <button type="submit">Add Announcement</button>
-            </form>
-        </div>
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Admin</h2>
     </div>
 
-    <script>
-        const modal = document.getElementById("announcementModal");
-        function openModal() { modal.style.display = "block"; }
-        function closeModal() { modal.style.display = "none"; }
-        window.onclick = function(event) { if(event.target == modal) modal.style.display = "none"; }
+    <nav>
 
-        const form = document.getElementById("addAnnouncementForm");
-        form.addEventListener("submit", function(e){
-            e.preventDefault();
-            const heading = document.getElementById("heading").value;
-            const desc = document.getElementById("description").value;
-            const imgInput = document.getElementById("image");
-            const imgFile = imgInput.files[0];
-            const announcementList = document.getElementById("announcementList");
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+        <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
 
-            const card = document.createElement("div");
-            card.className = "announcement-card";
+        <a href="{{ url_for('verify_documents') }}" class="nav-item">
+            Document Verification
+        </a>
 
-            let imgHTML = "";
-            if(imgFile){
-                const reader = new FileReader();
-                reader.onload = function(event){
-                    imgHTML = `<img src="${event.target.result}" alt="Announcement Image" class="announcement-img">`;
-                    card.innerHTML = `<h3>${heading}</h3><p>${desc}</p>${imgHTML}<button class="delete-btn" onclick="deleteAnnouncement(this)">Delete</button>`;
-                    announcementList.prepend(card);
-                }
-                reader.readAsDataURL(imgFile);
-            } else {
-                card.innerHTML = `<h3>${heading}</h3><p>${desc}</p><button class="delete-btn" onclick="deleteAnnouncement(this)">Delete</button>`;
-                announcementList.prepend(card);
-            }
+        <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+        <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+        <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
 
-            form.reset();
-            closeModal();
-        });
+        <a href="{{ url_for('announcements') }}" class="nav-item active">
+            Announcements
+        </a>
 
-        function deleteAnnouncement(btn){
-            const card = btn.parentElement;
-            card.remove();
-        }
-    </script>
+        <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+
+        <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+
+    </nav>
+
+</aside>
+
+
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+    <header class="topbar">
+        <h1>Announcements</h1>
+    </header>
+
+
+    <div class="announcements-container">
+
+        <button class="open-btn" onclick="openModal()">
+            + Add Announcement
+        </button>
+
+
+
+        <div class="announcement-list">
+
+            {% for b in announcements %}
+
+            <div class="announcement-card">
+
+                <h3>{{ b.title }}</h3>
+
+                <p>{{ b.message }}</p>
+
+
+                {% if b.file_id %}
+
+                <img src="{{ url_for('admin_announcement_file', id=b.file_id) }}"
+                     class="announcement-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+
+                <a href="{{ url_for('admin_announcement_file', id=b.file_id) }}"
+                   class="file-btn"
+                   style="display:none;"
+                   download>
+                    Download Attachment
+                </a>
+
+                {% endif %}
+
+
+                <div class="meta">
+                    Posted by: {{ b.posted_by }}
+                    {% if b.date %}
+                    | {{ b.date.strftime('%d %b %Y') }}
+                    {% endif %}
+                </div>
+
+
+                <a href="{{ url_for('remove_announcement', id=b._id) }}">
+                    <button class="delete-btn">Delete</button>
+                </a>
+
+                <a href="{{ url_for('remove_announcement', id=b._id) }}"
+                   onclick="return confirm('Are you sure you want to delete this announcement?')">
+                    <button class="delete-btn">Delete</button>
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- MODAL -->
+
+<div id="announcementModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+
+        <h2>Add New Announcement</h2>
+
+        <form
+                method="POST"
+                action="{{ url_for('announcements') }}"
+                enctype="multipart/form-data"
+                id="addAnnouncementForm"
+        >
+
+            <input type="text" name="title" placeholder="Heading" required>
+
+            <textarea name="message" placeholder="Description" rows="4" required></textarea>
+
+            <input type="hidden" name="poster_role" value="Admin">
+
+            <input type="file" name="file">
+
+            <button type="submit">Add Announcement</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    const modal = document.getElementById("announcementModal");
+
+    function openModal(){
+    modal.style.display="flex";
+    }
+
+    function closeModal(){
+    modal.style.display="none";
+    }
+
+    window.onclick=function(event){
+    if(event.target==modal){
+    modal.style.display="none";
+    }
+    }
+
+</script>
 
 </body>
 </html>

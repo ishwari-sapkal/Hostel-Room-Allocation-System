@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rector Announcements</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rector_announcements.css') }}">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Rector</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('rector_dashboard') }}" class="nav-item">Dashboard</a>
+        <a href="{{ url_for('rector_complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('rector_attendance') }}" class="nav-item">Attendance</a>
+        <a href="{{ url_for('rector_announcements') }}" class="nav-item active">Announcements</a>
+        <a href="{{ url_for('rector_contact') }}" class="nav-item {% if active=='contact' %}active{% endif %}">Contact Messages</a>
+        <a href="{{ url_for('rector_logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+    <header class="topbar">
+        <h1>Announcements</h1>
+    </header>
+
+    <div class="announcements-container">
+
+        <!-- Button to open modal -->
+        <button class="open-btn" onclick="openModal()">+ Add Announcement</button>
+
+        <!-- Announcement List -->
+        <div class="announcement-list">
+            {% for a in announcements %}
+            <div class="announcement-card">
+                <h3>{{ a.title }}</h3>
+                <p>{{ a.message }}</p>
+
+                <!-- ✅ UPDATED ATTACHMENT DISPLAY -->
+                {% if a.file_id %}
+
+                <img src="{{ url_for('get_announcement_file', id=a.file_id) }}"
+                     class="announcement-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+
+                <a href="{{ url_for('get_announcement_file', id=a.file_id) }}"
+                   class="file-btn"
+                   style="display:none;"
+                   download>
+                    Download Attachment
+                </a>
+
+                {% endif %}
+
+                <div class="meta">Posted by: {{ a.posted_by }}</div>
+
+                {% if a.posted_by == "Rector" %}
+                <a href="{{ url_for('delete_announcement', id=a._id) }}"
+                   onclick="return confirm('Are you sure you want to delete this announcement?')">
+                    <button class="delete-btn">Delete</button>
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</main>
+
+<!-- ADD ANNOUNCEMENT MODAL -->
+<div id="announcementModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Add Announcement</h2>
+
+        <form method="POST" action="{{ url_for('rector_announcements') }}" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="Announcement Title" required>
+            <textarea name="message" placeholder="Write announcement..." rows="4" required></textarea>
+
+            <input type="hidden" name="poster_role" value="Rector">
+
+            <input type="file" name="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.xls,.xlsx">
+
+            <button type="submit">Post Announcement</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById("announcementModal");
+
+    function openModal() {
+        modal.style.display = "flex";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(e) {
+        if (e.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>

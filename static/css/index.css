@@ -47,32 +47,78 @@ header {
     font-weight: 600;
 }
 
+/* NAVIGATION */
+nav {
+    display: flex;
+    align-items: center;
+}
+
 nav a {
     margin-left: 22px;
     text-decoration: none;
     color: white;
     font-weight: 500;
-    transition: 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 nav a:hover {
-    opacity: 0.7;
-    transform: translateY(-2px);
+    opacity: 0.8;
 }
 
+/* LOGIN BUTTON */
 .login-btn {
-    padding: 8px 16px;
+    padding: 8px 20px;
     background: white;
     color: #004d66;
-    border-radius: 6px;
+    border: none;
+    border-radius: 4px;   /* slightly rounded square */
     font-weight: 600;
-    transition: 0.3s;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .login-btn:hover {
-    background: #e7faff;
-    transform: translateY(-2px);
+    background: #e0f7ff;
 }
+
+/* DROPDOWN */
+.dropdown {
+    position: relative;
+    margin-left: 22px;
+}
+
+/* DROPDOWN MENU */
+.dropdown-content {
+    position: absolute;
+    top: 100%;           /* directly below button */
+    right: 0;
+    background: white;
+    min-width: 155px;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    display: none;
+    z-index: 9999;
+}
+
+/* DROPDOWN LINKS */
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #004d66;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background: #e7faff;
+}
+
+/* SHOW DROPDOWN */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 
 /* TOP BANNER */
 .top-banner {
@@ -128,25 +174,38 @@ nav a:hover {
 
 .about-container {
     display: flex;
-    width: 100%;
     gap: 40px;
     align-items: center;
-    margin-top: 30px;
 }
 
-.about-left, .about-right {
+.about-left {
     width: 50%;
+    height: 360px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .about-image {
-    width: 100%;
+    width: 80%;
     border-radius: 15px;
     box-shadow: 0px 6px 18px rgba(0,0,0,0.17);
-    transition: 0.4s;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 0.4s;
+}
+
+.about-image.active {
+    opacity: 1;
 }
 
 .about-image:hover {
     transform: scale(1.03);
+}
+
+.about-right {
+    width: 50%;
 }
 
 .about-right p {
@@ -155,6 +214,27 @@ nav a:hover {
     line-height: 1.7;
     color: #333;
 }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+    }
+
+    .about-left,
+    .about-right {
+        width: 100%;
+    }
+
+    .about-left {
+        height: 300px;
+    }
+
+    .about-image {
+        width: 95%;
+    }
+}
+
 
 /* STATISTICS */
 .stats {
@@ -272,6 +352,7 @@ nav a:hover {
     color: #004d66;
     font-size: 20px;
 }
+
 
 /* FOOTER */
 .footer {

@@ -6,115 +6,194 @@
     <title>Allocation - Admin Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/allocation.css') }}">
 </head>
+
 <body>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="admin-header">
-            <img src="static/images/profile_admin.jpg" class="profile-pic">
-            <h2>Hostel Admin</h2>
-        </div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
 
-        <nav>
-            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
-            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
-            <a href="{{ url_for('allocation') }}" class="nav-item active">Allocation</a>
-            <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
-            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
-            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
-            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
-            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
-        </nav>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="main">
-        <header class="topbar">
-            <h1>Allocated Applications</h1>
-            <div class="top-admin">
-                <span>Admin</span>
-              <img src="static/images/profile_admin.jpg" class="profile-pic">
-            </div>
-        </header>
-
-        <div class="main-container allocation-list">
-
-            <!-- Allocation Entries -->
-            <div class="card app-item">
-                <div>
-                    <h4>Rohan Patil <span class="badge accepted">Accepted</span></h4>
-                    <p>FE Boys Hostel • Single Room • Allocated: 20 Nov 2025</p>
-                </div>
-                <div>
-                    <button class="details-btn" onclick="openModal('Rohan Patil')">View Details</button>
-                    <a href="documents/Rohan_Receipt.pdf" class="download-btn" download>Download Receipt</a>
-                </div>
-            </div>
-
-            <div class="card app-item">
-                <div>
-                    <h4>Anita Sawant <span class="badge accepted">Accepted</span></h4>
-                    <p>SE Girls Hostel • Double Room • Allocated: 18 Nov 2025</p>
-                </div>
-                <div>
-                    <button class="details-btn" onclick="openModal('Anita Sawant')">View Details</button>
-                    <a href="documents/Anita_Receipt.pdf" class="download-btn" download>Download Receipt</a>
-                </div>
-            </div>
-
-            <div class="card app-item">
-                <div>
-                    <h4>Vikas Sharma <span class="badge accepted">Accepted</span></h4>
-                    <p>FE Boys Hostel • Single Room • Allocated: 15 Nov 2025</p>
-                </div>
-                <div>
-                    <button class="details-btn" onclick="openModal('Vikas Sharma')">View Details</button>
-                    <a href="documents/Vikas_Receipt.pdf" class="download-btn" download>Download Receipt</a>
-                </div>
-            </div>
-
-            <!-- Add more entries as needed -->
-
-        </div>
-    </main>
-
-    <!-- Modal -->
-    <div id="detailsModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modalName"></h2>
-            <p><strong>Hostel:</strong> FE/SE Hostel Example</p>
-            <p><strong>Room Type:</strong> Single/Double Room</p>
-            <p><strong>Applied On:</strong> 20 Nov 2025</p>
-            <p><strong>Status:</strong> Accepted</p>
-
-            <h3>Uploaded Documents</h3>
-            <ul>
-                <li>ID Proof</li>
-                <li>Fee Receipt</li>
-                <li>Admission Receipt</li>
-                <li>Hostel Payment Receipt</li>
-            </ul>
-        </div>
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Admin</h2>
     </div>
 
-    <script>
-        function openModal(name) {
-            document.getElementById("modalName").innerText = name;
-            document.getElementById("detailsModal").style.display = "block";
-        }
+    <nav>
 
-        function closeModal() {
-            document.getElementById("detailsModal").style.display = "none";
-        }
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+        <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
 
-        window.onclick = function(event) {
-            let modal = document.getElementById("detailsModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+        <a href="{{ url_for('verify_documents') }}" class="nav-item {% if active=='verify' %}active{% endif %}">
+            Document Verification
+        </a>
+
+        <a href="{{ url_for('allocation') }}" class="nav-item active">Allocation</a>
+
+        <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+        <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+        <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+
+        <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+
+<main class="main">
+
+    <header class="topbar">
+
+        <h1>Allocated Applications</h1>
+
+        <div class="top-admin">
+            <span>Admin</span>
+            <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        </div>
+
+    </header>
+
+
+    <div class="main-container allocation-list">
+
+
+        <!-- APPROVED / ALLOCATED -->
+
+        {% for ap in applications %}
+
+        <div class="card app-item">
+
+            <div>
+
+                <h4>
+                    {{ap.name}}
+                    <span class="badge accepted">Allocated</span>
+                </h4>
+
+                <p>Branch: {{ap.branch}} • Percentage: {{ap.percent}}%</p>
+
+                <p>Room Allocated: {{ap.room}}</p>
+
+            </div>
+
+            <div>
+
+                <button class="details-btn"
+                        onclick="openModal('{{ap.name}}','{{ap.branch}}','{{ap.percent}}')">
+                    View Details
+                </button>
+
+                <a href="{{ url_for('download_receipt', id=ap._id) }}"
+                   class="download-btn"
+                   style="text-decoration:none;">
+                    Download Receipt
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+        <!-- REJECTED SECTION -->
+
+        <h2 style="margin-top:40px;">Rejected Applications</h2>
+
+        {% for ap in rejected_students %}
+
+        <div class="card app-item rejected-card">
+
+            <div>
+
+                <h4>
+                    {{ap.name}}
+                    <span class="badge rejected">Rejected</span>
+                </h4>
+
+                <p>Branch: {{ap.branch}} • Percentage: {{ap.percent}}%</p>
+
+                <p><strong>Reason:</strong> {{ap.reject_reason}}</p>
+
+                {% if ap.rejected_at %}
+                <p class="reject-time">
+                    Rejected On:
+                    {{ ap.rejected_at.strftime("%d %B %Y %I:%M %p") }}
+                </p>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</main>
+
+
+<!-- MODAL -->
+
+<div id="detailsModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+
+        <h2 id="modalName"></h2>
+
+        <p><strong>Branch:</strong> <i id="modalBranch"></i></p>
+
+        <p><strong>Percentage:</strong> <i id="modalPercent"></i>%</p>
+
+        <p><strong>Status:</strong> Allocated</p>
+
+        <h3>Uploaded Documents</h3>
+
+        <ul>
+            <li>ID Proof</li>
+            <li>Aadhar</li>
+            <li>Mark Sheet</li>
+            <li>Admission Receipt</li>
+            <li>Hostel Payment</li>
+            <li>Profile Photo</li>
+        </ul>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function openModal(name, branch, percent){
+
+    document.getElementById("modalName").innerText=name;
+    document.getElementById("modalBranch").innerText=branch;
+    document.getElementById("modalPercent").innerText=percent;
+
+    document.getElementById("detailsModal").style.display="block";
+
+    }
+
+    function closeModal(){
+    document.getElementById("detailsModal").style.display="none";
+    }
+
+    window.onclick=function(event){
+
+    let modal=document.getElementById("detailsModal");
+
+    if(event.target==modal){
+    modal.style.display="none";
+    }
+
+    }
+
+</script>
 
 </body>
 </html>

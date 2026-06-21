@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Document Verification</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Admin</h2>
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+
+        <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+
+        <a href="{{ url_for('verify_documents') }}" class="nav-item active">
+            Document Verification
+        </a>
+
+        <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+
+        <a href="{{ url_for('rooms') }}" class="nav-item">Rooms</a>
+
+        <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+
+        <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+
+        <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+
+        <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+
+    </nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <header class="topbar">
+        <h1>Document Verification</h1>
+    </header>
+
+    <div class="main-container">
+
+        <!-- ============================= -->
+        <!-- PENDING VERIFICATION -->
+        <!-- ============================= -->
+
+        <div class="card apps-card">
+
+            <h2>Pending Verification</h2>
+
+            {% set pending_found = false %}
+
+            {% for s in students %}
+            {% if s.status == "pending" %}
+
+            {% set pending_found = true %}
+
+            <div class="verify-card pending-card">
+
+                <div class="verify-left">
+
+                    <h3>{{ s.name }}</h3>
+
+                    <p>
+                        <strong>ID:</strong> {{ s._id }}
+                    </p>
+
+                    <p>
+                        <strong>Branch:</strong> {{ s.branch }} •
+                        <strong>Year:</strong> {{ s.year }}
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong> {{ s.email }}
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong> {{ s.phone }}
+                    </p>
+
+                </div>
+
+                <div class="verify-right">
+
+<span class="percent-badge">
+{{ s.percent }}%
+</span>
+
+                    <span class="status-badge pending-status">
+Pending
+</span>
+
+                    <a class="view-btn"
+                       href="{{ url_for('view_application', app_id=s._id) }}">
+                        View
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+            {% endfor %}
+
+            {% if not pending_found %}
+            <p class="empty-msg">No students pending verification.</p>
+            {% endif %}
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- APPROVED STUDENTS -->
+        <!-- ============================= -->
+
+        <div class="card apps-card approved-card">
+
+            <h2>Approved Students</h2>
+
+            {% set approved_found = false %}
+
+            {% for s in students %}
+            {% if s.status == "approved" %}
+
+            {% set approved_found = true %}
+
+            <div class="verify-card approved-verify-card">
+
+                <div class="verify-left">
+
+                    <h3>{{ s.name }}</h3>
+
+                    <p>
+                        <strong>Branch:</strong> {{ s.branch }} •
+                        <strong>Year:</strong> {{ s.year }}
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong> {{ s.email }}
+                    </p>
+
+                </div>
+
+                <div class="verify-right">
+
+<span class="percent-badge">
+{{ s.percent }}%
+</span>
+
+                    <span class="status-badge approved-status">
+Approved
+</span>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+            {% endfor %}
+
+            {% if not approved_found %}
+            <p class="empty-msg">No approved students yet.</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

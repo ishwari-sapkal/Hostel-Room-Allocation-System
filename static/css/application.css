@@ -1,0 +1,459 @@
+/* ================================
+   GLOBAL
+================================ */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f5f7fa;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.admin-header {
+    text-align: center;
+}
+
+.profile-pic {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    border: 3px solid #ffffffaa;
+    object-fit: cover;
+}
+
+.sidebar h2 {
+    margin-top: 10px;
+}
+
+.sidebar nav {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    padding: 12px 15px;
+    color: white;
+    font-size: 15px;
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.25s;
+}
+
+.nav-item:hover {
+    background: #016f8a;
+}
+
+.nav-item.active {
+    background: #0185a5;
+}
+
+.logout {
+    margin-top: 20px;
+    background: #013f52;
+}
+
+.logout:hover {
+    background: #025269;
+}
+
+/* ================================
+   MAIN
+================================ */
+.main {
+    flex-grow: 1;
+    padding: 30px;
+    margin-left: 250px;
+}
+
+/* ================================
+   TOPBAR
+================================ */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e5ea;
+}
+
+.top-admin img {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+}
+
+/* ================================
+   STATS
+================================ */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px #00000010;
+}
+
+.stat-card h3 {
+    color: #004d66;
+}
+
+.stat-card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* ================================
+   APPLICATION CARD
+================================ */
+.apps-card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px #00000010;
+}
+
+/* header */
+.apps-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* ================================
+   SELECT CONTROLS (GRID ALIGNMENT)
+================================ */
+.select-controls {
+
+    display: grid;
+
+    grid-template-columns:
+        150px
+        200px
+        120px
+        150px;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+/* labels */
+.select-controls label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* number input */
+.select-controls input[type="number"] {
+    padding: 6px;
+    width: 80px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* select button */
+.select-controls button {
+    padding: 7px 14px;
+    background: #004d66;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.select-controls button:hover {
+    background: #016a85;
+}
+
+/* selected counter */
+.count-box {
+    background: #f4f6f8;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* ================================
+   APPLICATION ITEM LAYOUT
+================================ */
+
+.app-item{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+padding:16px 0;
+border-bottom:1px solid #e0e5ea;
+}
+
+/* left section (checkbox + content) */
+
+.app-item h4{
+display:flex;
+align-items:center;
+gap:10px;
+margin:0;
+color:#004d66;
+font-size:16px;
+}
+
+/* checkbox */
+
+.studentCheckbox{
+margin-right:12px;
+}
+
+/* percent badge aligned right */
+
+.percent-badge{
+background:#0185a5;
+color:white;
+padding:4px 10px;
+border-radius:6px;
+font-size:13px;
+margin-left:auto;
+}
+
+/* details */
+
+.app-item p{
+margin:4px 0 0 26px;
+font-size:14px;
+color:#333;
+}
+
+.email{
+font-size:13px;
+color:#666;
+margin-left:26px;
+}
+
+
+
+/* ================================
+   BUTTONS
+================================ */
+.merit-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.merit-btn:hover {
+    background: #218838;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 1000px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .select-controls {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 10px;
+    }
+
+}
+
+
+/* ================================
+   VERIFY DOCUMENTS
+================================ */
+
+.verify-card{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px;
+border-bottom:1px solid #e0e5ea;
+}
+
+.verify-left h3{
+margin:0;
+color:#004d66;
+}
+
+.verify-left p{
+margin:4px 0;
+font-size:14px;
+}
+
+/* right section */
+
+.verify-right{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+/* percent badge */
+
+.percent-badge{
+background:#0185a5;
+color:white;
+padding:4px 10px;
+border-radius:6px;
+font-size:13px;
+}
+
+/* status badge */
+
+.status-badge{
+background:#28a745;
+color:white;
+padding:4px 10px;
+border-radius:6px;
+font-size:12px;
+text-transform:capitalize;
+}
+
+/* view button */
+
+.view-btn{
+background:#004d66;
+color:white;
+padding:8px 16px;
+border-radius:6px;
+text-decoration:none;
+font-size:14px;
+transition:0.2s;
+}
+
+.view-btn:hover{
+background:#016a85;
+}
+
+
+
+
+/* APPROVED STUDENTS */
+
+.approved-section{
+margin-top:15px;
+}
+
+.approved-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 15px;
+border-bottom:1px solid #e4e6eb;
+background:#f1f8ff;
+border-left:5px solid #1976d2;
+border-radius:6px;
+margin-bottom:8px;
+}
+
+.approved-name{
+font-weight:600;
+color:#0d47a1;
+}
+
+.merit-section{
+margin-top:15px;
+}
+
+.merit-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 15px;
+background:#e8f5e9;
+border-left:5px solid #2e7d32;
+border-radius:6px;
+margin-bottom:10px;
+}
+
+
+.merit-left{
+display:flex;
+flex-direction:column;
+}
+
+.merit-name{
+font-weight:600;
+font-size:15px;
+color:#333;
+}
+
+.merit-info{
+font-size:13px;
+color:#666;
+margin-top:2px;
+}
+
+.empty-msg{
+color:#777;
+font-style:italic;
+}
+
+
+/* ================================
+   DOCUMENT VERIFICATION SECTIONS
+================================ */
+
+.pending-card{
+border-left:5px solid #ff9800;
+background:#ffffff;
+}
+
+.approved-card{
+margin-top:30px;
+border-top:3px solid #4caf50;
+}
+
+.approved-verify-card{
+background:#e8f5e9;
+border-left:5px solid #2e7d32;
+}
+
+.pending-status{
+background:#ff9800;
+}
+
+.approved-status{
+background:#2e7d32;
+}
+
+.empty-msg{
+padding:15px;
+color:#777;
+font-style:italic;
+}

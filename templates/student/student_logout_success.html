@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_logout.css') }}">
 <title>Logout Successful</title>
 <style>
     body {
@@ -98,8 +99,8 @@
         <div class="checkmark"></div>
     </div>
     <h1>Logout Successful</h1>
-    <p>You have been successfully logged out of the Hostel Admin Panel.</p>
-    <a href="{{ url_for('login') }}" class="back-btn">Login Again</a>
+    <p>You have been successfully logged out of the Student Panel.</p>
+    <a href="{{ url_for('Student_login') }}" class="back-btn">Login Again</a>
 </div>
 
 </body>

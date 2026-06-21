@@ -1,122 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Book Hostel</title>
-    <link rel="stylesheet" href="../static/css/student_announcements.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_announcements.css') }}">
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-    <div class="left">
-        <img src="/static/images/dr.pd.jpg" class="logo">
-        <span class="title">Dr. Panjabrao Deshmukh Polytechnic Hostel</span>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="admin-header">
+        <a href="{{ url_for('profile') }}" class="profile-link">
+            <img src="{{ url_for('profile_photo', email=student_email) }}" class="profile-pic">
+        </a>
+        <h2>{{ student_name or "Student Name" }}</h2>
     </div>
 
-    <div class="right">
-        <i class="fa-solid fa-user"></i> Account
-    </div>
-</header>
+    <nav>
+        <a class="nav-item" href="{{ url_for('student_dashboard') }}">Dashboard</a>
+        <a class="nav-item" href="{{ url_for('hostel_application') }}">Hostel Application</a>
+        <a class="nav-item" href="{{ url_for('application_status') }}">Application Status</a>
+        <a class="nav-item" href="{{ url_for('student_complaints') }}">Complaints</a>
+        <a class="nav-item active" href="{{ url_for('student_announcements') }}">Announcements</a>
+        <a class="nav-item logout" href="{{ url_for('student_logout') }}">Logout</a>
+    </nav>
+</aside>
 
-<!-- Dashboard Layout -->
-<div class="container">
+<main class="main">
+    <header class="topbar">
+        <h1>Announcements</h1>
+    </header>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <a href="student_dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-        <a href="apply_for_room.html"><i class="fa-solid fa-building"></i> Apply for a Hostel</a>
-        <a href="application_status.html"><i class="fa-solid fa-clipboard-check"></i> Application Status</a>
-        <a href="room_details.html"><i class="fa-solid fa-bed"></i> Room Details</a>
-        <a href="student_announcements.html" class="active"><i class="fa-solid fa-bell"></i> Announcements</a>
-        <a href="student_complaints.html"><i class="fa-solid fa-bullhorn"></i> Complaints</a>
-        <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a
-.--> 
-        <a href="student_logout.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </aside>
+    <div class="announcements-container">
+        {% if announcements %}
+        {% for a in announcements %}
+        <div class="announcement-card">
+            <h3>{{ a.title }}</h3>
+            <p>{{ a.message }}</p>
 
-   <!-- MAIN CONTENT -->
-    <main class="main">
-        <header class="topbar">
-            <h1>Announcements</h1>
-            <div class="top-admin">
-                <span>Student</span>
-                <img src="static/images/profile_admin.jpg" class="profile-pic">
-            </div>
-        </header>
+            <!-- ✅ UPDATED ATTACHMENT DISPLAY -->
+            {% if a.file_id %}
 
-        <div class="announcements-container">
-            <button class="open-btn" onclick="openModal()">+ Add Announcement</button>
+            <img src="{{ url_for('get_announcement_file', id=a.file_id) }}"
+                 class="announcement-img"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
 
-            <div id="announcementList">
-                <!-- Example Announcement -->
-                <div class="announcement-card">
-                    <h3>Maintenance Work in Boys Hostel</h3>
-                    <p>There will be maintenance work in the Boys Hostel from 5th Dec 2025 to 7th Dec 2025. Kindly make necessary arrangements and avoid using the common areas during this period.</p>
-                   <img src="{{ url_for('static', filename='images/maintainance.jpg') }}" alt="Maintenance Work" class="announcement-img">
-                    <button class="delete-btn" onclick="deleteAnnouncement(this)">Delete</button>
-                </div>
+            <a href="{{ url_for('get_announcement_file', id=a.file_id) }}"
+               class="file-btn"
+               style="display:none;"
+               download>
+                Download Attachment
+            </a>
+
+            {% endif %}
+
+            <div class="meta">
+                Posted by: {{ a.posted_by }}
+                {% if a.date %}
+                | {{ a.date.strftime('%d-%m-%Y %H:%M') }}
+                {% endif %}
             </div>
         </div>
-    </main>
-
-    <!-- ADD ANNOUNCEMENT MODAL -->
-    <div id="announcementModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Add New Announcement</h2>
-            <form id="addAnnouncementForm">
-                <input type="text" id="heading" placeholder="Heading" required>
-                <textarea id="description" placeholder="Announcement Description" rows="4" required></textarea>
-                <input type="file" id="image" accept="image/*">
-                <button type="submit">Add Announcement</button>
-            </form>
+        {% endfor %}
+        {% else %}
+        <div class="announcement-card">
+            <h4>No Announcements</h4>
+            <p>No announcements at the moment.</p>
         </div>
+        {% endif %}
     </div>
-
-    <script>
-        const modal = document.getElementById("announcementModal");
-        function openModal() { modal.style.display = "block"; }
-        function closeModal() { modal.style.display = "none"; }
-        window.onclick = function(event) { if(event.target == modal) modal.style.display = "none"; }
-
-        const form = document.getElementById("addAnnouncementForm");
-        form.addEventListener("submit", function(e){
-            e.preventDefault();
-            const heading = document.getElementById("heading").value;
-            const desc = document.getElementById("description").value;
-            const imgInput = document.getElementById("image");
-            const imgFile = imgInput.files[0];
-            const announcementList = document.getElementById("announcementList");
-
-            const card = document.createElement("div");
-            card.className = "announcement-card";
-
-            let imgHTML = "";
-            if(imgFile){
-                const reader = new FileReader();
-                reader.onload = function(event){
-                    imgHTML = `<img src="${event.target.result}" alt="Announcement Image" class="announcement-img">`;
-                    card.innerHTML = `<h3>${heading}</h3><p>${desc}</p>${imgHTML}<button class="delete-btn" onclick="deleteAnnouncement(this)">Delete</button>`;
-                    announcementList.prepend(card);
-                }
-                reader.readAsDataURL(imgFile);
-            } else {
-                card.innerHTML = `<h3>${heading}</h3><p>${desc}</p><button class="delete-btn" onclick="deleteAnnouncement(this)">Delete</button>`;
-                announcementList.prepend(card);
-            }
-
-            form.reset();
-            closeModal();
-        });
-
-        function deleteAnnouncement(btn){
-            const card = btn.parentElement;
-            card.remove();
-        }
-    </script>
+</main>
 
 </body>
 </html>

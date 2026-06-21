@@ -1,134 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rooms - Admin Dashboard</title>
+    <title>Rooms</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/rooms.css') }}">
 </head>
+
 <body>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="admin-header">
-           <img src="static/images/profile_admin.jpg" class="profile-pic">
-            <h2>Hostel Admin</h2>
-        </div>
-
-        <nav>
-            <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
-            <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
-            <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
-            <a href="{{ url_for('rooms') }}" class="nav-item active">Rooms</a>
-            <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
-            <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
-            <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
-            <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
-        </nav>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="main">
-        <header class="topbar">
-            <h1>Rooms</h1>
-            <div class="top-admin">
-                <span>Admin</span>
-               <img src="static/images/profile_admin.jpg" class="profile-pic">
-            </div>
-        </header>
-
-        <div class="main-container">
-
-            <!-- ROOMS GRID -->
-            <div class="rooms-grid">
-
-                <div class="room-card">
-                    <h3>Room 101 <span class="badge occupied">Occupied</span></h3>
-                    <p><strong>Hostel:</strong> Boys Hostel</p>
-                    <p><strong>Type:</strong> Single Room</p>
-                    <p><strong>Capacity:</strong> 1 Student</p>
-                    <p><strong>Allocated Students:</strong> Rohan Patil</p>
-                    <p><strong>Floor:</strong> 1st Floor</p>
-                    <div class="card-buttons">
-                        <button class="view-btn" onclick="viewRoom('Room 101')">View Details</button>
-                        <button class="deallocate-btn">Deallocate Room</button>
-                    </div>
-                </div>
-
-                <div class="room-card">
-                    <h3>Room 102 <span class="badge available">Available</span></h3>
-                    <p><strong>Hostel:</strong> Boys Hostel</p>
-                    <p><strong>Type:</strong> Single Room</p>
-                    <p><strong>Capacity:</strong> 1 Student</p>
-                    <p><strong>Allocated Students:</strong> -</p>
-                    <p><strong>Floor:</strong> 1st Floor</p>
-                    <div class="card-buttons">
-                        <button class="view-btn" onclick="viewRoom('Room 102')">View Details</button>
-                    </div>
-                </div>
-
-                <div class="room-card">
-                    <h3>Room 201 <span class="badge occupied">Occupied</span></h3>
-                    <p><strong>Hostel:</strong> Girls Hostel</p>
-                    <p><strong>Type:</strong> Double Room</p>
-                    <p><strong>Capacity:</strong> 2 Students</p>
-                    <p><strong>Allocated Students:</strong> Anita Sawant, Sneha Deshmukh</p>
-                    <p><strong>Floor:</strong> 2nd Floor</p>
-                    <div class="card-buttons">
-                        <button class="view-btn" onclick="viewRoom('Room 201')">View Details</button>
-                        <button class="deallocate-btn">Deallocate Room</button>
-                    </div>
-                </div>
-
-                <div class="room-card">
-                    <h3>Room 202 <span class="badge available">Available</span></h3>
-                    <p><strong>Hostel:</strong> Girls Hostel</p>
-                    <p><strong>Type:</strong> Double Room</p>
-                    <p><strong>Capacity:</strong> 2 Students</p>
-                    <p><strong>Allocated Students:</strong> -</p>
-                    <p><strong>Floor:</strong> 2nd Floor</p>
-                    <div class="card-buttons">
-                        <button class="view-btn" onclick="viewRoom('Room 202')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Add more rooms as needed -->
-
-            </div>
-        </div>
-    </main>
-
-    <!-- Modal for Room Details -->
-    <div id="roomModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modalRoomName"></h2>
-            <p><strong>Hostel:</strong> Example Hostel</p>
-            <p><strong>Room Type:</strong> Single/Double</p>
-            <p><strong>Status:</strong> Occupied/Available</p>
-            <p><strong>Capacity:</strong> 1/2 Students</p>
-            <p><strong>Allocated Students:</strong> Student Names</p>
-            <p><strong>Floor:</strong> Example Floor</p>
-        </div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Admin</h2>
     </div>
 
-    <script>
-        function viewRoom(roomName){
-            document.getElementById("modalRoomName").innerText = roomName;
-            document.getElementById("roomModal").style.display = "block";
-        }
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+        <a href="{{ url_for('application') }}" class="nav-item">Applications</a>
+        <a href="{{ url_for('verify_documents') }}" class="nav-item">Document Verification</a>
+        <a href="{{ url_for('allocation') }}" class="nav-item">Allocation</a>
+        <a href="{{ url_for('rooms') }}" class="nav-item active">Rooms</a>
+        <a href="{{ url_for('complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('announcements') }}" class="nav-item">Announcements</a>
+        <a href="{{ url_for('reports') }}" class="nav-item">Reports</a>
+        <a href="{{ url_for('logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</aside>
 
-        function closeModal(){
-            document.getElementById("roomModal").style.display = "none";
-        }
 
-        window.onclick = function(event) {
-            let modal = document.getElementById("roomModal");
-            if(event.target == modal){
-                modal.style.display = "none";
-            }
-        }
-    </script>
+<main class="main">
+
+    <h1>Girls Hostel Rooms</h1>
+
+    <div class="rooms-grid">
+
+        {% for r in rooms %}
+
+        <div class="room-card">
+
+            <h3>Room {{ r.room_num }}</h3>
+
+            <p><b>Hostel:</b> {{ r.hostel_name }}</p>
+            <p><b>Type:</b> {{ r.room_type }}</p>
+            <p><b>Capacity:</b> {{ r.room_capacity }}</p>
+
+            <p><b>Allocated Students:</b></p>
+
+            {% if r.allocated_students and r.allocated_students|length > 0 %}
+
+            <ul class="allocated-list">
+
+                {% for s in r.allocated_students %}
+
+                <li>{{ s.name }} ({{ s.email }})</li>
+
+                {% endfor %}
+
+            </ul>
+
+            {% else %}
+
+            <p class="no-students">No students allocated</p>
+
+            {% endif %}
+
+            <button onclick="openDeallocate('{{ r.room_num }}')">
+                Deallocate
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</main>
+
+
+<!-- DEALLOCATE MODAL -->
+
+<div id="deallocateModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-btn" onclick="closeModal()">×</span>
+
+        <h2>Students in Room</h2>
+
+        <div id="studentList"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function openDeallocate(room_num){
+
+    fetch("/get_room_students/" + room_num)
+
+    .then(response => response.json())
+
+    .then(data => {
+
+    let container = document.getElementById("studentList")
+
+    container.innerHTML = ""
+
+    if(!data.students || data.students.length === 0){
+
+    container.innerHTML = "<p>No students allocated in this room</p>"
+
+    }
+
+    else{
+
+    data.students.forEach(student => {
+
+    container.innerHTML += `
+
+    <div class="student-row">
+
+    <span>${student.name} (${student.email})</span>
+
+    <select id="reason-${student.email}">
+
+    <option value="">Select Reason</option>
+    <option value="Transferred to another college">Transferred to another college</option>
+    <option value="Discharged from hostel">Discharged from hostel</option>
+    <option value="Misbehavior">Misbehavior</option>
+    <option value="Personal reason">Personal reason</option>
+
+    </select>
+
+    <button onclick="deallocateStudent('${student.email}','${room_num}')">
+    Remove
+    </button>
+
+    </div>
+
+    `
+
+    })
+
+    }
+
+    document.getElementById("deallocateModal").style.display = "block"
+
+    })
+
+    }
+
+
+    function deallocateStudent(email,room_num){
+
+    let reason = document.getElementById("reason-"+email).value
+
+    if(!reason){
+
+    alert("Please select a reason")
+
+    return
+
+    }
+
+    fetch("/deallocate_student",{
+
+    method:"POST",
+
+    headers:{
+    "Content-Type":"application/json"
+    },
+
+    body:JSON.stringify({
+    email: email,
+    room_num: room_num,
+    reason: reason
+    })
+
+    })
+
+    .then(response=>response.json())
+
+    .then(data=>{
+
+    alert(data.message)
+
+    location.reload()
+
+    })
+
+    }
+
+
+    function closeModal(){
+
+    document.getElementById("deallocateModal").style.display="none"
+
+    }
+
+
+    window.onclick = function(event){
+
+    let modal = document.getElementById("deallocateModal")
+
+    if(event.target == modal){
+
+    modal.style.display = "none"
+
+    }
+
+    }
+
+</script>
 
 </body>
+
 </html>

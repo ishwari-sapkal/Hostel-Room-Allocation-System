@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rector Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rector_dashboard.css') }}">
+
+    <style>
+        /* ===== NEW SECTION STYLES ===== */
+
+        .extra-section {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .welcome-box {
+            background: linear-gradient(to right, #0185a5, #00bcd4);
+            color: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .welcome-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .quick-actions {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+        .quick-actions h3 {
+            margin-bottom: 15px;
+            color: #004d66;
+        }
+
+        .quick-actions a {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #e6fbff;
+            color: #004d66;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .quick-actions a:hover {
+            background: #c7f3ff;
+        }
+
+
+
+        .pending-alert {
+            margin-top: 20px;
+            padding: 15px;
+            color : Black;
+            background: #fff3cd;
+            border-left: 5px solid orange;
+            border-radius: 10px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<!-- SIDEBAR (UNCHANGED) -->
+<aside class="sidebar">
+    <div class="admin-header">
+        <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="profile-pic">
+        <h2>Hostel Rector</h2>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('rector_dashboard') }}" class="nav-item active">Dashboard</a>
+        <a href="{{ url_for('rector_complaints') }}" class="nav-item">Complaints</a>
+        <a href="{{ url_for('rector_attendance') }}" class="nav-item">Attendance</a>
+        <a href="{{ url_for('rector_announcements') }}" class="nav-item">Announcements</a>
+        <a href="{{ url_for('rector_contact') }}" class="nav-item">Contact Messages</a>
+        <a href="{{ url_for('rector_logout') }}" class="nav-item logout">Logout</a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <header class="topbar">
+        <h1>Rector Dashboard</h1>
+        <div class="top-admin">
+            <span>Rector</span>
+            <img src="{{ url_for('static', filename='images/profile_admin.jpg') }}" class="top-pic">
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <!-- STATS (UNCHANGED) -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <h3>Total Complaints</h3>
+                <p>{{ total_complaints }}</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <h3>Pending Complaints</h3>
+                <p>{{ pending_complaints }}</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📢</div>
+                <h3>Announcements</h3>
+                <p>{{ total_announcements }}</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🕒</div>
+                <h3>Students IN Today</h3>
+                <p>{{ today_in }}</p>
+            </div>
+        </div>
+
+        <!-- 🔥 NEW SECTION -->
+        <div class="extra-section">
+
+            <!-- WELCOME / INSTRUCTION -->
+            <div class="welcome-box">
+                <h2>Welcome Back 👋</h2>
+                <p>
+                    Manage hostel operations efficiently.
+                    Check pending complaints, respond to messages, and keep announcements updated.
+                </p>
+
+                <div class="pending-alert">
+                    ⚠ You have <b>{{ pending_complaints }}</b> pending complaints.
+                </div>
+            </div>
+
+            <!-- QUICK ACTIONS -->
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+
+                <a href="{{ url_for('rector_complaints') }}">📄 View Complaints</a>
+                <a href="{{ url_for('rector_contact') }}">✉ Check Messages</a>
+                <a href="{{ url_for('rector_announcements') }}">📢 Add Announcement</a>
+                <a href="{{ url_for('rector_attendance') }}">🕒 View Attendance</a>
+            </div>
+
+        </div>
+
+
+    </div>
+</main>
+
+</body>
+</html>

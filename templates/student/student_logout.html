@@ -1,73 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Book Hostel</title>
-    <link rel="stylesheet" href="../static/css/student_logout.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Logout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_logout.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-    <div class="left">
-        <img src="../static/images/dr.pd.jpg" class="logo">
-        <span class="title">Dr. Panjabrao Deshmukh Polytechnic Hostel</span>
-    </div>
+<div class="logout-container">
 
-    <div class="right">
-        <i class="fa-solid fa-user"></i> Account
-    </div>
-</header>
+    <div class="logout-card">
+        <i class="fa-solid fa-right-from-bracket logout-icon"></i>
 
-<!-- Dashboard Layout -->
-<div class="container">
+        <h2>Are you sure you want to logout?</h2>
+        <p>You will be redirected to the login page.</p>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <a href="student_dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-        <a href="apply_for_room.html" ><i class="fa-solid fa-building"></i> Apply for a Hostel</a>
-        <a href="application_status.html"><i class="fa-solid fa-clipboard-check"></i> Application Status</a>
-        <a href="room_details.html"><i class="fa-solid fa-bed"></i> Room Details</a>
-        <a href="student_announcements.html"><i class="fa-solid fa-bell"></i> Announcements</a>
-        <a href="student_complaints.html"><i class="fa-solid fa-bullhorn"></i> Complaints</a>
-        <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a
-.--> 
-        <a href="student_logout.html" class="active"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </aside>
-<!-- MAIN CONTENT -->
-    <main class="main">
-        <div class="logout-modal" id="logoutModal">
-            <div class="logout-card">
-                <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
-                <h3>Confirm Logout</h3>
-                <p>Are you sure you want to logout? Your session will be ended.</p>
-                <div class="btn-row">
-                    <a href="student_logout_success.html" class="logout-btn">Logout</a>
-                    <button class="cancel-btn" onclick="closeLogoutModal()">Cancel</button>
-                </div>
-            </div>
+        <div class="buttons">
+            <a href="{{ url_for('student_dashboard') }}" class="cancel-btn">Cancel</a>
+            <a href="{{ url_for('student_logout_success') }}" class="logout-btn">Logout</a>
         </div>
-    </main>
+    </div>
 
-    <script>
-        const modal = document.getElementById("logoutModal");
-
-        function openLogoutModal() {
-            modal.style.display = "flex";
-        }
-
-        function closeLogoutModal() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if(event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+</div>
 
 </body>
 </html>

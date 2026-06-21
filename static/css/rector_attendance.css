@@ -1,0 +1,190 @@
+body{
+margin:0;
+padding:0;
+display:flex;
+background:#f4f6f9;
+font-family:"Poppins",sans-serif;
+}
+
+
+/* SIDEBAR */
+
+.sidebar{
+width:250px;
+background:#004d66;
+color:white;
+min-height:100vh;
+padding:25px 20px;
+box-sizing:border-box;
+position:fixed;
+left:0;
+top:0;
+}
+
+.admin-header{
+text-align:center;
+}
+
+.profile-pic{
+width:70px;
+height:70px;
+border-radius:50%;
+border:3px solid white;
+object-fit:cover;
+}
+
+.sidebar h2{
+margin-top:10px;
+}
+
+.sidebar nav{
+margin-top:30px;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.nav-item{
+padding:12px 15px;
+color:white;
+text-decoration:none;
+border-radius:8px;
+transition:0.3s;
+}
+
+.nav-item:hover{
+background:#016f8a;
+}
+
+.nav-item.active{
+background:#0185a5;
+}
+
+.logout{
+margin-top:20px;
+background:#013f52;
+}
+
+.logout:hover{
+background:#025269;
+}
+
+
+/* MAIN CONTENT AREA */
+
+.main{
+margin-left:20%;
+padding:40px 20px;
+background:#f4f6f9;
+min-height:100vh;
+display:flex;
+justify-content:center;
+}
+
+/* CENTER CONTAINER */
+
+.container{
+width:100%;
+min-width:1100px;
+}
+
+/* PAGE TITLE */
+
+.topbar h1{
+margin-bottom:25px;
+font-size:28px;
+color:#222;
+}
+
+
+/* CARD DESIGN */
+
+.card{
+background:white;
+padding:25px;
+border-radius:12px;
+margin-bottom:30px;
+box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+
+
+/* FORM */
+
+.form-group select{
+width:100%;
+padding:12px;
+border-radius:6px;
+border:1px solid #ccc;
+margin-bottom:15px;
+font-size:14px;
+}
+
+
+/* BUTTONS */
+
+.btn-group{
+display:flex;
+gap:12px;
+}
+
+button{
+padding:10px 18px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:600;
+font-size:14px;
+}
+
+.btn-in{
+background:#28a745;
+color:white;
+}
+
+.btn-out{
+background:#dc3545;
+color:white;
+}
+
+.btn-in:hover{
+background:#1f8b38;
+}
+
+.btn-out:hover{
+background:#c82333;
+}
+
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+th{
+background:#0f5363;
+color:white;
+padding:12px;
+text-align:left;
+font-size:14px;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid #e4e4e4;
+font-size:14px;
+}
+
+tr:hover{
+background:#f5f7f9;
+}
+
+
+/* EMPTY MESSAGE */
+
+td[colspan]{
+text-align:center;
+color:#777;
+}}

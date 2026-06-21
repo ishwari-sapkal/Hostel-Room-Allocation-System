@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Sent</title>
+<style>
+body, html {
+    margin:0; padding:0; height:100%;
+    font-family:'Poppins', sans-serif;
+    display:flex; justify-content:center; align-items:center;
+    background:#f5f7fa; overflow:hidden;
+}
+
+/* Success container */
+.success-container {
+    background:white;
+    padding:50px 70px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    opacity:0;
+    transform:scale(0.8);
+    animation: fadeIn 1s forwards;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    to { opacity:1; transform:scale(1); }
+}
+
+/* Two-layer circle with checkmark */
+.checkmark-circle {
+    width: 120px;
+    height: 120px;
+    background: #007a99; /* outer circle */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    position: relative;
+}
+
+.checkmark-circle::before {
+    content: '';
+    width: 90px;
+    height: 90px;
+    background: #f5f7fa; /* inner circle */
+    border-radius: 50%;
+    position: absolute;
+}
+
+.checkmark-circle span {
+    position: relative;
+    font-size: 50px;
+    color: #007a99;
+    z-index: 1;
+}
+
+/* Heading */
+.success-container h1 {
+    font-size:32px;
+    color:#005f73;
+    margin-bottom:20px;
+}
+
+/* Paragraph */
+.success-container p {
+    font-size:18px;
+    color:#333;
+}
+
+/* Button */
+.btn-home {
+    margin-top:25px;
+    display:inline-block;
+    padding:12px 30px;
+    background:#005f73;
+    color:white;
+    font-weight:600;
+    border-radius:10px;
+    text-decoration:none;
+    transition:0.3s;
+}
+.btn-home:hover { background:#007a99; }
+</style>
+</head>
+<body>
+<div class="success-container">
+    <div class="checkmark-circle">
+        <span>&#10003;</span>
+    </div>
+    <h1>Message Sent Successfully!</h1>
+    <p>Our administration team will contact you shortly.</p>
+    <a href="/contact" class="btn-home">Back to Contact Page</a>
+</div>
+</body>
+</html>

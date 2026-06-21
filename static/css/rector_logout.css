@@ -1,0 +1,197 @@
+body{
+margin:0;
+padding:0;
+display:flex;
+background:#f4f6f9;
+font-family:"Poppins",sans-serif;
+}
+
+
+/* SIDEBAR */
+
+.sidebar{
+width:250px;
+background:#004d66;
+color:white;
+min-height:100vh;
+padding:25px 20px;
+box-sizing:border-box;
+position:fixed;
+left:0;
+top:0;
+}
+
+.admin-header{
+text-align:center;
+}
+
+.profile-pic{
+width:70px;
+height:70px;
+border-radius:50%;
+border:3px solid white;
+object-fit:cover;
+}
+
+.sidebar h2{
+margin-top:10px;
+}
+
+.sidebar nav{
+margin-top:30px;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.nav-item{
+padding:12px 15px;
+color:white;
+text-decoration:none;
+border-radius:8px;
+transition:0.3s;
+}
+
+.nav-item:hover{
+background:#016f8a;
+}
+
+.nav-item.active{
+background:#0185a5;
+}
+
+.logout{
+margin-top:20px;
+background:#013f52;
+}
+
+.logout:hover{
+background:#025269;
+}
+/* MAIN CONTENT AREA */
+
+.main{
+    margin-left:500px;
+    min-height:100vh;
+    background:#f5f7fa;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+}
+
+
+/* DARK OVERLAY (PAGE OPACITY EFFECT) */
+
+.main::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:250px; /* avoid covering sidebar */
+    width:calc(100% - 250px);
+    height:100%;
+    background:rgba(0,0,0,0.35);
+    animation:fadeBackground 0.3s ease;
+}
+
+
+/* LOGOUT CARD */
+
+.card{
+    position:relative;
+    background:#ffffff;
+    padding:45px 55px;
+    border-radius:16px;
+    box-shadow:0 14px 40px rgba(0,0,0,0.18);
+    text-align:center;
+
+    width:420px;
+    max-width:90%;
+
+    animation:cardSlide 0.35s ease;
+}
+
+
+/* TITLE */
+
+.card h2{
+    color:#004d66;
+    margin-bottom:12px;
+    font-size:24px;
+}
+
+
+/* TEXT */
+
+.card p{
+    color:#555;
+    font-size:15px;
+    margin-bottom:28px;
+}
+
+
+/* BUTTONS */
+
+.btn-out,
+.btn-in{
+    display:inline-block;
+    border:none;
+    border-radius:10px;
+    padding:12px 26px;
+    font-size:15px;
+    text-decoration:none;
+    cursor:pointer;
+    transition:0.25s;
+}
+
+
+/* LOGOUT BUTTON */
+
+.btn-out{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-out:hover{
+    background:#c82333;
+}
+
+
+/* CANCEL BUTTON */
+
+.btn-in{
+    background:#6c757d;
+    color:white;
+}
+
+.btn-in:hover{
+    background:#5a6268;
+}
+
+
+/* CARD ANIMATION */
+
+@keyframes cardSlide{
+    from{
+        opacity:0;
+        transform:translateY(-20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* BACKGROUND FADE */
+
+@keyframes fadeBackground{
+    from{
+        background:rgba(0,0,0,0);
+    }
+    to{
+        background:rgba(0,0,0,0.35);
+    }
+}

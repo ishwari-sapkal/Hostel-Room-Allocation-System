@@ -16,8 +16,8 @@ body {
 -------------------------------------------------- */
 .header {
     width: 100%;
-    background: #004d66;
-    padding: 15px 40px;
+    background: #003845; /* same as footer */
+    padding: 22px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,6 +26,7 @@ body {
     top: 0;
     z-index: 1000;
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+
 }
 
 .header-left {
@@ -56,18 +57,32 @@ nav a {
 }
 
 nav a:hover {
-    color: #b6f8ff;
+    color: #45ddee; /* aqua hover like footer */
 }
 
 .login-btn {
-    padding: 7px 16px;
-    background: white;
-    color: #004d66;
+    padding: 9px 19px;
+    background: #45ddee;
+    color: #003845;
     border-radius: 6px;
     font-weight: 600;
+    transition: 0.3s;
 }
 
+.login-btn:hover {
+    background: white;
+    color: #003845;
+}
 
+/* FIX LOGIN DROPDOWN WIDTH */
+.dropdown-content {
+    min-width: 180px;
+    width: max-content;
+}
+
+.dropdown-content a {
+    white-space: nowrap;
+}
 /* --------------------------------------------------
    HERO SECTION
 -------------------------------------------------- */
@@ -83,7 +98,7 @@ nav a:hover {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 60, 80, 0.55);
+    background: rgba(0, 56, 69, 0.55); /* deep footer shade */
     backdrop-filter: blur(3px);
 }
 
@@ -107,17 +122,17 @@ nav a:hover {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 26px;
-    background: white;
-    color: #005f73;
+    background: #45ddee;
+    color: #003845;
     border-radius: 8px;
     font-weight: 600;
     transition: 0.3s;
 }
 
 .cta-btn:hover {
-    background: #bff3ff;
+    background: white;
+    color: #003845;
 }
-
 
 /* --------------------------------------------------
    ABOUT SECTION
@@ -129,7 +144,7 @@ nav a:hover {
 .about h2 {
     font-size: 34px;
     margin-bottom: 25px;
-    color: #005f73;
+    color: #003845; /* replaced teal */
     text-align: center;
 }
 
@@ -156,7 +171,6 @@ nav a:hover {
     line-height: 1.7;
 }
 
-
 /* --------------------------------------------------
    STATISTICS
 -------------------------------------------------- */
@@ -169,7 +183,7 @@ nav a:hover {
 .stats h2 {
     font-size: 32px;
     margin-bottom: 35px;
-    color: #005f73;
+    color: #003845;
 }
 
 .stats-grid {
@@ -179,11 +193,12 @@ nav a:hover {
 }
 
 .stat-box {
-    background: linear-gradient(to bottom right, #d4f8ff, #eafffd);
+    background: linear-gradient(to bottom right, #d4f8ff, #eaffff);
     padding: 30px;
     border-radius: 14px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: 0.3s;
+    border-top: 3px solid #45ddee; /* matching accent */
 }
 
 .stat-box:hover {
@@ -192,22 +207,21 @@ nav a:hover {
 
 .stat-box h3 {
     font-size: 38px;
-    color: #004d66;
+    color: #003845;
 }
-
 
 /* --------------------------------------------------
    FACILITIES
 -------------------------------------------------- */
 .facilities {
     padding: 70px 8%;
-    background: #f1fbff;
+    background: #ebfaff;
 }
 
 .facilities h2 {
     text-align: center;
     font-size: 32px;
-    color: #005f73;
+    color: #003845;
     margin-bottom: 30px;
 }
 
@@ -226,12 +240,12 @@ nav a:hover {
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: 0.3s;
+    border-left: 4px solid #45ddee;
 }
 
 .facility-box:hover {
     transform: scale(1.05);
 }
-
 
 /* --------------------------------------------------
    PROCESS
@@ -243,7 +257,7 @@ nav a:hover {
 .process h2 {
     text-align: center;
     font-size: 32px;
-    color: #005f73;
+    color: #003845;
     margin-bottom: 35px;
 }
 
@@ -254,12 +268,13 @@ nav a:hover {
 }
 
 .step-box {
-    background: #e8faff;
+    background: #e6fbff;
     padding: 28px;
     border-radius: 14px;
     text-align: center;
     box-shadow: 0 4px 14px rgba(0,0,0,0.1);
     transition: 0.3s;
+    border-top: 3px solid #45ddee;
 }
 
 .step-box:hover {
@@ -268,10 +283,11 @@ nav a:hover {
 
 .step-box span {
     font-size: 36px;
+    color: #003845;
 }
 
 .step-box h3 {
     margin-top: 12px;
     font-size: 20px;
-    color: #004c66;
+    color: #003845;
 }

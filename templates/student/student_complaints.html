@@ -1,125 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Complaints</title>
-    <link rel="stylesheet" href="../static/css/student_complaints.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_complaints.css') }}">
+
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-    <div class="left">
-        <img src="/static/images/dr.pd.jpg" class="logo">
-        <span class="title">Dr. Panjabrao Deshmukh Polytechnic Hostel</span>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="admin-header">
+
+        <a href="{{ url_for('profile') }}" class="profile-link">
+            <img src="{{ url_for('profile_photo', email=student_email) }}" class="profile-pic">
+        </a>
+
+        <h2>{{ student_name or "Student Name" }}</h2>
+
     </div>
-    <div class="right">
-        <i class="fa-solid fa-user"></i> Account
-    </div>
-</header>
 
-<div class="container">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <a href="student_dashboard.html" ><i class="fa-solid fa-gauge"></i> Dashboard</a>
-        <a href="apply_for_room.html"><i class="fa-solid fa-building"></i> Apply for a Hostel</a>
-        <a  href="application_status.html"><i class="fa-solid fa-clipboard-check"></i> Application Status</a>
-        <a href="room_details.html"><i class="fa-solid fa-bed"></i> Room Details</a>
-        <a href="student_announcements.html"><i class="fa-solid fa-bell"></i> Announcements</a>
-        <a href="student_complaints.html" class="active"><i class="fa-solid fa-bullhorn"></i> Complaints</a>
-        <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a
-            
-       <!- ..--> 
-        <a href="student_logout.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </aside>
+    <nav>
 
-    <!-- MAIN CONTENT -->
-    <main class="content fade-in">
-        <h2>📝 Complaints</h2>
-        <p class="sub-text">Submit a complaint or track your previous complaints.</p>
+        <a class="nav-item" href="{{ url_for('student_dashboard') }}">Dashboard</a>
 
-        <!-- FORM CARD -->
-        <div class="form-card">
-            <h3><i class="fa-solid fa-plus-circle"></i> Submit a Complaint</h3>
+        <a class="nav-item" href="{{ url_for('hostel_application') }}">Hostel Application</a>
 
-            <form>
-                <div class="form-group">
-                    <label><i class="fa-solid fa-user"></i> Student Name</label>
-                    <input type="text" value="Student Name" disabled>
-                </div>
+        <a class="nav-item" href="{{ url_for('application_status') }}">Application Status</a>
 
-                <div class="form-group">
-                    <label><i class="fa-solid fa-door-open"></i> Room Number</label>
-                    <input type="text" value="208" disabled>
-                </div>
+        <a class="nav-item active" href="{{ url_for('student_complaints') }}">Complaints</a>
 
-                <div class="form-group">
-                    <label><i class="fa-solid fa-list"></i> Complaint Type</label>
-                    <select>
-                        <option>Electricity</option>
-                        <option>Plumbing</option>
-                        <option>Furniture</option>
-                        <option>Cleaning</option>
-                        <option>Wi-Fi</option>
-                        <option>Other</option>
-                    </select>
-                </div>
+        <a class="nav-item" href="{{ url_for('student_announcements') }}">Announcements</a>
 
-                <div class="form-group full">
-                    <label><i class="fa-solid fa-pen"></i> Description</label>
-                    <textarea placeholder="Describe your complaint..."></textarea>
-                </div>
+        <a class="nav-item logout" href="{{ url_for('student_logout') }}">Logout</a>
 
-                <div class="form-group full">
-                    <label><i class="fa-solid fa-image"></i> Upload Photo (Optional)</label>
-                    <input type="file" accept="image/*">
-                </div>
+    </nav>
 
-                <button class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Submit Complaint</button>
-            </form>
+</aside>
+
+
+<!-- MAIN -->
+<div class="main">
+
+    <h1 class="title">📝 Student Complaint Portal</h1>
+
+    <p class="subtitle">Submit and track your hostel complaints</p>
+
+
+    <!-- COMPLAINT FORM -->
+    <div class="complaint-card">
+
+        <h2>📮 Submit Complaint</h2>
+
+
+        {% if room_no and room_no != "deallocated" %}
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>Room Number</label>
+
+                <input type="text" name="room_no" value="{{ room_no }}" readonly>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Complaint Type</label>
+
+                <select name="complaint_type" required>
+
+                    <option value="">Select Complaint Type</option>
+
+                    <option value="Electricity Issue">Electricity Issue</option>
+
+                    <option value="Water Problem">Water Problem</option>
+
+                    <option value="Cleaning Issue">Cleaning Issue</option>
+
+                    <option value="Internet Issue">Internet Issue</option>
+
+                    <option value="Furniture Damage">Furniture Damage</option>
+
+                    <option value="Noise Complaint">Noise Complaint</option>
+
+                </select>
+
+                <p class="complaint-note">
+
+                    Note: If your issue does not fall under the above categories, please meet the hostel rector personally during office hours.
+
+                </p>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Complaint Message</label>
+
+                <textarea name="message" placeholder="Explain your hostel issue..." required></textarea>
+
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Complaint</button>
+
+        </form>
+
+
+        {% else %}
+
+        <div class="no-room-warning">
+
+            <h3>⚠ Complaint Submission Disabled</h3>
+
+            <p>
+
+                You can submit complaints only after your hostel application is approved and a room is assigned to you.
+
+            </p>
+
         </div>
 
-        <!-- TABLE CARD -->
-        <div class="table-card">
-            <h3><i class="fa-solid fa-clock-rotate-left"></i> Previous Complaints</h3>
+        {% endif %}
 
-            <table>
-                <tr>
-                    <th>Complaint ID</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
+    </div>
 
-                <tr>
-                    <td>#CMP1234</td>
-                    <td>Electricity</td>
-                    <td>02 Dec 2025</td>
-                    <td><span class="badge pending">Pending</span></td>
-                    <td><button class="view-btn">View</button></td>
-                </tr>
 
-                <tr>
-                    <td>#CMP1221</td>
-                    <td>Cleaning</td>
-                    <td>28 Nov 2025</td>
-                    <td><span class="badge progress">In Progress</span></td>
-                    <td><button class="view-btn">View</button></td>
-                </tr>
 
-                <tr>
-                    <td>#CMP1210</td>
-                    <td>Furniture</td>
-                    <td>25 Nov 2025</td>
-                    <td><span class="badge done">Resolved</span></td>
-                    <td><button class="view-btn">View</button></td>
-                </tr>
-            </table>
+    <!-- COMPLAINT HISTORY -->
+    <div class="previous-complaints">
+
+        <h2 class="sec-title">📂 Your Complaint History</h2>
+
+        {% if complaints %}
+
+        <div class="complaint-list">
+
+            {% for c in complaints %}
+
+            <div class="complaint-item">
+
+                <p><strong>Student :</strong> {{ c.student_name }}</p>
+
+                <p><strong>Email :</strong> {{ c.student_email }}</p>
+
+                <p><strong>Room :</strong> {{ c.room_no }}</p>
+
+                <p><strong>Complaint Type :</strong> {{ c.complaint_type }}</p>
+
+                <p><strong>Complaint :</strong> {{ c.message }}</p>
+
+                <p>
+
+                    <strong>Status :</strong>
+
+                    <span class="status-box {{ c.status|lower }}">
+
+{{ c.status }}
+
+</span>
+
+                </p>
+
+                <p><strong>Received By :</strong> {{ c.received_by }}</p>
+
+                {% if c.forwarded_to %}
+                <p><strong>Forwarded To :</strong> {{ c.forwarded_to }}</p>
+                {% endif %}
+
+                {% if c.resolved_by %}
+                <p><strong>Resolved By :</strong> {{ c.resolved_by }}</p>
+                {% endif %}
+
+                <p class="date">
+
+                    📅 {{ c.date }} | 🕒 {{ c.time }}
+
+                </p>
+
+                {% if c.remarks %}
+                <p><strong>Remarks :</strong> {{ c.remarks }}</p>
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
         </div>
 
-    </main>
+        {% else %}
+
+        <div class="no-complaints">
+
+            <h3>No complaints submitted yet</h3>
+
+            <p>Your complaint history will appear here.</p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
 </div>
 
 </body>

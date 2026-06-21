@@ -1,0 +1,219 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f4f6f9;
+    font-family: "Poppins", sans-serif;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.admin-header {
+    text-align: center;
+}
+
+.profile-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+}
+
+.sidebar h2 {
+    margin-top: 10px;
+}
+
+.sidebar nav {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.nav-item:hover {
+    background: #016f8a;
+}
+
+.nav-item.active {
+    background: #0185a5;
+}
+
+.logout {
+    margin-top: 20px;
+    background: #013f52;
+}
+
+.logout:hover {
+    background: #025269;
+}
+
+/* MAIN */
+
+
+.main{
+margin-left:270px;
+padding:35px 40px;
+width:100%;
+}
+
+.page-title{
+font-size:28px;
+color:#004d66;
+margin-bottom:25px;
+font-weight:600;
+}
+
+
+/* COMPLAINT CONTAINER */
+
+.complaints-container{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+
+/* COMPLAINT CARD */
+
+.complaint-card{
+
+background:white;
+border-left:6px solid #004d66;
+border-radius:10px;
+
+padding:18px 20px;
+
+box-shadow:0 8px 18px rgba(0,0,0,0.08);
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+transition:0.25s;
+
+}
+
+.complaint-card:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
+
+
+/* INFO */
+
+.complaint-info{
+display:flex;
+flex-direction:column;
+gap:6px;
+font-size:14px;
+color:#333;
+}
+
+.complaint-info strong{
+color:#004d66;
+font-weight:600;
+}
+
+
+/* STATUS BADGE */
+
+.status{
+display:inline-block;
+padding:4px 10px;
+border-radius:6px;
+font-size:13px;
+font-weight:500;
+width:fit-content;
+}
+
+.status.pending{
+background:#fff3cd;
+color:#856404;
+}
+
+.status.forwarded{
+background:#d1ecf1;
+color:#0c5460;
+}
+
+.status.resolved{
+background:#d4edda;
+color:#155724;
+}
+
+/* ACTION BUTTONS */
+
+.actions{
+display:flex;
+gap:10px;
+}
+
+
+/* BUTTONS */
+
+.resolve-btn{
+
+background:#27ae60;
+color:white;
+
+border:none;
+padding:8px 14px;
+
+border-radius:6px;
+cursor:pointer;
+
+font-size:13px;
+transition:0.2s;
+
+}
+
+.forward-btn{
+
+background:#e67e22;
+color:white;
+
+border:none;
+padding:8px 14px;
+
+border-radius:6px;
+cursor:pointer;
+
+font-size:13px;
+transition:0.2s;
+
+}
+
+.resolve-btn:hover{
+background:#1e874b;
+}
+
+.forward-btn:hover{
+background:#c45f00;
+}
+
+
+.resolved-label{
+color:#27ae60;
+font-weight:600;
+font-size:14px;
+}

@@ -1,0 +1,180 @@
+/* ================= BODY ================= */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f5f7fa;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ================= SIDEBAR (UNCHANGED) ================= */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.admin-header { text-align: center; }
+
+.profile-pic {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    border: 3px solid #ffffffaa;
+    object-fit: cover;
+}
+
+.sidebar h2 { margin-top: 10px; }
+
+.sidebar nav {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.25s;
+}
+
+.nav-item:hover { background: #016f8a; }
+.nav-item.active { background: #0185a5; }
+.logout { margin-top: 20px; background: #013f52; }
+.logout:hover { background: #025269; }
+
+
+/* ================= MAIN ================= */
+.main {
+    margin-left: 260px;
+    padding: 40px 45px;
+    width: calc(100% - 260px);
+    background: linear-gradient(to bottom right, #f5f7fa, #eef3f7);
+    min-height: 100vh;
+}
+
+/* ================= TOPBAR ================= */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 25px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+}
+
+.topbar h1 {
+    font-size: 24px;
+    color: #003949;
+}
+
+.top-admin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ================= CONTAINER ================= */
+.complaints-container {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+/* ================= CARD ================= */
+.complaint-card {
+    position: relative;
+    background: #ffffff;
+    padding: 22px 22px 18px 22px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    border-left: 6px solid #004d66;
+    transition: all 0.3s ease;
+}
+
+.complaint-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+}
+
+/* ================= TEXT ================= */
+.complaint-card p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* ================= STATUS FIX ================= */
+.status {
+    position: absolute;
+    top: 20px;
+    right: 20px; /* RIGHT SIDE */
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+/* COLORS */
+.status.pending {
+    background: #d4a017;
+}
+
+.status.forwarded {
+    background: #0288a7;
+}
+
+.status.resolved {
+    background: #1b9c85;
+}
+
+/* ================= BUTTONS ================= */
+.btn-row {
+    margin-top: 15px;
+}
+
+.resolve-btn {
+    padding: 9px 16px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #018a68, #017a5c);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.resolve-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(1,138,104,0.3);
+}
+
+/* ================= RESOLVED LABEL ================= */
+.resolved-label {
+    font-weight: 600;
+    color: #1b9c85;
+}
+
+/* ================= NO DATA ================= */
+.no-data {
+    padding: 40px;
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+}

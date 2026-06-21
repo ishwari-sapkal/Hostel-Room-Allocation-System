@@ -16,6 +16,41 @@
     justify-content:space-between;
     align-items:center;
 }
+.doc-item{
+    background:#f8fcff;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 6px 20px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.doc-item:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 28px rgba(0,0,0,.15);
+}
+
+.doc-actions{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+}
+
+.doc-actions a{
+    flex:1;
+    text-align:center;
+    padding:8px;
+    border-radius:20px;
+    background:#003845;
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+}
+
+
+.doc-actions a:last-child{
+    background:#45ddee;
+    color:#003845;
+}
 
 .navbar .logo{
     width:40px;

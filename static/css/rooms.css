@@ -1,0 +1,268 @@
+/* ===============================
+   BODY & GENERAL STYLES
+   =============================== */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: #f0f4f8;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ===============================
+   SIDEBAR (UNCHANGED)
+   =============================== */
+.sidebar {
+    width: 250px;
+    background: #004d66;
+    color: white;
+    min-height: 100vh;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.admin-header { text-align: center; }
+.profile-pic { width: 65px; height: 65px; border-radius: 10px; border: 3px solid #ffffffaa; object-fit: cover; }
+.sidebar h2 { margin-top: 10px; font-size: 20px; }
+.sidebar nav { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
+
+.nav-item {
+    padding: 12px 15px;
+    color: white;
+    font-size: 15px;
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.25s;
+}
+
+.nav-item:hover { background: #016f8a; }
+.nav-item.active { background: #0185a5; }
+.logout { margin-top: 20px; background: #013f52; }
+.logout:hover { background: #025269; }
+
+
+/* ===============================
+   MAIN CONTENT
+   =============================== */
+.main {
+    max-width: 1200px;
+    margin-left: 260px;
+    padding: 30px;
+}
+
+h1 {
+    margin-bottom: 25px;
+    color: #000;
+    text-align: left;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+
+/* ===============================
+   ROOMS GRID (3x3)
+   =============================== */
+.rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+
+/* ===============================
+   ROOM CARD
+   =============================== */
+.room-card {
+    margin:20px;
+    background: #ffffff;
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 90%;
+    max-width: 320px;
+    text-align: left;
+}
+
+.room-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+
+.room-card h3 {
+    margin-top: 0;
+    color: #000;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.room-card p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.room-card b {
+    color: #000;
+}
+
+
+/* ===============================
+   ALLOCATED STUDENTS
+   =============================== */
+.allocated-list {
+    margin-top: 6px;
+    padding-left: 15px;
+    list-style: none;
+}
+
+.allocated-list li {
+    font-size: 14px;
+    margin-bottom: 4px;
+    padding-left: 5px;
+}
+
+.no-students {
+    color: #999;
+    font-style: italic;
+    padding-left: 5px;
+}
+
+
+/* ===============================
+   BUTTON
+   =============================== */
+button {
+    margin-top: 12px;
+    padding: 8px 16px;
+    border: none;
+    background: #004d66;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background: #006d8f;
+    transform: scale(1.05);
+}
+
+
+/* ===============================
+   MODAL
+   =============================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    width: 520px;
+    max-width: 95%;
+    margin: 120px auto;
+    padding: 25px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+/* ===============================
+   STUDENT ROW (DEALLOCATION)
+   =============================== */
+.student-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.student-row span {
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 5px;
+}
+
+
+/* ===============================
+   DEALLOCATION CONTROLS
+   =============================== */
+.student-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* reason dropdown */
+
+.student-actions select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.student-actions select:focus {
+    outline: none;
+    border-color: #004d66;
+}
+
+
+/* remove button */
+
+.student-actions button {
+    padding: 6px 12px;
+    font-size: 13px;
+    background: #b00020;
+}
+
+.student-actions button:hover {
+    background: #d32f2f;
+}
+
+
+/* ===============================
+   SCROLLBAR FOR MODAL
+   =============================== */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

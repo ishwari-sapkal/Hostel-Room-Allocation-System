@@ -1,129 +1,255 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     font-family: "Poppins", sans-serif;
 }
 
-/* NAVBAR */
-.navbar{
-    width:100%;
-    background:#004d66;
-    padding:12px 20px;
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+body {
+    background: #f4f9fc;
+    color: #222;
+    display: flex;
+    min-height: 100vh;
 }
-
-.navbar .logo{
-    width:40px;
-    margin-right:10px;
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
 }
-
-.navbar .title{
-    font-size:18px;
-    font-weight:500;
-}
-
-/* LAYOUT */
-.container{
-    display:flex;
-}
-
-/* SIDEBAR */
-.sidebar{
-    width:230px;
-    background:#002d3d;
-    height:100vh;
-    padding-top:20px;
-}
-
-.sidebar a{
-    display:block;
-    padding:14px 20px;
-    color:white;
-    text-decoration:none;
-    font-size:15px;
-    border-left:4px solid transparent;
-}
-
-.sidebar a:hover,
-.sidebar .active{
-    background:#003f52;
-    border-left:4px solid #00c2ff;
-     color: white;
-    font-weight: 600;
-}
-
-/* MAIN CONTENT */
-.content{
-    flex:1;
-    padding:30px;
-    background:#f5f8fc;
-}
-
-.page-title{
-    font-size:26px;
-    margin-bottom:25px;
-    font-weight:600;
-}
-
-/* STATUS CARDS */
-.status-box{
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    width:70%;
-    margin-bottom:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,0.1);
-    text-align:center;
+.profile-link{
+    display:inline-block;
+    border-radius:50%;
+    padding:5px;
     transition:0.3s ease;
 }
 
-/* Not Submitted */
-.not-submitted{
-    border-left:6px solid #ff5757;
+.profile-link:hover{
+    background:#45ddee;
+    transform:scale(1.05);
 }
 
-.not-submitted .icon{
-    font-size:50px;
-    color:#ff5757;
-    margin-bottom:10px;
+.profile-link:active{
+    transform:scale(0.95);
 }
 
-.apply-btn{
-    margin-top:15px;
-    padding:10px 20px;
-    background:#ff5757;
-    color:white;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
+.profile-pic{
+    width:85px;
+    height:85px;
+    object-fit:cover;
+    border-radius:50%;
+    border:3px solid #003845;
+    box-shadow:0 4px 15px rgba(0,0,0,.25);
+    transition:0.3s ease;
 }
 
-/* Submitted */
-.submitted{
-    border-left:6px solid #009973;
+.profile-link:hover .profile-pic{
+    border-color:#fff;
 }
 
-.submitted .icon{
-    font-size:50px;
-    color:#00aa63;
-    margin-bottom:10px;
+/* =========================== Sidebar =========================== */
+.sidebar{
+  width:250px;
+  background:#004d66;
+  color:#fff;
+  min-height:100vh;
+  padding:40px 20px 25px;   /* ← Added 100px padding from TOP */
+  position:fixed;top:0;left:0;overflow-y:auto;
+  box-shadow:4px 0 18px rgba(0,0,0,0.12);
 }
 
-.detail{
-    text-align:left;
-    margin-top:15px;
+/* Profile picture container centered */
+.admin-header{
+  text-align:center;
+  margin-bottom:22px;
 }
 
-.detail p{
-    margin:6px 0;
-    font-size:16px;
+/* CIRCULAR profile image (final corrected) */
+.profile-pic{
+  width:90px;                 /* medium size */
+  height:90px;
+  border-radius:50%;          /* ← PERFECT CIRCLE */
+  border:3px solid #ffffffaa;
+  object-fit:cover;
+  display:block;
+  margin:0 auto;              /* ← center horizontally */
+  box-shadow:0px 5px 15px rgba(0,0,0,0.18);
 }
 
-.green{
-    color:#00aa63;
-    font-weight:bold;
+/* Name under profile picture */
+.sidebar h2{
+  margin-top:12px;
+  font-size:18px;
+  text-align:center;
+}
+
+.admin-header{text-align:center;margin-bottom:22px}
+.profile-pic{width:65px;height:65px;border-radius:10px;border:3px solid #ffffffaa;object-fit:cover}
+.sidebar h2{margin-top:10px;font-size:18px}
+.sidebar nav{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.nav-item{padding:12px 15px;color:#fff;text-decoration:none;border-radius:8px;font-size:15px;transition:0.25s;display:block}
+.nav-item:hover{background:#016f8a}
+.nav-item.active{background:#0185a5}
+.logout{margin-top:18px;background:#013f52}
+.logout:hover{background:#025269}
+
+
+
+/* ====================== MAIN CONTENT ====================== */
+
+.container{
+width:900px;
+margin:50px auto;
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:40px;
+color:#004d66;
+}
+
+.timeline{
+position:relative;
+margin-left:40px;
+}
+
+.timeline:before{
+content:"";
+position:absolute;
+left:8px;
+top:0;
+width:4px;
+height:100%;
+background:#ddd;
+}
+
+.step{
+display:flex;
+margin-bottom:40px;
+position:relative;
+}
+
+.dot{
+width:20px;
+height:20px;
+background:#bbb;
+border-radius:50%;
+position:absolute;
+left:-2px;
+top:5px;
+}
+
+.step.active .dot{
+background:#28a745;
+}
+
+.step.pending .dot{
+background:#ffc107;
+}
+
+.step.reject .dot{
+background:#dc3545;
+}
+
+.content{
+margin-left:40px;
+}
+
+.content h3{
+margin:0;
+color:#333;
+}
+
+.content p{
+margin:6px 0;
+color:#666;
+}
+
+.room-box{
+margin-top:20px;
+padding:15px;
+background:#e8f9f1;
+border-left:5px solid #28a745;
+font-size:16px;
+}
+
+.main{
+flex-grow:1;
+padding:40px 40px 30px 300px;
+}
+
+.container{
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.timeline{
+position:relative;
+margin-left:30px;
+}
+
+.timeline:before{
+content:"";
+position:absolute;
+left:10px;
+top:0;
+width:4px;
+height:100%;
+background:#ddd;
+}
+
+.step{
+display:flex;
+margin-bottom:35px;
+position:relative;
+}
+
+.dot{
+width:20px;
+height:20px;
+background:#bbb;
+border-radius:50%;
+position:absolute;
+left:-2px;
+top:5px;
+}
+
+.step.active .dot{
+background:#28a745;
+}
+
+.step.pending .dot{
+background:#ffc107;
+}
+
+.step.reject .dot{
+background:#dc3545;
+}
+
+.content{
+margin-left:40px;
+}
+
+.content h3{
+margin:0;
+color:#333;
+}
+
+.content p{
+margin:5px 0;
+color:#666;
+}
+
+.room-box{
+margin-top:20px;
+padding:15px;
+background:#e8f9f1;
+border-left:5px solid #28a745;
+font-size:16px;
+font-weight:600;
 }
